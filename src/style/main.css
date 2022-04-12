@@ -1,0 +1,13 @@
+.appBody{
+display: flex;
+}
+
+/* Panel style */
+.topLevelContainer
+{
+    margin: 5px;
+}
+
+.panelHeader{
+    font-size: x-large;
+}
