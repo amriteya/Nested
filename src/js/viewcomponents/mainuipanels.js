@@ -25,6 +25,6 @@
       .width(window.GLOBALDATA.panelWidth.recommendationPanel + "%")
       .append(recPanel);
       $("#recPanelBody").append(`<div class="panelHeader p-1 bg-light text-dark"> Recommendation </div>`)
-
+      recPanelUI.renderRecommendation();
   };
 })();

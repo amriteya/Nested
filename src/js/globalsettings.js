@@ -6,16 +6,20 @@ var GLOBALDATA = {
   },
   files: {
     flare: {
-      filename: "flare.json",
+      fileName: "flare.json",
       label: "Flare",
       isVal: true,
       additionalAttr: false,
     },
     royalFamily: {
-      filename: "british_royal_family.json",
-      label: "Royal Family",
+      fileName: "british_royal_family.json",
+      label: "British Royal Family",
       isVal: false,
       additionalAttr: true,
     },
   },
+  visContainer:{
+      width:600,
+      height:600
+  }
 };
