@@ -1,8 +1,8 @@
 (function () {
   dendrogram = {};
 
-  dendrogram.createDendrogram = function (divId) {
-      console.log("test");
+  dendrogram.createDendrogram = function (divId,data) {
+      console.log(data);
     // set the dimensions and margins of the graph
     const width = 460;
     const height = 460;
@@ -17,9 +17,9 @@
       .attr("transform", "translate(40,0)"); // bit of margin on the left = 40
 
     // read json data
-    d3.json(
-      "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_dendrogram.json"
-    ).then(function (data) {
+    // d3.json(
+    //   "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_dendrogram.json"
+    // ).then(function (data) {
       // Create the cluster layout:
       const cluster = d3.cluster().size([height, width - 100]); // 100 is the margin I will have on the right side
 
@@ -70,6 +70,6 @@
         .style("fill", "#69b3a2")
         .attr("stroke", "black")
         .style("stroke-width", 2);
-    });
+    // });
   };
 })();

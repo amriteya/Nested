@@ -1,8 +1,12 @@
 (function () {
-  
   //Events and Logic
+  function dataPanelEventBinder() {
+    $("#files").change(function () {
+      var val = this.value;
+      //Load new data and change current file
+    });
+  }
 
-  
   //Rendering
   dataPanelUI = {};
 
@@ -11,8 +15,9 @@
     let dataFiles = window.GLOBALDATA.files;
     for (file in dataFiles) {
       $("#files").append(
-        `<option value=${dataFiles[file]["fileName"]}> ${dataFiles[file]["label"]} </option`
+        `<option value=${file}> ${dataFiles[file]["label"]} </option`
       );
     }
+    dataPanelEventBinder();
   };
 })();

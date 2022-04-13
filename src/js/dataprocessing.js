@@ -2,12 +2,17 @@
     
     dataProcessing = {};
 
-    //read a file
-    dataProcessing.readFile = function (fileKey)
+    //read a file and render vis
+    dataProcessing.readFileSetupView = function (fileKey)
     {
+        window.GLOBALDATA.currentFile = fileKey;
         let fileName = window.GLOBALDATA.files[fileKey]["fileName"]
-        d3.json("../assets/data/"+fileName).then(data=>{
+        d3.json("../assets/data/"+fileName)
+        .then(data=>{
             window.GLOBALDATA.files[fileKey]["data"] = data;
+            mainUIPanel.dataPanel();
+            mainUIPanel.taskPanel();
+            mainUIPanel.recommendationPanel();
         });
     }
 

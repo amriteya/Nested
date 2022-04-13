@@ -10,16 +10,19 @@ var GLOBALDATA = {
       label: "Flare",
       isVal: true,
       additionalAttr: false,
+      data:[]
     },
     royalFamily: {
       fileName: "british_royal_family.json",
       label: "British Royal Family",
       isVal: false,
       additionalAttr: true,
+      data:[]
     },
   },
   visContainer:{
       width:600,
       height:600
-  }
+  },
+  currentFile:""
 };
