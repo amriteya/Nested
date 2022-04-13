@@ -33,9 +33,10 @@
   margin: auto;
   display: block;
   cursor: pointer;
+  opacity: 0.2;
 }
 .recInformationItemContainer:hover{
-    opacity: 0.5;
+    opacity: 1;
 }
 .imgView {
   width: 50%;
@@ -48,4 +49,5 @@
 .selectedItem
 {
     border: 1px solid lightgrey;
+    opacity: 1;
 }

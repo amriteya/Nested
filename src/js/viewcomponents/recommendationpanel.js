@@ -11,40 +11,36 @@
     );
   };
 
-  //Params
-  //recommendation: Object that is returned by recommendation system.
+  //Params: recommendation: Object that is returned by recommendation system.
   recPanelUI.renderRecommendation = function (recommendation) {
     var data = window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["data"];
-    $("#recPanelBody").append("<div id='visOutput'> </div>");
     let chart;
-    if(recommendation==="nodelink")
-    {
-        dendrogram.clear("visOutput");
-         chart = dendrogram.createDendrogram(data, {
-          label: (d) => d.name,
-          title: (d, n) =>
-            `${n
-              .ancestors()
-              .reverse()
-              .map((d) => d.data.name)
-              .join(".")}`, // hover text
-          width: 1152,
-        });
+    if (recommendation === "nodelink") {
+      dendrogram.clear("visOutput");
+      chart = dendrogram.createDendrogram(data, {
+        label: (d) => d.name,
+        title: (d, n) =>
+          `${n
+            .ancestors()
+            .reverse()
+            .map((d) => d.data.name)
+            .join(".")}`, // hover text
+        width: 1152,
+      });
     }
-    if(recommendation==="layered")
-    {
-         dendrogram.clear("visOutput");
-         chart = icicle.createIcicle(data, {
-          label: (d) => d.name,
-          title: (d, n) =>
-            `${n
-              .ancestors()
-              .reverse()
-              .map((d) => d.data.name)
-              .join(".")}`, // hover text
-          width: 1152,
-          height:1000
-        });
+    if (recommendation === "layered") {
+      dendrogram.clear("visOutput");
+      chart = icicle.createIcicle(data, {
+        label: (d) => d.name,
+        title: (d, n) =>
+          `${n
+            .ancestors()
+            .reverse()
+            .map((d) => d.data.name)
+            .join(".")}`, // hover text
+        width: 1152,
+        height: 1000,
+      });
     }
     $("#visOutput").append(chart);
   };
@@ -52,7 +48,6 @@
   //This is temporary recommendation output panel
   //This panel should be mapped to the recommendation object
   recPanelUI.recommendationInformation = function () {
-    
     // Views
     let treeImageMap = window.GLOBALDATA.imgMap.tree;
     let recommendationInformationPanel = $(
@@ -81,11 +76,15 @@
       $("#recInformationPanel").append(imgContainer);
     }
 
+    //Adding a container for visualization
+    $("#recPanelBody").append("<div id='visOutput'> </div>");
+
     //Events
-    $(".recInformationItemContainer").click(function (){
-        console.log("Test")
-        var elemId = $(this).attr('id');
-        recPanelUI.renderRecommendation(elemId);
+    $(".recInformationItemContainer").click(function () {
+      var elemId = $(this).attr("id");
+      recPanelUI.renderRecommendation(elemId);
+      $(".selectedItem").toggleClass("selectedItem");
+      $(this).toggleClass( "selectedItem" );
     });
   };
 })();

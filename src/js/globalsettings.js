@@ -10,29 +10,53 @@ var GLOBALDATA = {
       label: "Flare",
       isVal: true,
       additionalAttr: false,
-      data:[]
+      data: [],
     },
     royalFamily: {
       fileName: "british_royal_family.json",
       label: "British Royal Family",
       isVal: false,
       additionalAttr: true,
-      data:[]
+      data: [],
     },
   },
-  visContainer:{
-      width:600,
-      height:600
+  visContainer: {
+    width: 600,
+    height: 600,
   },
-  currentFile:"",
-  imgMap:{
-      tree:{
-        nodelink:{fileName:"NL.png",label: "Node-Link Diagram",relativePath:"treeimg/"},
-          enclosure:{fileName:"ED.png",label: "Enclosure Diagram",relativePath:"treeimg/"},
-          hybrid:{fileName:"HD.png",label: "Hybrid Diagram",relativePath:"treeimg/"},
-          indented:{fileName:"IL.png",label: "Indented List",relativePath:"treeimg/"},
-          layered:{fileName:"LD.png",label: "Layered Diagram",relativePath:"treeimg/"},
-          symbolic:{fileName:"SD.png",label: "Symbolic Diagram",relativePath:"treeimg/"},
-      }
-  }
+  currentFile: "",
+  imgMap: {
+    tree: {
+      nodelink: {
+        fileName: "NL.png",
+        label: "Node-Link Diagram",
+        relativePath: "treeimg/",
+      },
+      layered: {
+        fileName: "LD.png",
+        label: "Layered Diagram",
+        relativePath: "treeimg/",
+      },
+      enclosure: {
+        fileName: "ED.png",
+        label: "Enclosure Diagram",
+        relativePath: "treeimg/",
+      },
+      indented: {
+        fileName: "IL.png",
+        label: "Indented List",
+        relativePath: "treeimg/",
+      },
+      hybrid: {
+        fileName: "HD.png",
+        label: "Hybrid Diagram",
+        relativePath: "treeimg/",
+      },
+      symbolic: {
+        fileName: "SD.png",
+        label: "Symbolic Diagram",
+        relativePath: "treeimg/",
+      },
+    },
+  },
 };
