@@ -2,12 +2,8 @@
   mainUIPanel = {};
   mainUIPanel.dataPanel = function () {
     //data panel
-    var datapanelBody = $(`<div id="dataPanelBody"> </div>`);
-    $("#dataPanel")
-      .width(window.GLOBALDATA.panelWidth.dataPanel + "%")
-      .append(datapanelBody);
-      $("#dataPanelBody").append(`<div class="panelHeader align-middle p-1 bg-light text-dark"> Input </div>`)
-      dataPanelUI.selectDropDown();
+    dataPanelUI.header();
+    dataPanelUI.selectDropDown();
   };
   mainUIPanel.taskPanel = function () {
     //task panel
