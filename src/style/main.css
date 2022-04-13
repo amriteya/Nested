@@ -2,6 +2,11 @@
 display: flex;
 }
 
+.navbar
+{
+    font-size: x-large;
+    font-weight: bold;
+}
 /* Panel style */
 .topLevelContainer
 {
