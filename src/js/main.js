@@ -4,4 +4,10 @@
   let defaultFileName = "flare";
   dataProcessing.readFileSetupView(defaultFileName);
 
+  //Drawing header of the panels
+  dataPanelUI.header();
+  dataPanelUI.selectDropDown();
+  taskPanelUI.header();
+  recPanelUI.header();  
+
 })();

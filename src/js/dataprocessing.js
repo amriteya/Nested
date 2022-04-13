@@ -10,9 +10,8 @@
         d3.json("../assets/data/"+fileName)
         .then(data=>{
             window.GLOBALDATA.files[fileKey]["data"] = data;
-            mainUIPanel.dataPanel();
-            mainUIPanel.taskPanel();
-            mainUIPanel.recommendationPanel();
+            recPanelUI.renderRecommendation();
+
         });
     }
 
