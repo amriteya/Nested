@@ -1,75 +1,129 @@
 (function () {
   dendrogram = {};
 
-  dendrogram.createDendrogram = function (divId,data) {
+  dendrogram.createDendrogram = // Copyright 2021 Observable, Inc.
+    // Released under the ISC license.
+    // https://observablehq.com/@d3/tree
+    function (
+      data,
+      {
+        // data is either tabular (array of objects) or hierarchy (nested objects)
+        path, // as an alternative to id and parentId, returns an array identifier, imputing internal nodes
+        id = Array.isArray(data) ? (d) => d.id : null, // if tabular data, given a d in data, returns a unique identifier (string)
+        parentId = Array.isArray(data) ? (d) => d.parentId : null, // if tabular data, given a node d, returns its parent’s identifier
+        children, // if hierarchical data, given a d in data, returns its children
+        tree = d3.tree, // layout algorithm (typically d3.tree or d3.cluster)
+        sort, // how to sort nodes prior to layout (e.g., (a, b) => d3.descending(a.height, b.height))
+        label, // given a node d, returns the display name
+        title, // given a node d, returns its hover text
+        link, // given a node d, its link (if any)
+        linkTarget = "_blank", // the target attribute for links (if any)
+        width = 640, // outer width, in pixels
+        height, // outer height, in pixels
+        r = 3, // radius of nodes
+        padding = 1, // horizontal padding for first and last column
+        fill = "#999", // fill for nodes
+        fillOpacity, // fill opacity for nodes
+        stroke = "#555", // stroke for links
+        strokeWidth = 1.5, // stroke width for links
+        strokeOpacity = 0.4, // stroke opacity for links
+        strokeLinejoin, // stroke line join for links
+        strokeLinecap, // stroke line cap for links
+        halo = "#fff", // color of label halo
+        haloWidth = 3, // padding around the labels
+      } = {}
+    ) {
+      // If id and parentId options are specified, or the path option, use d3.stratify
+      // to convert tabular data to a hierarchy; otherwise we assume that the data is
+      // specified as an object {children} with nested objects (a.k.a. the “flare.json”
+      // format), and use d3.hierarchy.
       console.log(data);
-    // set the dimensions and margins of the graph
-    const width = 460;
-    const height = 460;
+      const root =
+        path != null
+          ? d3.stratify().path(path)(data)
+          : id != null || parentId != null
+          ? d3.stratify().id(id).parentId(parentId)(data)
+          : d3.hierarchy(data, children);
 
-    // append the svg object to the body of the page
-    const svg = d3
-      .select("#"+divId)
-      .append("svg")
-      .attr("width", width)
-      .attr("height", height)
-      .append("g")
-      .attr("transform", "translate(40,0)"); // bit of margin on the left = 40
+      // Sort the nodes.
+      if (sort != null) root.sort(sort);
 
-    // read json data
-    // d3.json(
-    //   "https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/data_dendrogram.json"
-    // ).then(function (data) {
-      // Create the cluster layout:
-      const cluster = d3.cluster().size([height, width - 100]); // 100 is the margin I will have on the right side
+      // Compute labels and titles.
+      const descendants = root.descendants();
+      const L = label == null ? null : descendants.map((d) => label(d.data, d));
 
-      // Give the data to this cluster layout:
-      const root = d3.hierarchy(data, function (d) {
-        return d.children;
+      // Compute the layout.
+      const dx = 10;
+      const dy = width / (root.height + padding);
+      tree().nodeSize([dx, dy])(root);
+
+      // Center the tree.
+      let x0 = Infinity;
+      let x1 = -x0;
+      root.each((d) => {
+        if (d.x > x1) x1 = d.x;
+        if (d.x < x0) x0 = d.x;
       });
-      cluster(root);
 
-      // Add the links between nodes:
+      // Compute the default height.
+      if (height === undefined) height = x1 - x0 + dx * 2;
+
+      const svg = d3
+        .create("svg")
+        .attr("viewBox", [(-dy * padding) / 2, x0 - dx, width, height])
+        .attr("width", width)
+        .attr("height", height)
+        .attr("style", "max-width: 100%; height: auto; height: intrinsic;")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", 10);
+
       svg
+        .append("g")
+        .attr("fill", "none")
+        .attr("stroke", stroke)
+        .attr("stroke-opacity", strokeOpacity)
+        .attr("stroke-linecap", strokeLinecap)
+        .attr("stroke-linejoin", strokeLinejoin)
+        .attr("stroke-width", strokeWidth)
         .selectAll("path")
-        .data(root.descendants().slice(1))
+        .data(root.links())
         .join("path")
-        .attr("d", function (d) {
-          return (
-            "M" +
-            d.y +
-            "," +
-            d.x +
-            "C" +
-            (d.parent.y + 50) +
-            "," +
-            d.x +
-            " " +
-            (d.parent.y + 150) +
-            "," +
-            d.parent.x + // 50 and 150 are coordinates of inflexion, play with it to change links shape
-            " " +
-            d.parent.y +
-            "," +
-            d.parent.x
-          );
-        })
-        .style("fill", "none")
-        .attr("stroke", "#ccc");
+        .attr(
+          "d",
+          d3
+            .linkHorizontal()
+            .x((d) => d.y)
+            .y((d) => d.x)
+        );
 
-      // Add a circle for each node.
-      svg
-        .selectAll("g")
+      const node = svg
+        .append("g")
+        .selectAll("a")
         .data(root.descendants())
-        .join("g")
-        .attr("transform", function (d) {
-          return `translate(${d.y},${d.x})`;
-        })
+        .join("a")
+        .attr("xlink:href", link == null ? null : (d) => link(d.data, d))
+        .attr("target", link == null ? null : linkTarget)
+        .attr("transform", (d) => `translate(${d.y},${d.x})`);
+
+      node
         .append("circle")
-        .attr("r", 7)
-        .style("fill", "#69b3a2")
-        .attr("stroke", "black")
-        .style("stroke-width", 2);
-    // });
-  };
+        .attr("fill", (d) => (d.children ? stroke : fill))
+        .attr("r", r);
+
+      if (title != null) node.append("title").text((d) => title(d.data, d));
+
+      if (L)
+        node
+          .append("text")
+          .attr("dy", "0.32em")
+          .attr("x", (d) => (d.children ? -6 : 6))
+          .attr("text-anchor", (d) => (d.children ? "end" : "start"))
+          .attr("paint-order", "stroke")
+          .attr("stroke", halo)
+          .attr("stroke-width", haloWidth)
+          .text((d, i) => L[i]);
+
+      return svg.node();
+    };
+
 })();
