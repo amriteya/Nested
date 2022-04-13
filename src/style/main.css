@@ -12,7 +12,15 @@ display: flex;
 {
     margin: 5px;
 }
-
 .panelHeader{
     font-size: x-large;
+}
+
+/* Visualization */
+#visOutput
+{
+    max-height: 1100px;
+    overflow: auto;
+    border:1px solid lightgrey;
+
 }
