@@ -9,5 +9,6 @@
   dataPanelUI.selectDropDown();
   taskPanelUI.header();
   recPanelUI.header();  
+  recPanelUI.recommendationInformation();
 
 })();

@@ -1,26 +1,51 @@
-.appBody{
-display: flex;
+.appBody {
+  display: flex;
 }
 
-.navbar
-{
-    font-size: x-large;
-    font-weight: bold;
+.navbar {
+  font-size: x-large;
+  font-weight: bold;
 }
 /* Panel style */
-.topLevelContainer
-{
-    margin: 5px;
+.topLevelContainer {
+  margin: 5px;
 }
-.panelHeader{
-    font-size: x-large;
+.panelHeader {
+  font-size: x-large;
 }
 
 /* Visualization */
-#visOutput
-{
-    max-height: 1100px;
-    overflow: auto;
-    border:1px solid lightgrey;
+#visOutput {
+  max-height: 1000px;
+  overflow: auto;
+  border: 1px solid lightgrey;
+}
 
+#recInformationPanel {
+  display: flex;
+  max-height:120px;
+  margin: 5px;
+}
+.recInformationTitleText {
+  margin: auto;
+}
+.recInformationItemContainer {
+  margin: auto;
+  display: block;
+  cursor: pointer;
+}
+.recInformationItemContainer:hover{
+    opacity: 0.5;
+}
+.imgView {
+  width: 50%;
+  margin-left:25%
+}
+.recTreeImgLabel
+{
+    text-align: center;
+}
+.selectedItem
+{
+    border: 1px solid lightgrey;
 }

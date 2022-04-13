@@ -27,12 +27,12 @@ var GLOBALDATA = {
   currentFile:"",
   imgMap:{
       tree:{
-          enclosure:{fileName:"ED.png",relativePath:"treeimg/"},
-          hybrid:{fileName:"HD.png",relativePath:"treeimg/"},
-          indented:{fileName:"IL.png",relativePath:"treeimg/"},
-          layered:{fileName:"LD.png",relativePath:"treeimg/"},
-          nodelink:{fileName:"NL.png",relativePath:"treeimg/"},
-          symbolic:{fileName:"SD.png",relativePath:"treeimg/"},
+        nodelink:{fileName:"NL.png",label: "Node-Link Diagram",relativePath:"treeimg/"},
+          enclosure:{fileName:"ED.png",label: "Enclosure Diagram",relativePath:"treeimg/"},
+          hybrid:{fileName:"HD.png",label: "Hybrid Diagram",relativePath:"treeimg/"},
+          indented:{fileName:"IL.png",label: "Indented List",relativePath:"treeimg/"},
+          layered:{fileName:"LD.png",label: "Layered Diagram",relativePath:"treeimg/"},
+          symbolic:{fileName:"SD.png",label: "Symbolic Diagram",relativePath:"treeimg/"},
       }
   }
 };
