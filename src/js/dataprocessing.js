@@ -10,7 +10,7 @@
         d3.json("../assets/data/"+fileName)
         .then(data=>{
             window.GLOBALDATA.files[fileKey]["data"] = data;
-            recPanelUI.renderRecommendation();
+            recPanelUI.renderRecommendation("nodelink");
 
         });
     }
