@@ -1,7 +1,7 @@
 var GLOBALDATA = {
   panelWidth: {
-    dataPanel: 10,
-    taskPanel: 45,
+    dataPanel: 15,
+    taskPanel: 40,
     recommendationPanel: 45,
   },
   files: {

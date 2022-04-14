@@ -20,6 +20,11 @@
     margin:10px;
 }
 
+#files
+{
+    width: 100%;
+}
+
 /* Visualization */
 #visOutput {
   max-height: 1000px;

@@ -14,7 +14,9 @@
 
   dataPanelUI.selectDropDown = function () {
     //View
-    $("#dataPanelBody").append(`<div class="dataInputPanelContainer"><spanp>Select a Hierarchy</span><select id='files'> </select> </div>`);
+    $("#dataPanelBody").append(
+      `<div class="dataInputPanelContainer"><span>Try a Hierarchy</span><select id='files'> </select> </div>`
+    );
     let dataFiles = window.GLOBALDATA.files;
     for (file in dataFiles) {
       $("#files").append(
@@ -30,7 +32,11 @@
   };
 
   dataPanelUI.uploadFile = function () {
-   let uploadBtn = `<div class="dataInputPanelContainer"><button type="button" class="btn btn-light col-12"><i class="fas fa-plus"></i> Upload File</buton></div>`;
-   $("#dataPanelBody").append(uploadBtn)
+    let uploadBtn = `
+    <div class="dataInputPanelContainer">
+    <label class="form-label" for="customFile"> or Upload</label>
+    <input type="file" class="form-control" id="customFile" />
+    </div>`;
+    $("#dataPanelBody").append(uploadBtn);
   };
 })();
