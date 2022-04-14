@@ -35,7 +35,7 @@
 #recInformationPanel {
   display: flex;
   max-height:150px;
-  margin: 5px;
+  margin: 10px;
 }
 .recInformationTitleText {
   margin: auto;
