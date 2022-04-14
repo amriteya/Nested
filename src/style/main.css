@@ -14,6 +14,12 @@
   font-size: x-large;
 }
 
+/* Data Panel */
+.dataInputPanelContainer
+{
+    margin:10px;
+}
+
 /* Visualization */
 #visOutput {
   max-height: 1000px;
