@@ -35,8 +35,31 @@
     let uploadBtn = `
     <div class="dataInputPanelContainer">
     <label class="form-label" for="customFile"> or Upload</label>
-    <input type="file" class="form-control" id="customFile" />
+    <input type="file" class="form-control" id="customFileUpload" />
     </div>`;
     $("#dataPanelBody").append(uploadBtn);
+
+    //Event
+    $("#customFileUpload").change(function(event){
+        var uploadedFile = event.target.files[0]; 
+
+        
+        if (uploadedFile) {
+            var readFile = new FileReader();
+            readFile.onload = function(e) { 
+                var contents = e.target.result;
+                var json
+                try {
+                    json = JSON.parse(contents);
+                } catch (e) {
+                    alert("Wrong file type == " + uploadedFile.type)
+                }
+                console.log(json);
+            };
+            readFile.readAsText(uploadedFile);
+        } else { 
+            console.log("Failed to load file");
+        }
+    });
   };
 })();
