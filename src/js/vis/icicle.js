@@ -13,7 +13,8 @@
       children, // if hierarchical data, given a d in data, returns its children
       format = ",", // format specifier string or function for values
       value, // given a node d, returns a quantitative value (for area encoding; null for count)
-      sort = (a, b) => d3.descending(a.value, b.value), // how to sort nodes prior to layout
+      sort = (a, b) => d3.descending(a.label, b.label),
+      //sort = (a, b) => d3.descending(a.value, b.value), // how to sort nodes prior to layout
       label, // given a node d, returns the name to display on the rectangle
       title, // given a node d, returns its hover text
       link, // given a node d, its link (if any)

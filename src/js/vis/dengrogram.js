@@ -13,7 +13,7 @@
         parentId = Array.isArray(data) ? (d) => d.parentId : null, // if tabular data, given a node d, returns its parent’s identifier
         children, // if hierarchical data, given a d in data, returns its children
         tree = d3.tree, // layout algorithm (typically d3.tree or d3.cluster)
-        sort, // how to sort nodes prior to layout (e.g., (a, b) => d3.descending(a.height, b.height))
+        sort = (a, b) => d3.descending(a.label, b.label), // how to sort nodes prior to layout (e.g., (a, b) => d3.descending(a.height, b.height))
         label, // given a node d, returns the display name
         title, // given a node d, returns its hover text
         link, // given a node d, its link (if any)

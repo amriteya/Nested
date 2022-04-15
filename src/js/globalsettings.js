@@ -1,7 +1,7 @@
 var GLOBALDATA = {
   panelWidth: {
-    dataPanel: 15,
-    taskPanel: 40,
+    dataPanel: 12.5,
+    taskPanel: 42.5,
     recommendationPanel: 45,
   },
   files: {
@@ -9,6 +9,8 @@ var GLOBALDATA = {
       fileName: "flare.json",
       label: "Flare",
       isVal: true,
+      values:["Value"],
+      isHierarchy: true,
       additionalAttr: false,
       data: [],
     },
@@ -16,9 +18,20 @@ var GLOBALDATA = {
       fileName: "british_royal_family.json",
       label: "British Royal Family",
       isVal: false,
+      isHierarchy: true,
       additionalAttr: true,
       data: [],
     },
+    superstore: {
+        fileName: "superstoreFlorida.json",
+        label: "Superstore",
+        isVal: true,
+        values:["Sales","Quantity","Profit"],
+        isHierarchy: false,
+        hierarchy:["Segment","Category","Sub-Category"],
+        additionalAttr: true,
+        data: [],
+    }
   },
   visContainer: {
     width: 600,
