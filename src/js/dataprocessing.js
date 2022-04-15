@@ -10,8 +10,7 @@
     if (isHierarchy) {
       d3.json("../assets/data/" + fileName).then((data) => {
         window.GLOBALDATA.files[fileKey]["data"] = data;
-        recPanelUI.renderRecommendation("nodelink");
-        dataPanelUI.attrSelectionBtn();
+        renderingControl.visUpdate();
       });
     } else {
       //group by the hierarchy provided
@@ -58,8 +57,7 @@
           ),
         };
         window.GLOBALDATA.files[fileKey]["data"] = obj;
-        recPanelUI.renderRecommendation("nodelink");
-        dataPanelUI.attrSelectionBtn();
+        renderingControl.visUpdate();
       });
     }
   };

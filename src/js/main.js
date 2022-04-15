@@ -5,11 +5,6 @@
   dataProcessing.readFileSetupView(defaultFileName);
 
   //Drawing header of the panels
-  dataPanelUI.header();
-  dataPanelUI.selectDropDown();  
-  dataPanelUI.uploadFile();
-  taskPanelUI.header();
-  recPanelUI.header();  
-  recPanelUI.recommendationInformation();
+  renderingControl.onInitialLoad();
 
 })();
