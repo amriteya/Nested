@@ -31,6 +31,7 @@
         strokeLinecap, // stroke line cap for links
         halo = "#fff", // color of label halo
         haloWidth = 3, // padding around the labels
+        color = d3.interpolateRainbow, // color scheme, if any
       } = {}
     ) {
       // If id and parentId options are specified, or the path option, use d3.stratify
@@ -67,6 +68,14 @@
 
       // Compute the default height.
       if (height === undefined) height = x1 - x0 + dx * 2;
+
+      // Construct a color scale.
+      if (color != null) {
+        color = d3
+          .scaleSequential([0, root.children.length - 1], color)
+          .unknown(fill);
+        root.children.forEach((child, i) => (child.index = i));
+      }
 
       const svg = d3
         .create("svg")
@@ -107,7 +116,10 @@
 
       node
         .append("circle")
-        .attr("fill", (d) => (d.children ? stroke : fill))
+        .attr(
+            "fill",
+            color ? (d) => color(d.ancestors().reverse()[1]?.index) : fill
+          )
         .attr("r", r);
 
       if (title != null) node.append("title").text((d) => title(d.data, d));
@@ -126,9 +138,7 @@
       return svg.node();
     };
 
-    dendrogram.clear = function (divId)
-    {
-        $("#"+divId).empty();
-    }
-
+  dendrogram.clear = function (divId) {
+    $("#" + divId).empty();
+  };
 })();
