@@ -18,6 +18,7 @@ var GLOBALDATA = {
       fileName: "british_royal_family.json",
       label: "British Royal Family",
       isVal: false,
+      values:[],
       isHierarchy: true,
       additionalAttr: true,
       data: [],

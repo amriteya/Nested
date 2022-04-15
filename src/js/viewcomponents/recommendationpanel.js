@@ -55,7 +55,7 @@
     );
     $("#recPanelBody").append(recommendationInformationPanel);
     $("#recInformationPanel").append(
-      `<div class="recInformationTitleText"> <span> Encoding </span> </div>`
+      `<div class="recInformationTitleText"> <span class="headerText"> Encoding </span> </div>`
     );
 
     for (imgKey in treeImageMap) {

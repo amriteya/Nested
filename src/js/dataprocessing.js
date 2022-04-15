@@ -11,6 +11,7 @@
       d3.json("../assets/data/" + fileName).then((data) => {
         window.GLOBALDATA.files[fileKey]["data"] = data;
         recPanelUI.renderRecommendation("nodelink");
+        dataPanelUI.attrSelectionBtn();
       });
     } else {
       //group by the hierarchy provided
@@ -18,7 +19,6 @@
       let values = window.GLOBALDATA.files[fileKey]["values"];
       const mapToObject = (map = new Map()) =>
         Array.from(map.entries(), ([k, v]) => {
-          console.log(v instanceof Map);
           if (v instanceof Map) {
             return {
               name: k,
@@ -59,6 +59,7 @@
         };
         window.GLOBALDATA.files[fileKey]["data"] = obj;
         recPanelUI.renderRecommendation("nodelink");
+        dataPanelUI.attrSelectionBtn();
       });
     }
   };
