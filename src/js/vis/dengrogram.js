@@ -38,7 +38,6 @@
       // to convert tabular data to a hierarchy; otherwise we assume that the data is
       // specified as an object {children} with nested objects (a.k.a. the “flare.json”
       // format), and use d3.hierarchy.
-      console.log(data);
       const root =
         path != null
           ? d3.stratify().path(path)(data)

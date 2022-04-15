@@ -46,6 +46,22 @@
         height: 1000,
       });
     }
+    if (recommendation === "enclosure") {
+        recPanelUI.clearVisOutput("visOutput");
+        chart = treemap.createTreeamap(data, {
+            label: (d) => d.name,
+            group: d => d.name.split(".")[1], // e.g., "animate" in "flare.animate.Easing"; for color
+            title: (d, n) =>
+              `${n
+                .ancestors()
+                .reverse()
+                .map((d) => d.data.name)
+                .join(".")}`, // hover text
+            width: 1152,
+            height: 1152,
+          });
+
+    }
     $("#visOutput").append(chart);
   };
 
