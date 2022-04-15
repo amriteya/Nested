@@ -138,7 +138,5 @@
       return svg.node();
     };
 
-  dendrogram.clear = function (divId) {
-    $("#" + divId).empty();
-  };
+
 })();

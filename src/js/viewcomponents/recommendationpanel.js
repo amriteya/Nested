@@ -11,12 +11,16 @@
     );
   };
 
+  recPanelUI.clearVisOutput = function (divId) {
+    $("#" + divId).empty();
+  };
+
   //Params: recommendation: Object that is returned by recommendation system.
   recPanelUI.renderRecommendation = function (recommendation) {
     var data = window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["data"];
     let chart;
     if (recommendation === "nodelink") {
-      dendrogram.clear("visOutput");
+      recPanelUI.clearVisOutput("visOutput");
       chart = dendrogram.createDendrogram(data, {
         label: (d) => d.name,
         title: (d, n) =>
@@ -29,7 +33,7 @@
       });
     }
     if (recommendation === "layered") {
-      dendrogram.clear("visOutput");
+      recPanelUI.clearVisOutput("visOutput");
       chart = icicle.createIcicle(data, {
         label: (d) => d.name,
         title: (d, n) =>
@@ -84,7 +88,7 @@
       var elemId = $(this).attr("id");
       recPanelUI.renderRecommendation(elemId);
       $(".selectedItem").toggleClass("selectedItem");
-      $(this).toggleClass( "selectedItem" );
+      $(this).toggleClass("selectedItem");
     });
   };
 })();
