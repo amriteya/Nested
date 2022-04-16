@@ -99,9 +99,9 @@ dataPanelUI.treeSummaryPanel = function () {
 
     console.log(Object.keys(window.GLOBALDATA.dataSummary));
 
-    let summaryBody = `<div id="size" class="treeSummaryValue m-1 backgroundOp1"> Size: ${window.GLOBALDATA.dataSummary.size} </div>
+    let summaryBody = `<div id="size" class="treeSummaryValue m-1 backgroundOp1"> Total Nodes (Size): ${window.GLOBALDATA.dataSummary.size} </div>
     <div id="leaves" class="treeSummaryValue m-1 backgroundOp2"> Leaf Nodes: ${window.GLOBALDATA.dataSummary.leaves} </div>
-    <div id="height" class="treeSummaryValue m-1 backgroundOp1"> Tree Height: ${window.GLOBALDATA.dataSummary.height} </div>
+    <div id="height" class="treeSummaryValue m-1 backgroundOp1"> Tree Height/Depth: ${window.GLOBALDATA.dataSummary.height} </div>
     <div id="maxDegree" class="treeSummaryValue m-1 backgroundOp2"> Max Degree: ${window.GLOBALDATA.dataSummary.maxDegree.maxDegree} </div>
     <div id="maxDegreeNode" class="treeSummaryValue m-1 backgroundOp1"> Max Degree Node: ${window.GLOBALDATA.dataSummary.maxDegree.maxDegreeNodeLabel} </div>
     <div id="minDegree" class="treeSummaryValue m-1 backgroundOp2"> Min Degree: ${window.GLOBALDATA.dataSummary.minDegree.minDegree} </div>
