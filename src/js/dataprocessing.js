@@ -21,7 +21,6 @@
 
   //read a file and render vis
   dataProcessing.readFileSetupView = function (fileKey) {
-    window.GLOBALDATA.currentFile = fileKey;
     let fileName = window.GLOBALDATA.files[fileKey]["fileName"];
     let isHierarchy = window.GLOBALDATA.files[fileKey]["isHierarchy"];
     //If input data is already in hierarchy then parse as is
@@ -62,6 +61,7 @@
 
   dataProcessing.renderVis = function (data,fileKey)
   {
+    window.GLOBALDATA.currentFile = fileKey;
     window.GLOBALDATA.files[fileKey]["data"] = data;
     createDataObject(data);
     renderingControl.visUpdate(); 

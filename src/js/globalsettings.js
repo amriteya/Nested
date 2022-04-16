@@ -32,6 +32,15 @@ var GLOBALDATA = {
         hierarchy:["Segment","Category","Sub-Category"],
         additionalAttr: true,
         data: [],
+    },
+    upload: {
+        fileName: "",
+        label: "",
+        isVal: true,
+        values:["Value"],
+        isHierarchy: true,
+        additionalAttr: true,
+        data: [],
     }
   },
   visContainer: {

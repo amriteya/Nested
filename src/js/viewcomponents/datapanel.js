@@ -50,11 +50,17 @@
         readFile.onload = function (e) {
           var contents = e.target.result;
           var json;
-          try {
-            json = JSON.parse(contents);
-          } catch (e) {
-            alert("Wrong file type == " + uploadedFile.type);
-          }
+          json = JSON.parse(contents);
+          finalData = {json}
+          console.log(json);
+          dataProcessing.renderVis(json, "upload");
+          //   try {
+          //     json = JSON.parse(contents);
+          //     console.log(json);
+          //     dataProcessing.renderVis (json, "upload")
+          //   } catch (e) {
+          //     alert("Wrong file type == " + uploadedFile.type);
+          //   }
           console.log(json);
         };
         readFile.readAsText(uploadedFile);
@@ -66,7 +72,7 @@
 
   //Attribute button
   dataPanelUI.attrSelectionBtn = function () {
-    $("#attrSelection").remove();  
+    $("#attrSelection").remove();
     let attrHeader = `<div id="attrSelection" class="dataInputPanelContainer"> 
     <span class="headerText"> Node-Size Mapping  </span>
     <i title="Select an attribute that you want to use for node size. By default, node sizes are mapped to the number of child nodes." class="fas fa-info-circle"></i>
@@ -77,24 +83,24 @@
     //Adding the button pills
     let file = window.GLOBALDATA.currentFile;
     let values = window.GLOBALDATA.files[file]["values"];
-    
+
     //First add the default pill
-    let attrPills = `<button id="Degree" class="btn btn-secondary col-12 m-1"> Degree </>`
-    for (value of values)
-    {
-        attrPills = attrPills.concat(`<button id=${value} class="btn btn-light col-12 m-1"> ${value} </>`)
+    let attrPills = `<button id="Degree" class="btn btn-secondary col-12 m-1"> Degree </>`;
+    for (value of values) {
+      attrPills = attrPills.concat(
+        `<button id=${value} class="btn btn-light col-12 m-1"> ${value} </>`
+      );
     }
 
     $("#attrSelection").append(attrPills);
+  };
 
-}
-
-dataPanelUI.treeSummaryPanel = function () { 
-    $("#treeSummaryPanel").remove();  
+  dataPanelUI.treeSummaryPanel = function () {
+    $("#treeSummaryPanel").remove();
 
     let summaryPanelHeader = `<div id="treeSummaryPanel" class="dataInputPanelContainer">   <span class="headerText"> Tree Summary </span> 
     <i title="Summary of the tree topology. Clicking on Min and Max degree node reveal the node in the visualization." class="fas fa-info-circle"></i>
-    </div>`
+    </div>`;
     $("#dataPanelBody").append(summaryPanelHeader);
 
     console.log(Object.keys(window.GLOBALDATA.dataSummary));
@@ -105,10 +111,8 @@ dataPanelUI.treeSummaryPanel = function () {
     <div id="maxDegree" class="treeSummaryValue m-1 backgroundOp2"> Max Degree: ${window.GLOBALDATA.dataSummary.maxDegree.maxDegree} </div>
     <div id="maxDegreeNode" class="treeSummaryValue m-1 backgroundOp1"> Max Degree Node: ${window.GLOBALDATA.dataSummary.maxDegree.maxDegreeNodeLabel} </div>
     <div id="minDegree" class="treeSummaryValue m-1 backgroundOp2"> Min Degree: ${window.GLOBALDATA.dataSummary.minDegree.minDegree} </div>
-    <div id="minDegreeNode" class="treeSummaryValue m-1 backgroundOp1"> Min Degree Node: ${window.GLOBALDATA.dataSummary.minDegree.minDegreeNodeLabel} </div>`
+    <div id="minDegreeNode" class="treeSummaryValue m-1 backgroundOp1"> Min Degree Node: ${window.GLOBALDATA.dataSummary.minDegree.minDegreeNodeLabel} </div>`;
 
     $("#treeSummaryPanel").append(summaryBody);
-
-}
-
+  };
 })();
