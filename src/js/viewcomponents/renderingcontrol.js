@@ -16,6 +16,7 @@
     {
         recPanelUI.renderRecommendation("nodelink");
         dataPanelUI.attrSelectionBtn();
+        dataPanelUI.treeSummaryPanel();
     }
 
 

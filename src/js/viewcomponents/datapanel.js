@@ -82,11 +82,30 @@
     let attrPills = `<button id="Degree" class="btn btn-secondary col-12 m-1"> Degree </>`
     for (value of values)
     {
-        console.log(value)
         attrPills = attrPills.concat(`<button id=${value} class="btn btn-light col-12 m-1"> ${value} </>`)
     }
 
-    $("#attrSelection").append(attrPills)
+    $("#attrSelection").append(attrPills);
+
+}
+
+dataPanelUI.treeSummaryPanel = function () { 
+    $("#treeSummaryPanel").remove();  
+
+    let summaryPanelHeader = `<div id="treeSummaryPanel" class="dataInputPanelContainer">   <span class="headerText"> Tree Summary </span> </div>`
+    $("#dataPanelBody").append(summaryPanelHeader);
+
+    console.log(Object.keys(window.GLOBALDATA.dataSummary));
+
+    let summaryBody = `<div id="size" class="treeSummaryValue"> Size: ${window.GLOBALDATA.dataSummary.size} </div>
+    <div id="leaves" class="treeSummaryValue"> Leaf Nodes: ${window.GLOBALDATA.dataSummary.leaves} </div>
+    <div id="height" class="treeSummaryValue"> Height: ${window.GLOBALDATA.dataSummary.height} </div>
+    <div id="maxDegree" class="treeSummaryValue"> Max Degree: ${window.GLOBALDATA.dataSummary.maxDegree.maxDegree} </div>
+    <div id="maxDegreeNode" class="treeSummaryValue"> Node: ${window.GLOBALDATA.dataSummary.maxDegree.maxDegreeNodeLabel} </div>
+    <div id="minDegree" class="treeSummaryValue"> Min Degree (node): ${window.GLOBALDATA.dataSummary.minDegree.minDegree} </div>
+    <div id="minDegreeNode" class="treeSummaryValue"> Node: ${window.GLOBALDATA.dataSummary.minDegree.minDegreeNodeLabel} </div>`
+
+    $("#treeSummaryPanel").append(summaryBody);
 
 }
 
