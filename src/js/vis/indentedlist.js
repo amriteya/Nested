@@ -18,11 +18,7 @@ indentedList.createIndentedList = function (data,{
     
     root = d3.hierarchy(data).eachBefore((d,i) => d.index = i++);
     const nodes = root.descendants();
-    console.log(root.descendants());
-    console.log(root.leaves());
-    root.each((d,i) =>{
-        console.log(d.children);
-    })
+
 
     const svg = d3.create("svg")
         .attr("viewBox", [-nodeSize / 2, -nodeSize * 3 / 2, width, (nodes.length + 1) * nodeSize])
