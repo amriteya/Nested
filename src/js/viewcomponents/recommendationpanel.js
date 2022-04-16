@@ -62,6 +62,10 @@
           });
 
     }
+    if (recommendation === "indented") {
+        recPanelUI.clearVisOutput("visOutput");
+        chart = indentedList.createIndentedList(data,{});
+    }
     $("#visOutput").append(chart);
   };
 
