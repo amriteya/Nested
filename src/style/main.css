@@ -11,6 +11,14 @@
     font-size: large;
     font-weight: bold;
 }
+.backgroundOp1
+{
+    background-color:ghostwhite ;
+}
+.backgroundOp2
+{
+    background-color:rgb(227, 227, 227) ;
+}
 /* Panel style */
 .topLevelContainer {
   margin: 5px;

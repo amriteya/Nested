@@ -92,18 +92,20 @@
 dataPanelUI.treeSummaryPanel = function () { 
     $("#treeSummaryPanel").remove();  
 
-    let summaryPanelHeader = `<div id="treeSummaryPanel" class="dataInputPanelContainer">   <span class="headerText"> Tree Summary </span> </div>`
+    let summaryPanelHeader = `<div id="treeSummaryPanel" class="dataInputPanelContainer">   <span class="headerText"> Tree Summary </span> 
+    <i title="Summary of the tree topology. Clicking on Min and Max degree node reveal the node in the visualization." class="fas fa-info-circle"></i>
+    </div>`
     $("#dataPanelBody").append(summaryPanelHeader);
 
     console.log(Object.keys(window.GLOBALDATA.dataSummary));
 
-    let summaryBody = `<div id="size" class="treeSummaryValue"> Size: ${window.GLOBALDATA.dataSummary.size} </div>
-    <div id="leaves" class="treeSummaryValue"> Leaf Nodes: ${window.GLOBALDATA.dataSummary.leaves} </div>
-    <div id="height" class="treeSummaryValue"> Height: ${window.GLOBALDATA.dataSummary.height} </div>
-    <div id="maxDegree" class="treeSummaryValue"> Max Degree: ${window.GLOBALDATA.dataSummary.maxDegree.maxDegree} </div>
-    <div id="maxDegreeNode" class="treeSummaryValue"> Node: ${window.GLOBALDATA.dataSummary.maxDegree.maxDegreeNodeLabel} </div>
-    <div id="minDegree" class="treeSummaryValue"> Min Degree (node): ${window.GLOBALDATA.dataSummary.minDegree.minDegree} </div>
-    <div id="minDegreeNode" class="treeSummaryValue"> Node: ${window.GLOBALDATA.dataSummary.minDegree.minDegreeNodeLabel} </div>`
+    let summaryBody = `<div id="size" class="treeSummaryValue m-1 backgroundOp1"> Size: ${window.GLOBALDATA.dataSummary.size} </div>
+    <div id="leaves" class="treeSummaryValue m-1 backgroundOp2"> Leaf Nodes: ${window.GLOBALDATA.dataSummary.leaves} </div>
+    <div id="height" class="treeSummaryValue m-1 backgroundOp1"> Tree Height: ${window.GLOBALDATA.dataSummary.height} </div>
+    <div id="maxDegree" class="treeSummaryValue m-1 backgroundOp2"> Max Degree: ${window.GLOBALDATA.dataSummary.maxDegree.maxDegree} </div>
+    <div id="maxDegreeNode" class="treeSummaryValue m-1 backgroundOp1"> Max Degree Node: ${window.GLOBALDATA.dataSummary.maxDegree.maxDegreeNodeLabel} </div>
+    <div id="minDegree" class="treeSummaryValue m-1 backgroundOp2"> Min Degree: ${window.GLOBALDATA.dataSummary.minDegree.minDegree} </div>
+    <div id="minDegreeNode" class="treeSummaryValue m-1 backgroundOp1"> Min Degree Node: ${window.GLOBALDATA.dataSummary.minDegree.minDegreeNodeLabel} </div>`
 
     $("#treeSummaryPanel").append(summaryBody);
 
