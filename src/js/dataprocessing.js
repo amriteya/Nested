@@ -28,9 +28,10 @@
 
     d3.json("../assets/data/" + fileName).then((data) => {
       if (isHierarchy) {
-        window.GLOBALDATA.files[fileKey]["data"] = data;
-        createDataObject(data);
-        renderingControl.visUpdate();
+        dataProcessing.renderVis(data,fileKey)
+        // window.GLOBALDATA.files[fileKey]["data"] = data;
+        // createDataObject(data);
+        // renderingControl.visUpdate();
       } else {
         let hierarchyOrder = window.GLOBALDATA.files[fileKey]["hierarchy"];
         let values = window.GLOBALDATA.files[fileKey]["values"];
@@ -54,12 +55,17 @@
             )
           ),
         };
-        window.GLOBALDATA.files[fileKey]["data"] = obj;
-        createDataObject(obj);
-        renderingControl.visUpdate();
+        dataProcessing.renderVis(obj,fileKey)
       }
     });
   };
+
+  dataProcessing.renderVis = function (data,fileKey)
+  {
+    window.GLOBALDATA.files[fileKey]["data"] = data;
+    createDataObject(data);
+    renderingControl.visUpdate(); 
+  }
 
   const mapToObject = (map = new Map()) =>
     Array.from(map.entries(), ([k, v]) => {
@@ -81,7 +87,6 @@
     });
 
   createDataObject = function (data) {
-    //console.log(data);
     var root = d3.hierarchy(data);
     let height = root.height;
     let size = root.descendants().length;
