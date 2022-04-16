@@ -19,6 +19,10 @@
 {
     background-color:rgb(227, 227, 227) ;
 }
+.opacity{
+    opacity:0.5;
+}
+
 /* Panel style */
 .topLevelContainer {
   margin: 5px;
@@ -40,6 +44,12 @@
 {
     width: 100%;
 }
+
+#uploadPanel
+{
+    cursor: pointer;
+}
+
 
 /* Visualization */
 #visOutput {

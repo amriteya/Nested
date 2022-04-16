@@ -16,7 +16,7 @@
   dataPanelUI.selectDropDown = function () {
     //View
     $("#dataPanelBody").append(
-      `<div class="dataInputPanelContainer"><span class="headerText">Try a Hierarchy</span><select id='files'> </select> </div>`
+      `<div id="dropDownPanel" class="dataInputPanelContainer"><span class="headerText">Try a Hierarchy</span><select id='files'> </select> </div>`
     );
     let dataFiles = window.GLOBALDATA.files;
     for (file in dataFiles) {
@@ -50,17 +50,13 @@
         readFile.onload = function (e) {
           var contents = e.target.result;
           var json;
-          json = JSON.parse(contents);
-          finalData = {json}
-          console.log(json);
-          dataProcessing.renderVis(json, "upload");
-          //   try {
-          //     json = JSON.parse(contents);
-          //     console.log(json);
-          //     dataProcessing.renderVis (json, "upload")
-          //   } catch (e) {
-          //     alert("Wrong file type == " + uploadedFile.type);
-          //   }
+            try {
+              json = JSON.parse(contents);
+              console.log(json);
+              dataProcessing.renderVis (json, "upload")
+            } catch (e) {
+              alert("Wrong file type == " + uploadedFile.type);
+            }
           console.log(json);
         };
         readFile.readAsText(uploadedFile);
