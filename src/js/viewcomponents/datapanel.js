@@ -36,7 +36,9 @@
   dataPanelUI.uploadFile = function () {
     let uploadBtn = `
     <div id="uploadPanel" class="dataInputPanelContainer">
-    <label class="form-label headerText" for="customFile"> or Upload</label>
+    <label class="form-label headerText" for="customFile"> or Upload
+    <i title="You can only upload json files with hierarchical structure. An example file is attached for reference." class="fas fa-info-circle"></i>
+    </label>
     <input type="file" class="form-control" id="customFileUpload" />
     </div>`;
     $("#dataPanelBody").append(uploadBtn);
