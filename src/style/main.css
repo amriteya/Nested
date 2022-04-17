@@ -49,8 +49,19 @@
 {
 } */
 
+/* Task Panel */
+.taskPanelContainer
+{
+    display: flex;
+    margin: 10px;
+}
+.taskIconElement
+{
+    width: 25%;
+}
 
-/* Visualization */
+
+/* Recommendation and Visualization */
 #visOutput {
   max-height: 1000px;
   overflow: auto;

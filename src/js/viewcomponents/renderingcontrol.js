@@ -8,6 +8,7 @@
         dataPanelUI.selectDropDown();  
         dataPanelUI.uploadFile();
         taskPanelUI.header();
+        taskPanelUI.createTaskIcons();
         recPanelUI.header();  
         recPanelUI.recommendationInformation();
     }
