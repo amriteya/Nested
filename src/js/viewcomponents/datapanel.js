@@ -59,7 +59,6 @@
             } catch (e) {
               alert("Wrong file type == " + uploadedFile.type);
             }
-          console.log(json);
         };
         readFile.readAsText(uploadedFile);
       } else {

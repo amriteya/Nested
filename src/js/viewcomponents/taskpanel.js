@@ -20,7 +20,11 @@
       let taskKeys = Object.keys(window.GLOBALDATA.imgMap.task);
       let taskImageMap = window.GLOBALDATA.imgMap.task;
 
-      let taskIconContainerDiv = `<div id="taskIcons" class="taskPanelContainer container row"> </div>`
+      let taskIconContainerDiv = `<div id="taskIcons" class="taskPanelContainer container row"> 
+      <span class="headerText"> Task Target  
+      <i title="Targets refer to the item that you are interested in identifying in the tree visualization." class="fas fa-info-circle"></i>
+      </span>
+      </div>`
       $("#taskPanelBody").append(taskIconContainerDiv);
 
       for (key of taskKeys)
