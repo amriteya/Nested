@@ -20,7 +20,7 @@
       let taskKeys = Object.keys(window.GLOBALDATA.imgMap.task);
       let taskImageMap = window.GLOBALDATA.imgMap.task;
 
-      let taskIconContainerDiv = `<div id="taskIcons" class="taskPanelContainer row container"> </div>`
+      let taskIconContainerDiv = `<div id="taskIcons" class="taskPanelContainer container row"> </div>`
       $("#taskPanelBody").append(taskIconContainerDiv);
 
       for (key of taskKeys)
@@ -29,10 +29,13 @@
         "../../assets/" +
         taskImageMap[key]["relativePath"] +
         taskImageMap[key]["fileName"];
-          let taskDiv = `<div id=${key} class="taskIconElement col-3"> 
-          <img  class="imgView" src=${fileLoc}>
-          <br>
-          <p class="recTreeImgLabel"> ${taskImageMap[key]["label"]} </p>
+          let taskDiv = `<div id=${key} class="taskIconElement col-4"> 
+          <div class="taskImageContainer">
+          <img  class="taskImgView" src=${fileLoc}>
+          </div>
+          <div class="taskLabelContainer">
+          <span class="taskPanelLabel"> ${taskImageMap[key]["label"]}: <span class="additionalInformation"> ${taskImageMap[key]["definition"]} </span> </span>
+          </div>
           </div>`
           $("#taskIcons").append(taskDiv);
       }
