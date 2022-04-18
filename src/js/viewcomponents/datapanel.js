@@ -100,8 +100,6 @@
     </div>`;
     $("#dataPanelBody").append(summaryPanelHeader);
 
-    console.log(Object.keys(window.GLOBALDATA.dataSummary));
-
     let summaryBody = `<div id="size" class="treeSummaryValue m-1 backgroundOp1"> Total Nodes (Size): ${window.GLOBALDATA.dataSummary.size} </div>
     <div id="leaves" class="treeSummaryValue m-1 backgroundOp2"> Leaf Nodes: ${window.GLOBALDATA.dataSummary.leaves} </div>
     <div id="height" class="treeSummaryValue m-1 backgroundOp1"> Tree Height/Depth: ${window.GLOBALDATA.dataSummary.height} </div>

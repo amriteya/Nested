@@ -49,23 +49,16 @@
 } */
 
 /* Task Panel */
-/* .taskPanelContainer
-{
-    display: block;
-    margin: 10px;
-}
-.taskIconElement
-{
-    display: flex;
-    width: 100%;
-    height: 60px;
-}
- */
 .taskPanelContainer {
   margin-top: 20px!important;
 }
 .taskIconElement {
     margin-top: 5%!important;
+    opacity: 0.4;
+    cursor: pointer;
+}
+.taskIconElement:hover{
+    opacity: 1;
 }
 .taskImgView {
   height: 100px;

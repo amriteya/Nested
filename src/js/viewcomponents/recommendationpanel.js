@@ -107,7 +107,7 @@
     $(".recInformationItemContainer").click(function () {
       var elemId = $(this).attr("id");
       recPanelUI.renderRecommendation(elemId);
-      $(".selectedItem").toggleClass("selectedItem");
+      $(".recInformationItemContainer.selectedItem").toggleClass("selectedItem");
       $(this).toggleClass("selectedItem");
     });
   };

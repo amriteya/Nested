@@ -16,7 +16,6 @@
 
   taskPanelUI.createTaskIcons = function ()
   {
-      console.log(window.GLOBALDATA.imgMap.task)
       let taskKeys = Object.keys(window.GLOBALDATA.imgMap.task);
       let taskImageMap = window.GLOBALDATA.imgMap.task;
 
@@ -33,7 +32,9 @@
         "../../assets/" +
         taskImageMap[key]["relativePath"] +
         taskImageMap[key]["fileName"];
-          let taskDiv = `<div id=${key} class="taskIconElement col-4"> 
+          let taskDiv = `<div id=${key} class="taskIconElement ${
+            key === "categorical_value" ? "selectedItem" : ""
+          } col-4"> 
           <div class="taskImageContainer">
           <img  class="taskImgView" src=${fileLoc}>
           </div>
@@ -43,5 +44,12 @@
           </div>`
           $("#taskIcons").append(taskDiv);
       }
+
+      //Events
+      $(".taskIconElement").click(function () {
+        var elemId = $(this).attr("id");
+        $('.taskIconElement.selectedItem').toggleClass("selectedItem")
+        $(this).toggleClass("selectedItem");
+      });
   }
 })();
