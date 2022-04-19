@@ -52,8 +52,8 @@
     //Events
     $(".recInformationItemContainer").click(function () {
       var elemId = $(this).attr("id");
-      recPanelUI.clearVisOutput("visOutput");
-      recPanelUI.clearVisOutput("visNavBar");
+      //   recPanelUI.clearVisOutput("visOutput");
+      //   recPanelUI.clearVisOutput("visNavBar");
       recPanelUI.visualizationNavBar();
       recPanelUI.renderRecommendation(elemId);
       $(".recInformationItemContainer.selectedItem").toggleClass(
@@ -65,10 +65,14 @@
 
   //Navigation bar for visualization
   recPanelUI.visualizationNavBar = function () {
+    recPanelUI.clearVisOutput("visNavBar");
+
     $("#recPanelBody").append(
       `<div class="visOutputNavContainer" id='visNavBar'> 
         <div class="visNavBarItem" id="fileName">
-        <span class=""> ${window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["label"]} </span>
+        <span class=""> ${
+          window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["label"]
+        } </span>
         </div>
         <div class="visNavBarItem" id="searchInput">
             <div class="input-group rounded">
@@ -87,6 +91,7 @@
 
   //Params: recommendation: Object that is returned by recommendation system.
   recPanelUI.renderRecommendation = function (recommendation) {
+    recPanelUI.clearVisOutput("visOutput");
     var data = window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["data"];
     //Adding a container for visualization
     $("#recPanelBody").append(
