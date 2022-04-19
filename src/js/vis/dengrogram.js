@@ -85,7 +85,11 @@
         .attr("font-family", "sans-serif")
         .attr("font-size", 10);
 
-      svg
+      console.log(root.links());
+
+      const svgGroup = svg.append("g").attr("id", "svgVisGroup");
+
+      svgGroup
         .append("g")
         .attr("fill", "none")
         .attr("stroke", stroke)
@@ -96,6 +100,7 @@
         .selectAll("path")
         .data(root.links())
         .join("path")
+        .attr("class", "link")
         .attr(
           "d",
           d3
@@ -104,11 +109,13 @@
             .y((d) => d.x)
         );
 
-      const node = svg
+      const node = svgGroup
         .append("g")
         .selectAll("a")
         .data(root.descendants())
         .join("a")
+        .attr("id", (d) => d.data.name)
+        .attr("class", "node")
         .attr("xlink:href", link == null ? null : (d) => link(d.data, d))
         .attr("target", link == null ? null : linkTarget)
         .attr("transform", (d) => `translate(${d.y},${d.x})`);
@@ -116,9 +123,9 @@
       node
         .append("circle")
         .attr(
-            "fill",
-            color ? (d) => color(d.ancestors().reverse()[1]?.index) : fill
-          )
+          "fill",
+          color ? (d) => color(d.ancestors().reverse()[1]?.index) : fill
+        )
         .attr("r", r);
 
       if (title != null) node.append("title").text((d) => title(d.data, d));
@@ -137,5 +144,14 @@
       return svg.node();
     };
 
-
+  dendrogram.searchLabelInteraction = function (searchTerm) {
+    let searchedNode = d3.selectAll(".node").filter((d) => {
+      return d.data.name === searchTerm;
+    });
+    d3.selectAll(".node").style("opacity", "0.1");
+    d3.selectAll(".link").style("opacity", "0.1");
+    d3.selectAll("#" + searchTerm).style("opacity", "1");
+    var top = $("#label").position().top;
+    $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
+  };
 })();

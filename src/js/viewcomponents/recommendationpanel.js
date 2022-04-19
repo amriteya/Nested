@@ -12,61 +12,7 @@
   };
 
   recPanelUI.clearVisOutput = function (divId) {
-    $("#" + divId).empty();
-  };
-
-  //Params: recommendation: Object that is returned by recommendation system.
-  recPanelUI.renderRecommendation = function (recommendation) {
-    var data = window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["data"];
-    let chart;
-    if (recommendation === "nodelink") {
-      recPanelUI.clearVisOutput("visOutput");
-      chart = dendrogram.createDendrogram(data, {
-        label: (d) => d.name,
-        title: (d, n) =>
-          `${n
-            .ancestors()
-            .reverse()
-            .map((d) => d.data.name)
-            .join(".")}`, // hover text
-        width: 1152,
-      });
-    }
-    if (recommendation === "layered") {
-      recPanelUI.clearVisOutput("visOutput");
-      chart = icicle.createIcicle(data, {
-        label: (d) => d.name,
-        title: (d, n) =>
-          `${n
-            .ancestors()
-            .reverse()
-            .map((d) => d.data.name)
-            .join(".")}`, // hover text
-        width: 1152,
-        height: 1000,
-      });
-    }
-    if (recommendation === "enclosure") {
-        recPanelUI.clearVisOutput("visOutput");
-        chart = treemap.createTreeamap(data, {
-            label: (d) => d.name,
-            group: d => d.name.split(".")[1], // e.g., "animate" in "flare.animate.Easing"; for color
-            title: (d, n) =>
-              `${n
-                .ancestors()
-                .reverse()
-                .map((d) => d.data.name)
-                .join(".")}`, // hover text
-            width: 1152,
-            height: 1152,
-          });
-
-    }
-    if (recommendation === "indented") {
-        recPanelUI.clearVisOutput("visOutput");
-        chart = indentedList.createIndentedList(data,{});
-    }
-    $("#visOutput").append(chart);
+    $("#" + divId).remove();
   };
 
   //This is temporary recommendation output panel
@@ -100,15 +46,97 @@
       $("#recInformationPanel").append(imgContainer);
     }
 
-    //Adding a container for visualization
-    $("#recPanelBody").append("<div id='visOutput'> </div>");
+    // //Adding a container for visualization
+    // $("#recPanelBody").append(`<div class="visOutputElement" id='visOutput'> </div>`);
 
     //Events
     $(".recInformationItemContainer").click(function () {
       var elemId = $(this).attr("id");
+      recPanelUI.clearVisOutput("visOutput");
+      recPanelUI.clearVisOutput("visNavBar");
+      recPanelUI.visualizationNavBar();
       recPanelUI.renderRecommendation(elemId);
-      $(".recInformationItemContainer.selectedItem").toggleClass("selectedItem");
+      $(".recInformationItemContainer.selectedItem").toggleClass(
+        "selectedItem"
+      );
       $(this).toggleClass("selectedItem");
     });
+  };
+
+  //Navigation bar for visualization
+  recPanelUI.visualizationNavBar = function () {
+    $("#recPanelBody").append(
+      `<div class="visOutputNavContainer" id='visNavBar'> 
+        <div class="visNavBarItem" id="fileName">
+        <span class=""> ${window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["label"]} </span>
+        </div>
+        <div class="visNavBarItem" id="searchInput">
+            <div class="input-group rounded">
+            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <span class="input-group-text border-0" id="search-addon">
+                <i class="fas fa-search"></i>
+            </span>
+            </div>
+          </div>  
+          <div class="visNavBarItem" id="visSetting">
+          <span class=""> <i class="fas fa-cog"></i> </span>
+         </div>
+      </div>`
+    );
+  };
+
+  //Params: recommendation: Object that is returned by recommendation system.
+  recPanelUI.renderRecommendation = function (recommendation) {
+    var data = window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["data"];
+    //Adding a container for visualization
+    $("#recPanelBody").append(
+      `<div class="visOutputElement" id='visOutput'> </div>`
+    );
+    let chart;
+    if (recommendation === "nodelink") {
+      chart = dendrogram.createDendrogram(data, {
+        label: (d) => d.name,
+        title: (d, n) =>
+          `${n
+            .ancestors()
+            .reverse()
+            .map((d) => d.data.name)
+            .join(".")}`, // hover text
+        width: 1152,
+      });
+    }
+    if (recommendation === "layered") {
+      chart = icicle.createIcicle(data, {
+        label: (d) => d.name,
+        title: (d, n) =>
+          `${n
+            .ancestors()
+            .reverse()
+            .map((d) => d.data.name)
+            .join(".")}`, // hover text
+        width: 1152,
+        height: 1000,
+      });
+    }
+    if (recommendation === "enclosure") {
+      chart = treemap.createTreeamap(data, {
+        label: (d) => d.name,
+        group: (d) => d.name.split(".")[1], // e.g., "animate" in "flare.animate.Easing"; for color
+        title: (d, n) =>
+          `${n
+            .ancestors()
+            .reverse()
+            .map((d) => d.data.name)
+            .join(".")}`, // hover text
+        width: 1152,
+        height: 1152,
+      });
+    }
+    if (recommendation === "indented") {
+      chart = indentedList.createIndentedList(data, {});
+    }
+    $("#visOutput").append(chart);
+    //Testing the interaction
+    // dendrogram.searchLabelInteraction("label");
   };
 })();

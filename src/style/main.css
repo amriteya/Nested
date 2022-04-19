@@ -25,6 +25,11 @@
     text-align: left!important;
 }
 
+.selectedItem {
+    border: 1px solid lightgrey!important;
+    opacity: 1!important;
+  }
+
 /* Panel style */
 .topLevelContainer {
   margin: 5px;
@@ -100,7 +105,23 @@ text-align: center!important;
 .recTreeImgLabel {
   text-align: center;
 }
-.selectedItem {
-  border: 1px solid lightgrey;
-  opacity: 1;
+
+#visNavBar{
+    height:40px;
+    display:flex;
+}
+.visNavBarItem
+{
+    margin-left: 2%;
+}
+#fileName{
+    margin-top: auto;
+    margin-bottom: auto;
+
+}
+#searchInput{
+}
+#visSetting{
+    margin-top: auto;
+    margin-bottom: auto;
 }

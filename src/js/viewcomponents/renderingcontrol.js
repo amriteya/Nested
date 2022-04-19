@@ -15,6 +15,7 @@
 
     renderingControl.visUpdate = function ()
     {
+        recPanelUI.visualizationNavBar();
         recPanelUI.renderRecommendation("nodelink");
         dataPanelUI.attrSelectionBtn();
         dataPanelUI.treeSummaryPanel();
