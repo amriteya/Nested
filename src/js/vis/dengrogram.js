@@ -145,13 +145,21 @@
     };
 
   dendrogram.searchLabelInteraction = function (searchTerm) {
-    let searchedNode = d3.selectAll(".node").filter((d) => {
-      return d.data.name === searchTerm;
-    });
-    d3.selectAll(".node").style("opacity", "0.1");
-    d3.selectAll(".link").style("opacity", "0.1");
-    d3.selectAll("#" + searchTerm).style("opacity", "1");
-    var top = $("#label").position().top;
-    $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
+    // let searchedNode = d3.selectAll(".node").filter((d) => {
+    //   return d.data.name === searchTerm;
+    // });
+    if(searchTerm==="")
+    {
+      d3.selectAll(".node").style("opacity", "1");
+      d3.selectAll(".link").style("opacity", "1");
+    }
+    else{
+      d3.selectAll(".node").style("opacity", "0.2");
+      d3.selectAll(".link").style("opacity", "0.2");
+      d3.selectAll("#" + searchTerm).style("opacity", "1");
+      var top = $("#label").position().top;
+      $("#visOutput").animate({ scrollTop: top + "px" }, 1000); 
+    }
+   
   };
 })();

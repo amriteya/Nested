@@ -52,8 +52,6 @@
     //Events
     $(".recInformationItemContainer").click(function () {
       var elemId = $(this).attr("id");
-      //   recPanelUI.clearVisOutput("visOutput");
-      //   recPanelUI.clearVisOutput("visNavBar");
       recPanelUI.visualizationNavBar();
       recPanelUI.renderRecommendation(elemId);
       $(".recInformationItemContainer.selectedItem").toggleClass(
@@ -66,7 +64,6 @@
   //Navigation bar for visualization
   recPanelUI.visualizationNavBar = function () {
     recPanelUI.clearVisOutput("visNavBar");
-
     $("#recPanelBody").append(
       `<div class="visOutputNavContainer" id='visNavBar'> 
         <div class="visNavBarItem" id="fileName">
@@ -76,17 +73,23 @@
         </div>
         <div class="visNavBarItem" id="searchInput">
             <div class="input-group rounded">
-            <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+            <input id="searchBox" type="search" class="form-control rounded" placeholder="Search Node" aria-label="Search" aria-describedby="search-addon" />
             <span class="input-group-text border-0" id="search-addon">
                 <i class="fas fa-search"></i>
             </span>
             </div>
           </div>  
           <div class="visNavBarItem" id="visSetting">
-          <span class=""> <i class="fas fa-cog"></i> </span>
+          <span class=""> <i class="btn fas fa-cog" title="Configure the visualization"></i> <i class="btn fas fa-file-export" title="Export the visualization"></i> </span>
          </div>
       </div>`
     );
+
+    //Event
+        $("#searchBox").on("change", function(){
+            dendrogram.searchLabelInteraction($(this).val());
+
+        })
   };
 
   //Params: recommendation: Object that is returned by recommendation system.
@@ -141,7 +144,5 @@
       chart = indentedList.createIndentedList(data, {});
     }
     $("#visOutput").append(chart);
-    //Testing the interaction
-    // dendrogram.searchLabelInteraction("label");
   };
 })();
