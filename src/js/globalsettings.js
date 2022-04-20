@@ -157,6 +157,26 @@ var GLOBALDATA = {
             definition:"An ordered tree is a rooted tree in which each node's children are assigned a fixed ordering."
 
         }
+    },
+    query:{
+        identify: {
+            fileName: "identify.png",
+            label: "Identify",
+            relativePath: "queryimg/",
+            definition: "Identify a single node or edge in the visualization."
+        },
+        compare: {
+            fileName: "compare.png",
+            label: "Compare",
+            relativePath: "queryimg/",
+            definition: "Compare two nodes in the visualization."
+        },
+        summary: {
+            fileName: "summarize.png",
+            label: "Summarize",
+            relativePath: "queryimg/",
+            definition: "Overview of all the nodes in the visualization."
+        },
     }
   },
 };

@@ -9,6 +9,7 @@
         dataPanelUI.uploadFile();
         taskPanelUI.header();
         taskPanelUI.createTaskIcons();
+        taskPanelUI.createQueryIcons();
         recPanelUI.header();  
         recPanelUI.recommendationInformation();
     }
