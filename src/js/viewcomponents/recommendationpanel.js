@@ -102,9 +102,10 @@
         : window.GLOBALDATA.currentVis;
     var data = window.GLOBALDATA.data["data"];
     var attr = window.GLOBALDATA.data["nodeSizeMappingAttribute"];
+    let defaultAttr = true;
     //Check if selected attr is different than "Degree"
     if (attr !== "Degree") {
-      console.log(attr);
+      defaultAttr = false;
     }
 
     //Adding a container for visualization
@@ -133,7 +134,7 @@
             .reverse()
             .map((d) => d.data.name)
             .join(".")}`, // hover text
-        value: (d) => d["value"],
+        value: defaultAttr? null: (d) => d[attr],
         width: 1152,
         height: 1000,
       });
@@ -148,6 +149,7 @@
             .reverse()
             .map((d) => d.data.name)
             .join(".")}`, // hover text
+        value: defaultAttr? null: (d) => d[attr],
         width: 1152,
         height: 1152,
       });

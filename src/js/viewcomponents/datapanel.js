@@ -53,7 +53,6 @@
           var json;
           try {
             json = JSON.parse(contents);
-            console.log(json);
             dataProcessing.renderVis(json, "upload");
           } catch (e) {
             alert("Wrong file type == " + uploadedFile.type);

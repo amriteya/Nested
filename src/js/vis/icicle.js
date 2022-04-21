@@ -46,6 +46,10 @@
 
     // Compute the values of internal nodes by aggregating from the leaves.
     value == null ? root.count() : root.sum((d) => Math.max(0, value(d)));
+    
+    console.log(value)
+    console.log(title)
+
 
     // Compute formats.
     if (typeof format !== "function") format = d3.format(format);

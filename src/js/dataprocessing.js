@@ -45,7 +45,7 @@
         // renderingControl.visUpdate();
       } else {
         let hierarchyOrder = window.GLOBALDATA.files[fileKey]["hierarchy"];
-        let values = window.GLOBALDATA.files[fileKey]["values"];
+        let values = window.GLOBALDATA.files[fileKey]["values"].map(d =>d.attrName);
         var obj = {
           name: "Superstore",
           children: mapToObject(
@@ -89,14 +89,19 @@
           children: v instanceof Map ? mapToObject(v) : v,
         };
       } else {
-        return {
-          name: k,
-          value: Object.keys(v["value"])
+          let finalObj = {}
+          finalObj["name"] = k;
+          //Unwrapping the variables
+          let tempObj = Object.keys(v["value"])
             .map((val) => (v[val] = v["value"][val]))
             .reduce((current, next) => {
               return { ...current, ...next };
-            }, {}),
-        };
+            }, {})
+            Object.keys(tempObj).map(d=>{
+                finalObj[d] = {};
+                finalObj[d] = tempObj[d]
+            })
+            return finalObj;
       }
     });
 
