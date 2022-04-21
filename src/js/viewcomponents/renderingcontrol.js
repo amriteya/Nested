@@ -17,7 +17,7 @@
     {
         recPanelUI.recommendationInformation();
         recPanelUI.visualizationNavBar();
-        recPanelUI.renderRecommendation("nodelink");
+        recPanelUI.renderRecommendation();
         dataPanelUI.attrSelectionBtn();
         dataPanelUI.treeSummaryPanel();
     }

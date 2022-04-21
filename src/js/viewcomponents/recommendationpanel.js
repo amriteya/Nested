@@ -36,7 +36,7 @@
         treeImageMap[imgKey]["fileName"];
       var imgContainer = $(
         `<div class="recInformationItemContainer ${
-          imgKey === "nodelink" ? "selectedItem" : ""
+          imgKey === window.GLOBALDATA.currentVis ? "selectedItem" : ""
         }" id=${imgKey}> 
             <img class="imgView" src=${fileLoc}> </img> 
             <br>
@@ -53,8 +53,9 @@
     //Events
     $(".recInformationItemContainer").click(function () {
       var elemId = $(this).attr("id");
+      window.GLOBALDATA.currentVis = elemId;
       recPanelUI.visualizationNavBar();
-      recPanelUI.renderRecommendation(elemId);
+      recPanelUI.renderRecommendation();
       $(".recInformationItemContainer.selectedItem").toggleClass(
         "selectedItem"
       );
@@ -93,16 +94,18 @@
   };
 
   //Params: recommendation: Object that is returned by recommendation system.
-  recPanelUI.renderRecommendation = function (recommendation) {
+  recPanelUI.renderRecommendation = function () {
     recPanelUI.clearVisOutput("visOutput");
+    let recommendation =
+      window.GLOBALDATA.currentVis === ""
+        ? "nodelink"
+        : window.GLOBALDATA.currentVis;
     var data = window.GLOBALDATA.data["data"];
     var attr = window.GLOBALDATA.data["nodeSizeMappingAttribute"];
     //Check if selected attr is different than "Degree"
-    if(attr!=="Degree")
-    {
-        console.log(attr);
+    if (attr !== "Degree") {
+      console.log(attr);
     }
-
 
     //Adding a container for visualization
     $("#recPanelBody").append(

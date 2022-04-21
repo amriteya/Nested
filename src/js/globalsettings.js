@@ -30,7 +30,7 @@ var GLOBALDATA = {
       fileName: "superstoreFlorida.json",
       label: "Superstore",
       isVal: true,
-      values: [{"label":"Segment","attrName":"Segment"},{"label":"Category","attrName":"Category"},{"label":"Profit","attrName":"Profit"}],
+      values: [{"label":"Degree","attrName":"Degree"},{"label":"Segment","attrName":"Segment"},{"label":"Category","attrName":"Category"},{"label":"Profit","attrName":"Profit"}],
       isHierarchy: false,
       hierarchy: ["Segment", "Category", "Sub-Category"],
       additionalAttr: true,
@@ -51,6 +51,7 @@ var GLOBALDATA = {
     height: 600,
   },
   currentFile: "",
+  currentVis:"",
   imgMap: {
     tree: {
       nodelink: {
