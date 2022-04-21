@@ -1,3 +1,6 @@
+//Attributes Added dynamically
+// dataSummary
+// data
 var GLOBALDATA = {
   panelWidth: {
     dataPanel: 12.5,

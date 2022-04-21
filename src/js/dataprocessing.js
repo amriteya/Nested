@@ -19,6 +19,17 @@
     }
   }
 
+  class Data {
+    fileLabel;
+    nodeSizeMappingAttribute;
+
+    constructor(label,nodeAttribute)
+    {
+        this.fileLabel = label;
+        this.nodeSizeMappingAttribute = nodeAttribute;
+    }
+  }
+
   //read a file and render vis
   dataProcessing.readFileSetupView = function (fileKey) {
     let fileName = window.GLOBALDATA.files[fileKey]["fileName"];
@@ -63,6 +74,9 @@
   {
     window.GLOBALDATA.currentFile = fileKey;
     window.GLOBALDATA.files[fileKey]["data"] = data;
+    //instantiating the dataObj
+    var dataObj = new Data(fileKey,"Degree");
+    window.GLOBALDATA.data = dataObj;
     createDataObject(data);
     renderingControl.visUpdate(); 
   }

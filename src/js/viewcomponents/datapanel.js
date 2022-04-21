@@ -1,5 +1,4 @@
 (function () {
-  //Rendering
   dataPanelUI = {};
 
   dataPanelUI.header = function () {
@@ -29,6 +28,7 @@
       var val = this.value;
       //Load new data and change current file
       dataProcessing.readFileSetupView(val);
+      //Setup the data object
     });
   };
 
@@ -52,13 +52,13 @@
         readFile.onload = function (e) {
           var contents = e.target.result;
           var json;
-            try {
-              json = JSON.parse(contents);
-              console.log(json);
-              dataProcessing.renderVis (json, "upload")
-            } catch (e) {
-              alert("Wrong file type == " + uploadedFile.type);
-            }
+          try {
+            json = JSON.parse(contents);
+            console.log(json);
+            dataProcessing.renderVis(json, "upload");
+          } catch (e) {
+            alert("Wrong file type == " + uploadedFile.type);
+          }
         };
         readFile.readAsText(uploadedFile);
       } else {
@@ -82,14 +82,24 @@
     let values = window.GLOBALDATA.files[file]["values"];
 
     //First add the default pill
-    let attrPills = `<button id="Degree" class="btn btn-secondary col-12 m-1"> Degree </>`;
+    let attrPills = `<button id="Degree" class="btn btn-secondary col-12 m-1 attrSelector"> Degree </>`;
     for (value of values) {
       attrPills = attrPills.concat(
-        `<button id=${value} class="btn btn-light col-12 m-1"> ${value} </>`
+        `<button id=${value} class="btn btn-light col-12 m-1 attrSelector"> ${value} </>`
       );
     }
 
     $("#attrSelection").append(attrPills);
+
+    //Events
+    $(".attrSelector").on("click", function(){
+        window.GLOBALDATA.data.nodeSizeMappingAttribute = $(this).attr("id");
+        $("#attrSelection").find(".btn-secondary").addClass("btn-light");
+        $("#attrSelection").find(".btn-secondary").removeClass("btn-secondary");
+        $(this).toggleClass("btn-light");
+        $(this).toggleClass("btn-secondary");
+    })
+
   };
 
   dataPanelUI.treeSummaryPanel = function () {
