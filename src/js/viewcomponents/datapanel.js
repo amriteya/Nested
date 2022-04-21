@@ -85,7 +85,7 @@
     let attrPills = `<button id="Degree" class="btn btn-secondary col-12 m-1 attrSelector"> Degree </>`;
     for (value of values) {
       attrPills = attrPills.concat(
-        `<button id=${value} class="btn btn-light col-12 m-1 attrSelector"> ${value} </>`
+        `<button id=${value["attrName"]} class="btn btn-light col-12 m-1 attrSelector"> ${value["label"]} </>`
       );
     }
 

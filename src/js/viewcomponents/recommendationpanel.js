@@ -95,7 +95,15 @@
   //Params: recommendation: Object that is returned by recommendation system.
   recPanelUI.renderRecommendation = function (recommendation) {
     recPanelUI.clearVisOutput("visOutput");
-    var data = window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["data"];
+    var data = window.GLOBALDATA.data["data"];
+    var attr = window.GLOBALDATA.data["nodeSizeMappingAttribute"];
+    //Check if selected attr is different than "Degree"
+    if(attr!=="Degree")
+    {
+
+    }
+
+
     //Adding a container for visualization
     $("#recPanelBody").append(
       `<div class="visOutputElement" id='visOutput'> </div>`
@@ -122,6 +130,7 @@
             .reverse()
             .map((d) => d.data.name)
             .join(".")}`, // hover text
+        value: (d) => d["value"],
         width: 1152,
         height: 1000,
       });

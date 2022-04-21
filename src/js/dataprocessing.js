@@ -22,10 +22,12 @@
   class Data {
     fileLabel;
     nodeSizeMappingAttribute;
+    data;
 
-    constructor(label, nodeAttribute) {
+    constructor(label, nodeAttribute, data) {
       this.fileLabel = label;
       this.nodeSizeMappingAttribute = nodeAttribute;
+      this.data = data;
     }
   }
 
@@ -71,9 +73,9 @@
 
   dataProcessing.renderVis = function (data, fileKey) {
     window.GLOBALDATA.currentFile = fileKey;
-    window.GLOBALDATA.files[fileKey]["data"] = data;
+    // window.GLOBALDATA.files[fileKey]["data"] = data;
     //instantiating the dataObj
-    var dataObj = new Data(fileKey, "Degree");
+    var dataObj = new Data(fileKey, "Degree", data);
     window.GLOBALDATA.data = dataObj;
     createDataObject(data);
     renderingControl.visUpdate();
