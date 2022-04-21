@@ -71,13 +71,13 @@ var GLOBALDATA = {
         relativePath: "treeimg/",
       },
       hybrid: {
-        fileName: "HD.png",
-        label: "Hybrid Diagram",
+        fileName: "RNL.png",
+        label: "Radial Node-Link Diagram",
         relativePath: "treeimg/",
       },
       symbolic: {
-        fileName: "SD.png",
-        label: "Symbolic Diagram",
+        fileName: "RED.png",
+        label: "Radial Enclosure Diagram",
         relativePath: "treeimg/",
       },
     },
