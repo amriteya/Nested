@@ -73,12 +73,12 @@ var GLOBALDATA = {
         label: "Indented List",
         relativePath: "treeimg/",
       },
-      hybrid: {
+      radialNL: {
         fileName: "RNL.png",
         label: "Radial Node-Link Diagram",
         relativePath: "treeimg/",
       },
-      symbolic: {
+      radialED: {
         fileName: "RED.png",
         label: "Radial Enclosure Diagram",
         relativePath: "treeimg/",

@@ -18,6 +18,7 @@
   //This is temporary recommendation output panel
   //This panel should be mapped to the recommendation object
   recPanelUI.recommendationInformation = function () {
+    recPanelUI.clearVisOutput("recInformationPanel");
     // Views
     let treeImageMap = window.GLOBALDATA.imgMap.tree;
     let recommendationInformationPanel = $(
@@ -86,10 +87,9 @@
     );
 
     //Event
-        $("#searchBox").on("change", function(){
-            dendrogram.searchLabelInteraction($(this).val());
-
-        })
+    $("#searchBox").on("change", function () {
+      dendrogram.searchLabelInteraction($(this).val());
+    });
   };
 
   //Params: recommendation: Object that is returned by recommendation system.

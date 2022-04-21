@@ -23,10 +23,9 @@
     fileLabel;
     nodeSizeMappingAttribute;
 
-    constructor(label,nodeAttribute)
-    {
-        this.fileLabel = label;
-        this.nodeSizeMappingAttribute = nodeAttribute;
+    constructor(label, nodeAttribute) {
+      this.fileLabel = label;
+      this.nodeSizeMappingAttribute = nodeAttribute;
     }
   }
 
@@ -38,7 +37,7 @@
 
     d3.json("../assets/data/" + fileName).then((data) => {
       if (isHierarchy) {
-        dataProcessing.renderVis(data,fileKey)
+        dataProcessing.renderVis(data, fileKey);
         // window.GLOBALDATA.files[fileKey]["data"] = data;
         // createDataObject(data);
         // renderingControl.visUpdate();
@@ -65,21 +64,20 @@
             )
           ),
         };
-        dataProcessing.renderVis(obj,fileKey)
+        dataProcessing.renderVis(obj, fileKey);
       }
     });
   };
 
-  dataProcessing.renderVis = function (data,fileKey)
-  {
+  dataProcessing.renderVis = function (data, fileKey) {
     window.GLOBALDATA.currentFile = fileKey;
     window.GLOBALDATA.files[fileKey]["data"] = data;
     //instantiating the dataObj
-    var dataObj = new Data(fileKey,"Degree");
+    var dataObj = new Data(fileKey, "Degree");
     window.GLOBALDATA.data = dataObj;
     createDataObject(data);
-    renderingControl.visUpdate(); 
-  }
+    renderingControl.visUpdate();
+  };
 
   const mapToObject = (map = new Map()) =>
     Array.from(map.entries(), ([k, v]) => {

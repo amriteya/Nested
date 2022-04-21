@@ -11,11 +11,11 @@
         taskPanelUI.createTaskIcons();
         taskPanelUI.createQueryIcons();
         recPanelUI.header();  
-        recPanelUI.recommendationInformation();
     }
 
     renderingControl.visUpdate = function ()
     {
+        recPanelUI.recommendationInformation();
         recPanelUI.visualizationNavBar();
         recPanelUI.renderRecommendation("nodelink");
         dataPanelUI.attrSelectionBtn();
