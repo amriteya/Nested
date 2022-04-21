@@ -100,7 +100,7 @@
     //Check if selected attr is different than "Degree"
     if(attr!=="Degree")
     {
-
+        console.log(attr);
     }
 
 

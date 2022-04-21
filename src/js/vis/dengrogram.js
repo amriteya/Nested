@@ -32,6 +32,7 @@
         halo = "#fff", // color of label halo
         haloWidth = 3, // padding around the labels
         color = d3.interpolateRainbow, // color scheme, if any
+        value,
       } = {}
     ) {
       // If id and parentId options are specified, or the path option, use d3.stratify

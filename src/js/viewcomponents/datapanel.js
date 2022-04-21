@@ -80,12 +80,17 @@
     //Adding the button pills
     let file = window.GLOBALDATA.currentFile;
     let values = window.GLOBALDATA.files[file]["values"];
+    let attr = window.GLOBALDATA.data["nodeSizeMappingAttribute"];
+
 
     //First add the default pill
-    let attrPills = `<button id="Degree" class="btn btn-secondary col-12 m-1 attrSelector"> Degree </>`;
+    // let attrPills = `<button id="Degree" class="btn btn-secondary col-12 m-1 attrSelector"> Degree </>`;
+    let attrPills = "";
     for (value of values) {
+    let highlightClass = value["attrName"] === window.GLOBALDATA.data.nodeSizeMappingAttribute ? "btn-secondary" : "btn-light";
+    console.log(highlightClass);
       attrPills = attrPills.concat(
-        `<button id=${value["attrName"]} class="btn btn-light col-12 m-1 attrSelector"> ${value["label"]} </>`
+        `<button id=${value["attrName"]} class="btn ${highlightClass}  col-12 m-1 attrSelector"> ${value["label"]} </>`
       );
     }
 
@@ -98,6 +103,7 @@
         $("#attrSelection").find(".btn-secondary").removeClass("btn-secondary");
         $(this).toggleClass("btn-light");
         $(this).toggleClass("btn-secondary");
+        renderingControl.visUpdate();
     })
 
   };
