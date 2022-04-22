@@ -50,8 +50,16 @@
     //Events
     $(".taskIconElement").click(function () {
       var elemId = $(this).attr("id");
-      $(".taskIconElement.selectedItem").toggleClass("selectedItem");
+      //$(".taskIconElement.selectedItem").toggleClass("selectedItem");
       $(this).toggleClass("selectedItem");
+      if (window.GLOBALDATA.tasks.selectedTasks.indexOf(elemId) === -1) {
+        window.GLOBALDATA.tasks.selectedTasks.push(elemId);
+      } else {
+        var index = window.GLOBALDATA.tasks.selectedTasks.indexOf(elemId);
+        if (index !== -1) {
+          window.GLOBALDATA.tasks.selectedTasks.splice(index, 1);
+        }
+      }
     });
   };
 
@@ -67,25 +75,25 @@
     $("#taskPanelBody").append(queryIconContainerDiv);
 
     for (key of queryKeys) {
-        let fileLoc =
-          "../../assets/" +
-          queryImageMap[key]["relativePath"] +
-          queryImageMap[key]["fileName"];
-        let queryDiv = `<div id=${key} class="taskIconElement ${
-          key === "identify" ? "selectedItem" : ""
-        } col-4"> 
+      let fileLoc =
+        "../../assets/" +
+        queryImageMap[key]["relativePath"] +
+        queryImageMap[key]["fileName"];
+      let queryDiv = `<div id=${key} class="taskIconElement ${
+        key === "identify" ? "selectedItem" : ""
+      } col-4"> 
             <div class="taskImageContainer">
             <img  class="taskImgView" src=${fileLoc}>
             </div>
             <div class="taskLabelContainer">
             <span class="taskPanelLabel"> ${
-                queryImageMap[key]["label"]
+              queryImageMap[key]["label"]
             }: <span class="additionalInformation"> ${
-                queryImageMap[key]["definition"]
-        } </span> </span>
+        queryImageMap[key]["definition"]
+      } </span> </span>
             </div>
             </div>`;
-        $("#queryIcons").append(queryDiv);
-      }
+      $("#queryIcons").append(queryDiv);
+    }
   };
 })();

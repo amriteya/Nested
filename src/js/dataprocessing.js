@@ -31,6 +31,15 @@
     }
   }
 
+  class Tasks {
+      selectedTasks;
+
+      constructor(selectedTasks)
+      {
+          this.selectedTasks = selectedTasks;
+      }
+  }
+
   //read a file and render vis
   dataProcessing.readFileSetupView = function (fileKey) {
     let fileName = window.GLOBALDATA.files[fileKey]["fileName"];
@@ -77,6 +86,8 @@
     //instantiating the dataObj
     var dataObj = new Data(fileKey, "Degree", data);
     window.GLOBALDATA.data = dataObj;
+    var tasks = new Tasks(["categorical_value"]);
+    window.GLOBALDATA.tasks = tasks;
     createDataObject(data);
     renderingControl.visUpdate();
   };
