@@ -125,3 +125,8 @@ text-align: center!important;
     margin-top: auto;
     margin-bottom: auto;
 }
+
+/* Visualization */
+.node{
+    cursor: pointer;
+}

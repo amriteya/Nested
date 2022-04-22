@@ -33,6 +33,7 @@
         haloWidth = 3, // padding around the labels
         color = d3.interpolateRainbow, // color scheme, if any
         value,
+        highlightAncestors = false,
       } = {}
     ) {
       // If id and parentId options are specified, or the path option, use d3.stratify
@@ -86,8 +87,6 @@
         .attr("font-family", "sans-serif")
         .attr("font-size", 10);
 
-      console.log(root.links());
-
       const svgGroup = svg.append("g").attr("id", "svgVisGroup");
 
       svgGroup
@@ -102,6 +101,9 @@
         .data(root.links())
         .join("path")
         .attr("class", "link")
+        .attr("id", (d) => {
+          return `${d.source.data.name}_${d.target.data.name}`;
+        })
         .attr(
           "d",
           d3
@@ -119,7 +121,18 @@
         .attr("class", "node")
         .attr("xlink:href", link == null ? null : (d) => link(d.data, d))
         .attr("target", link == null ? null : linkTarget)
-        .attr("transform", (d) => `translate(${d.y},${d.x})`);
+        .attr("transform", (d) => `translate(${d.y},${d.x})`)
+        .on("mouseover", (e, d) => {
+          if (highlightAncestors) {
+            let ancestors = d.ancestors();
+            dendrogram.highlightAncestors(d.data.name, ancestors, "mouseover");
+          }
+        })
+        .on("mouseout", function (e, d) {
+          if (highlightAncestors) {
+            dendrogram.highlightAncestors(d.data.name, [], "mouseout");
+          }
+        });
 
       node
         .append("circle")
@@ -146,21 +159,44 @@
     };
 
   dendrogram.searchLabelInteraction = function (searchTerm) {
-    // let searchedNode = d3.selectAll(".node").filter((d) => {
-    //   return d.data.name === searchTerm;
-    // });
-    if(searchTerm==="")
-    {
+    if (searchTerm === "") {
       d3.selectAll(".node").style("opacity", "1");
       d3.selectAll(".link").style("opacity", "1");
-    }
-    else{
+    } else {
       d3.selectAll(".node").style("opacity", "0.2");
       d3.selectAll(".link").style("opacity", "0.2");
       d3.selectAll("#" + searchTerm).style("opacity", "1");
       var top = $("#label").position().top;
-      $("#visOutput").animate({ scrollTop: top + "px" }, 1000); 
+      $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
     }
-   
+  };
+
+  dendrogram.highlightAncestors = function (id, ancestors, event) {
+    if (event === "mouseover") {
+      d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
+      d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
+
+      d3.select("#" + id)
+        .transition()
+        .duration("100")
+        .style("opacity", "1");
+      ancestors.forEach((val) => {
+        d3.select("#" + val.data.name)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      });
+
+      for (var i = 0; i < ancestors.length - 1; i++) {
+        console.log(`#${ancestors[i + 1].data.name}_${ancestors[i].data.name}`);
+        d3.select(`#${ancestors[i + 1].data.name}_${ancestors[i].data.name}`)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      }
+    } else {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+      d3.selectAll(".link").transition().duration("50").style("opacity", "1");
+    }
   };
 })();
