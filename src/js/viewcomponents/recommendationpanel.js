@@ -17,6 +17,7 @@
 
   //This is temporary recommendation output panel
   //This panel should be mapped to the recommendation object
+  //To make a scrollable div https://jsfiddle.net/ydchauh/1ck7fhuq/2/
   recPanelUI.recommendationInformation = function () {
     recPanelUI.clearVisOutput("recInformationPanel");
     // Views

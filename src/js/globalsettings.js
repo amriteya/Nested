@@ -84,6 +84,16 @@ var GLOBALDATA = {
         label: "Radial Enclosure Diagram",
         relativePath: "treeimg/",
       },
+      radialLD: {
+        fileName: "RLD.png",
+        label: "Radial Layered Diagram",
+        relativePath: "treeimg/",
+      },
+      Dendro: {
+        fileName: "dendro.png",
+        label: "Dendrogram",
+        relativePath: "treeimg/",
+      },
     },
     task: {
       categorical_value: {
