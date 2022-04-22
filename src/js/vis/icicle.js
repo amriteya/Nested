@@ -46,9 +46,6 @@
 
     // Compute the values of internal nodes by aggregating from the leaves.
     value == null ? root.count() : root.sum((d) => Math.max(0, value(d)));
-    
-    console.log(value)
-    console.log(title)
 
 
     // Compute formats.
@@ -88,6 +85,8 @@
       .selectAll("a")
       .data(root.descendants())
       .join("a")
+      .attr("class","node")
+      .attr("id", (d) => d.data.name)
       .attr("xlink:href", link == null ? null : (d) => link(d.data, d))
       .attr("target", link == null ? null : linkTarget)
       .attr("transform", (d) => `translate(${d.y0},${d.x0})`);

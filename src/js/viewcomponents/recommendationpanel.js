@@ -97,8 +97,8 @@
       {
       for (val of tasks)
       {
+          console.log(val);
           let widget;
-          console.log(window.GLOBALDATA.taskPropertyMap)
           if(window.GLOBALDATA.taskPropertyMap[val].widgets.length>0)
           {
             let widgets = window.GLOBALDATA.taskPropertyMap[val].widgets;
@@ -114,7 +114,36 @@
                     </span>
                     </div>`)
                 }
+                if(widget==="range")
+                {
+                    console.log("range widget");
+                    let div = `<div id="sliderContainer">
+                    <span>
+                    <label for="amount">Degree:</label>
+                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                    </span>
+                    <div id="slider-range"></div>
+                    </div>`;
+                    $( function() {
+                        $( "#slider-range" ).slider({
+                          range: true,
+                          min: 0,
+                          max: 32,
+                          values: [ 0, 32 ],
+                          slide: function( event, ui ) {
+                            $( "#amount" ).val(  ui.values[ 0 ] + " - " + ui.values[ 1 ] );
+                          }
+                        });
+                        $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
+                          " - " + $( "#slider-range" ).slider( "values", 1 ) );
+                      } );
+
+                      return div;
+                }
             }
+          }
+          else{
+              return ``;
           }
       }
     }
@@ -146,8 +175,6 @@
             isHighLightAncestor = true;
         }
     }
-
-
 
     //Adding a container for visualization
     $("#recPanelBody").append(
