@@ -166,7 +166,8 @@
       d3.selectAll(".node").style("opacity", "0.2");
       d3.selectAll(".link").style("opacity", "0.2");
       d3.selectAll("#" + searchTerm).style("opacity", "1");
-      var top = $("#label").position().top;
+      var top = $("#"+searchTerm).position().top-400;
+      console.log(top);
       $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
     }
   };
@@ -188,7 +189,6 @@
       });
 
       for (var i = 0; i < ancestors.length - 1; i++) {
-        console.log(`#${ancestors[i + 1].data.name}_${ancestors[i].data.name}`);
         d3.select(`#${ancestors[i + 1].data.name}_${ancestors[i].data.name}`)
           .transition()
           .duration("100")
