@@ -13,7 +13,10 @@ var GLOBALDATA = {
       fileName: "flare.json",
       label: "Flare",
       isVal: true,
-      values: [{"label":"Degree","attrName":"Degree"},{"label":"Value","attrName":"value"}],
+      values: [
+        { label: "Degree", attrName: "Degree" },
+        { label: "Value", attrName: "value" },
+      ],
       isHierarchy: true,
       additionalAttr: false,
       data: [],
@@ -22,7 +25,7 @@ var GLOBALDATA = {
       fileName: "british_royal_family.json",
       label: "British Royal Family",
       isVal: false,
-      values: [{"label":"Degree","attrName":"Degree"}],
+      values: [{ label: "Degree", attrName: "Degree" }],
       isHierarchy: true,
       additionalAttr: true,
       data: [],
@@ -31,7 +34,12 @@ var GLOBALDATA = {
       fileName: "superstoreFlorida.json",
       label: "Superstore",
       isVal: true,
-      values: [{"label":"Degree","attrName":"Degree"},{"label":"Sales","attrName":"Sales"},{"label":"Quantity","attrName":"Quantity"},{"label":"Profit","attrName":"Profit"}],
+      values: [
+        { label: "Degree", attrName: "Degree" },
+        { label: "Sales", attrName: "Sales" },
+        { label: "Quantity", attrName: "Quantity" },
+        { label: "Profit", attrName: "Profit" },
+      ],
       isHierarchy: false,
       hierarchy: ["Segment", "Category", "Sub-Category"],
       additionalAttr: true,
@@ -41,7 +49,10 @@ var GLOBALDATA = {
       fileName: "",
       label: "",
       isVal: true,
-      values: [{"label":"Degree","attrName":"Degree"},{"label":"Value","attrName":"value"}],
+      values: [
+        { label: "Degree", attrName: "Degree" },
+        { label: "Value", attrName: "value" },
+      ],
       isHierarchy: true,
       additionalAttr: true,
       data: [],
@@ -52,7 +63,7 @@ var GLOBALDATA = {
     height: 600,
   },
   currentFile: "",
-  currentVis:"",
+  currentVis: "",
   imgMap: {
     tree: {
       nodelink: {
@@ -196,5 +207,10 @@ var GLOBALDATA = {
         definition: "Overview of all the nodes in the visualization.",
       },
     },
+  },
+
+  taskPropertyMap: {
+    categorical_value: { widgets: ["search"], interaction: ["highlight"] },
+    ancestors: { widgets: [], interaction: ["highlight ancestors"] },
   },
 };

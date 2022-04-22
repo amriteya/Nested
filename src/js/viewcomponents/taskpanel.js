@@ -60,6 +60,7 @@
           window.GLOBALDATA.tasks.selectedTasks.splice(index, 1);
         }
       }
+      renderingControl.visUpdate();
     });
   };
 

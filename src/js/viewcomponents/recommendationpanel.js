@@ -67,20 +67,17 @@
   //Navigation bar for visualization
   recPanelUI.visualizationNavBar = function () {
     recPanelUI.clearVisOutput("visNavBar");
+    let tasks = window.GLOBALDATA.tasks.selectedTasks;
+
     $("#recPanelBody").append(
       `<div class="visOutputNavContainer" id='visNavBar'> 
         <div class="visNavBarItem" id="fileName">
-        <span class=""> ${
+        <span class="headerText"> ${
           window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["label"]
         } </span>
         </div>
-        <div class="visNavBarItem" id="searchInput">
-            <div class="input-group rounded">
-            <input id="searchBox" type="search" class="form-control rounded" placeholder="Search Node" aria-label="Search" aria-describedby="search-addon" />
-            <span class="input-group-text border-0" id="search-addon">
-                <i class="fas fa-search"></i>
-            </span>
-            </div>
+          <div class="visNavBarItem" id="searchInput">
+            ${recPanelUI.createWidgets(tasks)}
           </div>  
           <div class="visNavBarItem" id="visSetting">
           <span class=""> <i class="btn fas fa-cog" title="Configure the visualization"></i> <i class="btn fas fa-file-export" title="Export the visualization"></i> </span>
@@ -93,6 +90,38 @@
       dendrogram.searchLabelInteraction($(this).val());
     });
   };
+
+  recPanelUI.createWidgets = function (tasks)
+  {
+      if(tasks.length!==0)
+      {
+      for (val of tasks)
+      {
+          let widget;
+          console.log(window.GLOBALDATA.taskPropertyMap)
+          if(window.GLOBALDATA.taskPropertyMap[val].widgets.length>0)
+          {
+            let widgets = window.GLOBALDATA.taskPropertyMap[val].widgets;
+            for(widget of widgets)
+            {
+                if(widget==="search")
+                {
+                    return (`
+                    <div class="input-group rounded">
+                    <input id="searchBox" type="search" class="form-control rounded" placeholder="Search Node" aria-label="Search" aria-describedby="search-addon" />
+                    <span class="input-group-text border-0" id="search-addon">
+                        <i class="fas fa-search"></i>
+                    </span>
+                    </div>`)
+                }
+            }
+          }
+      }
+    }
+    else{
+        return ``;
+    }
+  }
 
   //Params: recommendation: Object that is returned by recommendation system.
   recPanelUI.renderRecommendation = function () {
@@ -108,6 +137,7 @@
     if (attr !== "Degree") {
       defaultAttr = false;
     }
+
 
     //Adding a container for visualization
     $("#recPanelBody").append(
