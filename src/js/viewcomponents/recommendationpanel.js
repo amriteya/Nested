@@ -137,6 +137,16 @@
     if (attr !== "Degree") {
       defaultAttr = false;
     }
+    //Checking ancestor interaction
+    let tasks = window.GLOBALDATA.tasks.selectedTasks;
+    let isHighLightAncestor = false;
+    for(val of tasks){
+        if(window.GLOBALDATA.taskPropertyMap[val]["interaction"].indexOf("highlight ancestors") !== -1)
+        {
+            isHighLightAncestor = true;
+        }
+    }
+
 
 
     //Adding a container for visualization
@@ -154,6 +164,7 @@
             .map((d) => d.data.name)
             .join(".")}`, // hover text
         width: 1152,
+        highlightAncestors: isHighLightAncestor
       });
     }
     if (recommendation === "layered") {
