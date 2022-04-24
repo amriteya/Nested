@@ -45,7 +45,7 @@
           ? d3.stratify().path(path)(data)
           : id != null || parentId != null
           ? d3.stratify().id(id).parentId(parentId)(data)
-          : d3.hierarchy(data, children);
+          : d3.hierarchy(data, children).eachBefore((d, i) => (d.index = i++));
 
       // Sort the nodes.
       if (sort != null) root.sort(sort);
@@ -89,6 +89,8 @@
 
       const svgGroup = svg.append("g").attr("id", "svgVisGroup");
 
+      console.log(root.links());
+
       svgGroup
         .append("g")
         .attr("fill", "none")
@@ -102,7 +104,7 @@
         .join("path")
         .attr("class", "link")
         .attr("id", (d) => {
-          return `${d.source.data.name}_${d.target.data.name}`;
+          return `id${d.source.depth}_${d.source.index}_${d.target.depth}_${d.target.index}`;
         })
         .attr(
           "d",
@@ -112,12 +114,14 @@
             .y((d) => d.x)
         );
 
+      console.log(root);
+
       const node = svgGroup
         .append("g")
         .selectAll("a")
         .data(root.descendants())
         .join("a")
-        .attr("id", (d) => d.data.name)
+        .attr("id", (d) => "id" + d.depth + "_" + d.index)
         .attr("class", "node")
         .attr("xlink:href", link == null ? null : (d) => link(d.data, d))
         .attr("target", link == null ? null : linkTarget)
@@ -125,12 +129,20 @@
         .on("mouseover", (e, d) => {
           if (highlightAncestors) {
             let ancestors = d.ancestors();
-            dendrogram.highlightAncestors(d.data.name, ancestors, "mouseover");
+            dendrogram.highlightAncestors(
+              "id" + d.depth + "_" + d.index,
+              ancestors,
+              "mouseover"
+            );
           }
         })
         .on("mouseout", function (e, d) {
           if (highlightAncestors) {
-            dendrogram.highlightAncestors(d.data.name, [], "mouseout");
+            dendrogram.highlightAncestors(
+              "id" + d.depth + "_" + d.index,
+              [],
+              "mouseout"
+            );
           }
         });
 
@@ -166,7 +178,7 @@
       d3.selectAll(".node").style("opacity", "0.2");
       d3.selectAll(".link").style("opacity", "0.2");
       d3.selectAll("#" + searchTerm).style("opacity", "1");
-      var top = $("#"+searchTerm).position().top-400;
+      var top = $("#" + searchTerm).position().top - 400;
       console.log(top);
       $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
     }
@@ -182,14 +194,17 @@
         .duration("100")
         .style("opacity", "1");
       ancestors.forEach((val) => {
-        d3.select("#" + val.data.name)
+        d3.select("#" + "id" + val.depth + "_" + val.index)
           .transition()
           .duration("100")
           .style("opacity", "1");
       });
-
       for (var i = 0; i < ancestors.length - 1; i++) {
-        d3.select(`#${ancestors[i + 1].data.name}_${ancestors[i].data.name}`)
+        d3.select(
+          `#id${ancestors[i + 1].depth}_${ancestors[i + 1].index}_${
+            ancestors[i].depth
+          }_${ancestors[i].index}`
+        )
           .transition()
           .duration("100")
           .style("opacity", "1");
