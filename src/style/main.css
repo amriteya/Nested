@@ -74,6 +74,14 @@ text-align: center!important;
 .taskPanelLabel{
     text-align: justify;
 }
+.taskQueryIconElement{
+    margin-top: 5%!important;
+    opacity: 0.4;
+    cursor: pointer;
+}
+.taskQueryIconElement:hover{
+    opacity: 1;
+}
 /* Recommendation and Visualization */
 #visOutput {
   max-height: 1000px;

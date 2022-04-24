@@ -65,6 +65,7 @@
   };
 
   taskPanelUI.createQueryIcons = function () {
+    // console.log(window.GLOBALDATA.tasks);
     let queryKeys = Object.keys(window.GLOBALDATA.imgMap.query);
     let queryImageMap = window.GLOBALDATA.imgMap.query;
 
@@ -80,7 +81,7 @@
         "../../assets/" +
         queryImageMap[key]["relativePath"] +
         queryImageMap[key]["fileName"];
-      let queryDiv = `<div id=${key} class="taskIconElement ${
+      let queryDiv = `<div id=${key} class="taskQueryIconElement ${
         key === "identify" ? "selectedItem" : ""
       } col-4"> 
             <div class="taskImageContainer">
@@ -96,5 +97,12 @@
             </div>`;
       $("#queryIcons").append(queryDiv);
     }
+    $(".taskQueryIconElement").click(function () {
+      var elemId = $(this).attr("id");
+      $(".taskQueryIconElement.selectedItem").toggleClass("selectedItem");
+      $(this).toggleClass("selectedItem");
+      window.GLOBALDATA.tasks.selectedQuery = elemId;
+      renderingControl.visUpdate();
+    });
   };
 })();

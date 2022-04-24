@@ -97,11 +97,11 @@
       {
       for (val of tasks)
       {
-          console.log(val);
           let widget;
-          if(window.GLOBALDATA.taskPropertyMap[val].widgets.length>0)
+          let query = window.GLOBALDATA.tasks.selectedQuery;
+          if(window.GLOBALDATA.taskPropertyMap[val][query].widgets.length>0)
           {
-            let widgets = window.GLOBALDATA.taskPropertyMap[val].widgets;
+            let widgets = window.GLOBALDATA.taskPropertyMap[val][query].widgets;
             for(widget of widgets)
             {
                 if(widget==="search")
@@ -169,8 +169,9 @@
     //Checking ancestor interaction
     let tasks = window.GLOBALDATA.tasks.selectedTasks;
     let isHighLightAncestor = false;
+    let query = window.GLOBALDATA.tasks.selectedQuery
     for(val of tasks){
-        if(window.GLOBALDATA.taskPropertyMap[val]["interaction"].indexOf("highlight ancestors") !== -1)
+        if(window.GLOBALDATA.taskPropertyMap[val][query]["interaction"].indexOf("highlight ancestors") !== -1)
         {
             isHighLightAncestor = true;
         }

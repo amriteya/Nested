@@ -33,10 +33,12 @@
 
   class Tasks {
       selectedTasks;
+      selectedQuery;
 
-      constructor(selectedTasks)
+      constructor(selectedTasks,query)
       {
           this.selectedTasks = selectedTasks;
+          this.selectedQuery = query;
       }
   }
 
@@ -86,7 +88,7 @@
     //instantiating the dataObj
     var dataObj = new Data(fileKey, "Degree", data);
     window.GLOBALDATA.data = dataObj;
-    var tasks = new Tasks(["categorical_value"]);
+    var tasks = new Tasks(["categorical_value"], "identify");
     window.GLOBALDATA.tasks = tasks;
     createDataObject(data);
     renderingControl.visUpdate();
