@@ -18,10 +18,11 @@
   //This is temporary recommendation output panel
   //This panel should be mapped to the recommendation object
   //To make a scrollable div https://jsfiddle.net/ydchauh/1ck7fhuq/2/
-  recPanelUI.recommendationInformation = function () {
+  recPanelUI.recommendationInformation = function (recommendation) {
     recPanelUI.clearVisOutput("recInformationPanel");
     // Views
-    let treeImageMap = window.GLOBALDATA.imgMap.tree;
+    //let treeImageMap = window.GLOBALDATA.imgMap.tree;
+    let treeImageMap = recommendation.visOrder;
     let recommendationInformationPanel = $(
       `<div id="recInformationPanel"> </div>`
     );

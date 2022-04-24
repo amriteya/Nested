@@ -91,7 +91,8 @@
     var tasks = new Tasks(["categorical_value"], "identify");
     window.GLOBALDATA.tasks = tasks;
     createDataObject(data);
-    renderingControl.visUpdate();
+    recommendation.createRecommendation();
+    // renderingControl.visUpdate();
   };
 
   const mapToObject = (map = new Map()) =>

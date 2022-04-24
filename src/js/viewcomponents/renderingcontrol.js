@@ -13,9 +13,10 @@
         recPanelUI.header();  
     }
 
-    renderingControl.visUpdate = function ()
+    renderingControl.visUpdate = function (recommendation)
     {
-        recPanelUI.recommendationInformation();
+        console.log(recommendation);
+        recPanelUI.recommendationInformation(recommendation);
         recPanelUI.visualizationNavBar();
         recPanelUI.renderRecommendation();
         dataPanelUI.attrSelectionBtn();

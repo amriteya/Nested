@@ -1,6 +1,5 @@
 (function () {
   //Events and Logic
-
   //Rendering
   taskPanelUI = {};
 
@@ -60,7 +59,7 @@
           window.GLOBALDATA.tasks.selectedTasks.splice(index, 1);
         }
       }
-      renderingControl.visUpdate();
+      recommendation.createRecommendation();
     });
   };
 
@@ -102,7 +101,8 @@
       $(".taskQueryIconElement.selectedItem").toggleClass("selectedItem");
       $(this).toggleClass("selectedItem");
       window.GLOBALDATA.tasks.selectedQuery = elemId;
-      renderingControl.visUpdate();
+      recommendation.createRecommendation();
+
     });
   };
 })();

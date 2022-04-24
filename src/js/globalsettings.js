@@ -214,6 +214,10 @@ var GLOBALDATA = {
       identify: { widgets: ["search"], interaction: ["highlight"] },
       summary: { widgets: [], interaction: [] },
     },
+    quantitative_value: {
+        identify: { widgets: [], interaction: []},
+        summary: { widgets: [], interaction: []},
+      },
     ancestors: {
       identify: { widgets: [], interaction: ["highlight ancestors"] },
       summary: { widgets: [], interaction: ["highlight ancestors"] },
