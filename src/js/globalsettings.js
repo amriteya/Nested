@@ -210,9 +210,17 @@ var GLOBALDATA = {
   },
 
   taskPropertyMap: {
-    categorical_value: {identify: {widgets: ["search"], interaction: ["highlight"]}, summary:{widgets: [], interaction: []} },
-    ancestors: { identify:{widgets: [], interaction: ["highlight ancestors"]}, summary:{widgets: [], interaction: ["highlight ancestors"]} },
-    degree: { identify:{widgets: [], interaction: []}, summary:{widgets: ["range"], interaction: []} },
-
+    categorical_value: {
+      identify: { widgets: ["search"], interaction: ["highlight"] },
+      summary: { widgets: [], interaction: [] },
+    },
+    ancestors: {
+      identify: { widgets: [], interaction: ["highlight ancestors"] },
+      summary: { widgets: [], interaction: ["highlight ancestors"] },
+    },
+    degree: {
+      identify: { widgets: [], interaction: [] },
+      summary: { widgets: ["range"], interaction: [] },
+    },
   },
 };
