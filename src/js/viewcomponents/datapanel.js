@@ -98,7 +98,8 @@
         $("#attrSelection").find(".btn-secondary").removeClass("btn-secondary");
         $(this).toggleClass("btn-light");
         $(this).toggleClass("btn-secondary");
-        renderingControl.visUpdate();
+        recommendation.createRecommendation();
+        //renderingControl.visUpdate();
     })
   };
 

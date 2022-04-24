@@ -101,19 +101,19 @@ recommendation.createRecommendation = function()
         }
     }
     let isNodeValTaskSelected = window.GLOBALDATA.tasks.selectedTasks.indexOf("quantitative_value") !== -1 ? true:false;
-    let visOrder = isNodeValTaskSelected ? tempRec2 : tempRec1;
-    if(isNodeValTaskSelected)
+    let isNodeAttribute = window.GLOBALDATA.data.nodeSizeMappingAttribute !== 'Degree' ? true:false;
+    let visOrder = isNodeValTaskSelected || isNodeAttribute  ? tempRec2 : tempRec1;
+
+    if(isNodeValTaskSelected || isNodeAttribute)
     {
         window.GLOBALDATA.currentVis = "layered";
 
     }
     else{
         window.GLOBALDATA.currentVis = "nodelink";
-
     }
     let recommendationFinal = new Recommendation(visOrder,[],[])
     renderingControl.visUpdate(recommendationFinal);
-
 }
 
 
