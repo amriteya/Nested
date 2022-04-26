@@ -43,7 +43,7 @@
             <img class="imgView" src=${fileLoc}> </img> 
             <br>
             <p class="recTreeImgLabel"> ${treeImageMap[imgKey]["label"]} </p>
-            <p class="recTreeImgLabel"> Score:0.8 </p>
+            <p class="recTreeImgLabel"> Score:${treeImageMap[imgKey]["score"]} </p>
         </div>`
       );
       $("#recInformationPanel").append(imgContainer);

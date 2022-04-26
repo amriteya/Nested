@@ -5,7 +5,7 @@
   dataProcessing.readFileSetupView(defaultFileName);
   //set the default vis name
   //this should go to recommendation
-  window.GLOBALDATA.currentVis = "nodelink";
+  //window.GLOBALDATA.currentVis = "nodelink";
 
   //Drawing header of the panels
   renderingControl.onInitialLoad();
