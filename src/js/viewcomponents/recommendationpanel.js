@@ -43,7 +43,9 @@
             <img class="imgView" src=${fileLoc}> </img> 
             <br>
             <p class="recTreeImgLabel"> ${treeImageMap[imgKey]["label"]} </p>
-            <p class="recTreeImgLabel"> Score:${treeImageMap[imgKey]["score"]} </p>
+            <p class="recTreeImgLabel"> Score:${
+              treeImageMap[imgKey]["score"]
+            } </p>
         </div>`
       );
       $("#recInformationPanel").append(imgContainer);
@@ -92,64 +94,58 @@
     });
   };
 
-  recPanelUI.createWidgets = function (tasks)
-  {
-      if(tasks.length!==0)
-      {
-      for (val of tasks)
-      {
-          let widget;
-          let query = window.GLOBALDATA.tasks.selectedQuery;
-          if(window.GLOBALDATA.taskPropertyMap[val][query].widgets.length>0)
-          {
-            let widgets = window.GLOBALDATA.taskPropertyMap[val][query].widgets;
-            for(widget of widgets)
-            {
-                if(widget==="search")
-                {
-                    return (`
+  recPanelUI.createWidgets = function (tasks) {
+    if (tasks.length !== 0) {
+      for (val of tasks) {
+        let widget;
+        let query = window.GLOBALDATA.tasks.selectedQuery;
+        if (window.GLOBALDATA.taskPropertyMap[val][query].widgets.length > 0) {
+          let widgets = window.GLOBALDATA.taskPropertyMap[val][query].widgets;
+          for (widget of widgets) {
+            if (widget === "search") {
+              return `
                     <div class="input-group rounded">
                     <input id="searchBox" type="search" class="form-control rounded" placeholder="Search Node" aria-label="Search" aria-describedby="search-addon" />
                     <span class="input-group-text border-0" id="search-addon">
                         <i class="fas fa-search"></i>
                     </span>
-                    </div>`)
-                }
-                if(widget==="range")
-                {
-                    let div = `<div id="sliderContainer">
+                    </div>`;
+            }
+            if (widget === "range") {
+              let div = `<div id="sliderContainer">
                     <span>
                     <label for="amount">Degree:</label>
                     <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
                     </span>
                     <div id="slider-range"></div>
                     </div>`;
-                    $( function() {
-                        $( "#slider-range" ).slider({
-                          range: true,
-                          min: 0,
-                          max: 32,
-                          values: [ 0, 32 ],
-                          slide: function( event, ui ) {
-                            $( "#amount" ).val(  ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-                          }
-                        });
-                        $( "#amount" ).val( $( "#slider-range" ).slider( "values", 0 ) +
-                          " - " + $( "#slider-range" ).slider( "values", 1 ) );
-                      });
-                      return div;
-                }
+              $(function () {
+                $("#slider-range").slider({
+                  range: true,
+                  min: 0,
+                  max: 32,
+                  values: [0, 32],
+                  slide: function (event, ui) {
+                    $("#amount").val(ui.values[0] + " - " + ui.values[1]);
+                  },
+                });
+                $("#amount").val(
+                  $("#slider-range").slider("values", 0) +
+                    " - " +
+                    $("#slider-range").slider("values", 1)
+                );
+              });
+              return div;
             }
           }
-          else{
-              return ``;
-          }
+        } else {
+          return ``;
+        }
       }
+    } else {
+      return ``;
     }
-    else{
-        return ``;
-    }
-  }
+  };
 
   //Params: recommendation: Object that is returned by recommendation system.
   recPanelUI.renderRecommendation = function () {
@@ -168,12 +164,15 @@
     //Checking ancestor interaction
     let tasks = window.GLOBALDATA.tasks.selectedTasks;
     let isHighLightAncestor = false;
-    let query = window.GLOBALDATA.tasks.selectedQuery
-    for(val of tasks){
-        if(window.GLOBALDATA.taskPropertyMap[val][query]["interaction"].indexOf("highlight ancestors") !== -1)
-        {
-            isHighLightAncestor = true;
-        }
+    let query = window.GLOBALDATA.tasks.selectedQuery;
+    for (val of tasks) {
+      if (
+        window.GLOBALDATA.taskPropertyMap[val][query]["interaction"].indexOf(
+          "highlight ancestors"
+        ) !== -1
+      ) {
+        isHighLightAncestor = true;
+      }
     }
 
     //Adding a container for visualization
@@ -191,11 +190,11 @@
             .map((d) => d.data.name)
             .join(".")}`, // hover text
         width: 850,
-        value: defaultAttr? null: (d) => d[attr],
-        highlightAncestors: isHighLightAncestor
+        value: defaultAttr ? null : (d) => d[attr],
+        highlightAncestors: isHighLightAncestor,
       });
     }
-    if (recommendation === "layered") {
+    if (recommendation === "icicle") {
       chart = icicle.createIcicle(data, {
         label: (d) => d.name,
         title: (d, n) =>
@@ -204,25 +203,30 @@
             .reverse()
             .map((d) => d.data.name)
             .join(".")}`, // hover text
-        value: defaultAttr? null: (d) => d[attr],
+        value: defaultAttr ? null : (d) => d[attr],
         width: 1152,
         height: 1000,
       });
     }
-    if (recommendation === "enclosure") {
-      chart = treemap.createTreeamap(data, {
-        label: (d) => d.name,
-        group: (d) => d.name.split(".")[1], // e.g., "animate" in "flare.animate.Easing"; for color
-        title: (d, n) =>
-          `${n
-            .ancestors()
-            .reverse()
-            .map((d) => d.data.name)
-            .join(".")}`, // hover text
-        value: defaultAttr? null: (d) => d[attr],
+    if (recommendation === "treemap") {
+      chart = cascadingTreemap.createChart(data, {
         width: 1152,
         height: 1152,
+        value: defaultAttr ? null : (d) => d[attr],
       });
+      // chart = treemap.createTreemap(data, {
+      //   label: (d) => d.name,
+      //   group: (d) => d.name.split(".")[1], // e.g., "animate" in "flare.animate.Easing"; for color
+      //   title: (d, n) =>
+      //     `${n
+      //       .ancestors()
+      //       .reverse()
+      //       .map((d) => d.data.name)
+      //       .join(".")}`, // hover text
+      //   value: defaultAttr ? null : (d) => d[attr],
+      //   width: 1152,
+      //   height: 1152,
+      // });
     }
     if (recommendation === "indented") {
       chart = indentedList.createIndentedList(data, {});

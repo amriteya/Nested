@@ -1,6 +1,6 @@
 (function () {
   treemap = {};
-  treemap.createTreeamap = // Copyright 2021 Observable, Inc.
+  treemap.createTreemap = // Copyright 2021 Observable, Inc.
     // Released under the ISC license.
     // https://observablehq.com/@d3/treemap
     function (
