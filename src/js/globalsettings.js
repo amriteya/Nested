@@ -68,17 +68,17 @@ var GLOBALDATA = {
     tree: {
       nodelink: {
         fileName: "NL.png",
-        label: "Node-Link Diagram",
+        label: "Node-Link",
         relativePath: "treeimg/",
       },
-      layered: {
+      icicle: {
         fileName: "LD.png",
-        label: "Layered Diagram",
+        label: "Icicle Plot",
         relativePath: "treeimg/",
       },
-      enclosure: {
+      treemap: {
         fileName: "ED.png",
-        label: "Enclosure Diagram",
+        label: "Treemap",
         relativePath: "treeimg/",
       },
       indented: {
