@@ -31,9 +31,9 @@
         strokeLinecap, // stroke line cap for links
         halo = "#fff", // color of label halo
         haloWidth = 3, // padding around the labels
-        color = d3.interpolateRainbow, // color scheme, if any
-        value,
-        highlightAncestors = false,
+        color = null, // color scheme, if any
+        value,// 
+        highlightAncestors = false, //Test if a node has ancestors
       } = {}
     ) {
       // If id and parentId options are specified, or the path option, use d3.stratify
@@ -46,6 +46,10 @@
           : id != null || parentId != null
           ? d3.stratify().id(id).parentId(parentId)(data)
           : d3.hierarchy(data, children).eachBefore((d, i) => (d.index = i++));
+
+      //data
+      value == null ? root.count() : root.sum((d) => Math.max(0, value(d)));
+      console.log(root);
 
       // Sort the nodes.
       if (sort != null) root.sort(sort);
@@ -89,7 +93,6 @@
 
       const svgGroup = svg.append("g").attr("id", "svgVisGroup");
 
-      console.log(root.links());
 
       svgGroup
         .append("g")

@@ -190,7 +190,8 @@
             .reverse()
             .map((d) => d.data.name)
             .join(".")}`, // hover text
-        width: 1152,
+        width: 850,
+        value: defaultAttr? null: (d) => d[attr],
         highlightAncestors: isHighLightAncestor
       });
     }
