@@ -117,12 +117,12 @@
         })
         .attr("dy", "0.32em")
         .attr("font-size", "12px")
-        .attr("fill", (d) => {
-          console.log(d);
-          if (d.data.name === "DataList") {
-            return "#800000";
-          }
-        })
+        // .attr("fill", (d) => {
+        //   console.log(d);
+        //   if (d.data.name === "DataList") {
+        //     return "#800000";
+        //   }
+        // })
         .text((d) => label(d.data, d));
 
     if (title != null) cell.append("title").text((d) => title(d.data, d));

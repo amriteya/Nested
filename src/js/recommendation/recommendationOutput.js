@@ -49,7 +49,7 @@ recommendation.createRecommendation = function()
         },
         radialED: {
           fileName: "RED.png",
-          label: "Radial Enclosure Diagram",
+          label: "Nested Bubble Chart",
           relativePath: "treeimg/",
           score:0.4
         },
@@ -99,7 +99,7 @@ recommendation.createRecommendation = function()
       },
       radialED: {
         fileName: "RED.png",
-        label: "Radial Enclosure Diagram",
+        label: "Nested Bubble Chart",
         relativePath: "treeimg/",
         score:0.4
       },

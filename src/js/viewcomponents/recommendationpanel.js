@@ -252,6 +252,15 @@
         height: 1152,
       });
     }
+    if (recommendation === "radialED") {
+      chart = nestedBubble.createChart(data,{
+        value: defaultAttr ? null : (d) => d[attr],
+        label: (d, n) => [...d.name.split(/(?=[A-Z][a-z])/g), n.value.toLocaleString("en")].join("\n"),
+        title: (d, n) => `${n.ancestors().reverse().map(({data: d}) => d.name).join(".")}\n${n.value.toLocaleString("en")}`,
+        width: 1152,
+        height: 1152
+      })
+    }
     $("#visOutput").append(chart);
   };
 })();
