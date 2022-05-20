@@ -98,7 +98,7 @@ var GLOBALDATA = {
       },
       radialLD: {
         fileName: "RLD.png",
-        label: "Radial Layered Diagram",
+        label: "Sunburst Chart",
         relativePath: "treeimg/",
       },
       Dendro: {

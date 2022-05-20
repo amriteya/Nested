@@ -55,7 +55,7 @@ recommendation.createRecommendation = function()
         },
         radialLD: {
           fileName: "RLD.png",
-          label: "Radial Layered Diagram",
+          label: "Sunburst Chart",
           relativePath: "treeimg/",
           score:0.4
         },
@@ -105,7 +105,7 @@ recommendation.createRecommendation = function()
       },
       radialLD: {
         fileName: "RLD.png",
-        label: "Radial Layered Diagram",
+        label: "Sunburst Chart",
         relativePath: "treeimg/",
         score:0.4
       },

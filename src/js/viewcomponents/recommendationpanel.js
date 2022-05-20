@@ -238,6 +238,20 @@
         width: 1000,
         height: 1152      });
     }
+    if (recommendation === "radialLD") {
+      chart = sunburst.createChart(data,{
+        label: (d) => d.name,
+        title: (d, n) =>
+          `${n
+            .ancestors()
+            .reverse()
+            .map((d) => d.data.name)
+            .join(".")}`, // hover text
+        value: defaultAttr ? null : (d) => d[attr],
+        width: 1152,
+        height: 1152,
+      });
+    }
     $("#visOutput").append(chart);
   };
 })();
