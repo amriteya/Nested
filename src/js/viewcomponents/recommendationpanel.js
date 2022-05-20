@@ -231,6 +231,13 @@
     if (recommendation === "indented") {
       chart = indentedList.createIndentedList(data, {});
     }
+    if (recommendation === "radialNL") {
+      chart = radialNodeLink.createChart(data, {
+        label: d => d.name,
+        title: (d, n) => `${n.ancestors().reverse().map(d => d.data.name).join(".")}`, // hover text
+        width: 1000,
+        height: 1152      });
+    }
     $("#visOutput").append(chart);
   };
 })();

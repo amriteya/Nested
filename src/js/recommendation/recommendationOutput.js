@@ -43,7 +43,7 @@ recommendation.createRecommendation = function()
         },
         radialNL: {
           fileName: "RNL.png",
-          label: "Radial Node-Link Diagram",
+          label: "Radial Node-Link",
           relativePath: "treeimg/",
           score:0.4
         },
@@ -93,7 +93,7 @@ recommendation.createRecommendation = function()
       },
       radialNL: {
         fileName: "RNL.png",
-        label: "Radial Node-Link Diagram",
+        label: "Radial Node-Link",
         relativePath: "treeimg/",
         score:0.4
       },

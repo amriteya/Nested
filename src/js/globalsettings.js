@@ -88,7 +88,7 @@ var GLOBALDATA = {
       },
       radialNL: {
         fileName: "RNL.png",
-        label: "Radial Node-Link Diagram",
+        label: "Radial Node-Link",
         relativePath: "treeimg/",
       },
       radialED: {
