@@ -1,6 +1,6 @@
 (function () {
-  cascadingTreemap = {};
-  cascadingTreemap.createChart = function (
+  nestedTreemap = {};
+  nestedTreemap.createChart = function (
     data,
     {
       width = 640, // outer width, in pixels

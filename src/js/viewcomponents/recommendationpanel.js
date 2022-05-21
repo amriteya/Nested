@@ -209,7 +209,7 @@
       });
     }
     if (recommendation === "treemap") {
-      chart = cascadingTreemap.createChart(data, {
+      chart = nestedTreemap.createChart(data, {
         width: 1152,
         height: 1152,
         value: defaultAttr ? null : (d) => d[attr],
