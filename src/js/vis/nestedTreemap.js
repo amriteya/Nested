@@ -9,9 +9,7 @@
       colorScale = d3.interpolateGreys, // color scheme, if any
     } = {}
   ) {
-
-    let root =  d3
-    .hierarchy(data);
+    let root = d3.hierarchy(data);
     value == null ? root.count() : root.sum((d) => Math.max(0, value(d)));
 
     const hierarchy = d3
@@ -20,10 +18,7 @@
       .paddingOuter(3)
       .paddingTop(19)
       .paddingInner(1)
-      .round(true)(
-        root
-    );
-
+      .round(true)(root);
 
     const format = d3.format(",d");
     const color = d3.scaleSequential([0, 8], colorScale);
@@ -33,10 +28,19 @@
       .attr("viewBox", [0, 0, width, height])
       .style("font", "10px sans-serif");
 
+    svg
+      .append("filter")
+      .attr("id", "shadow")
+      .append("feDropShadow")
+      .attr("flood-opacity", 0.3)
+      .attr("dx", 0)
+      .attr("stdDeviation", 3);
+
     const node = svg
       .selectAll("g")
       .data(d3.group(hierarchy, (d) => d.height))
       .join("g")
+      // .attr("filter", shadow)
       .selectAll("g")
       .data((d) => d[1])
       .join("g")
@@ -51,18 +55,32 @@
           .join("/")}\n${format(d.value)}`
     );
 
+    const did = `O-${Math.random().toString(16).slice(2)}`;
+
     node
       .append("rect")
-      .attr("id", "placeHolderId")
+      .attr("id", (d, i) => `${did}-node-${i}`)
       .attr("fill", (d) => color(d.height))
       .attr("width", (d) => d.x1 - d.x0)
       .attr("height", (d) => d.y1 - d.y0);
 
-    node.append("clipPath").attr("id", "clipID");
+    // node.append("clipPath").attr("id", "clipID");
+
+    const uid = `O-${Math.random().toString(16).slice(2)}`;
+
+    node
+      .append("clipPath")
+      .attr("id", (d, i) => `${uid}-clip-${i}`)
+      .append("rect")
+      .attr("width", (d) => d.x1 - d.x0)
+      .attr("height", (d) => d.y1 - d.y0);
 
     node
       .append("text")
-      .attr("clip-path", (d) => d.clipUid)
+      .attr(
+        "clip-path",
+        (d, i) => `url(${new URL(`#${uid}-clip-${i}`, location)})`
+      )
       .selectAll("tspan")
       .data((d) => d.data.name.split(/(?=[A-Z][^A-Z])/g))
       .join("tspan")
