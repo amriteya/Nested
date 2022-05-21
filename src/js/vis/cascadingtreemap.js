@@ -6,6 +6,7 @@
       width = 640, // outer width, in pixels
       height = 400, // outer height, in pixels
       value, // given a node d, returns a quantitative value (for area encoding; null for count)
+      colorScale = d3.interpolateGreys, // color scheme, if any
     } = {}
   ) {
 
@@ -25,7 +26,7 @@
 
 
     const format = d3.format(",d");
-    const color = d3.scaleSequential([0, 8], d3.interpolateGreys);
+    const color = d3.scaleSequential([0, 8], colorScale);
 
     const svg = d3
       .create("svg")

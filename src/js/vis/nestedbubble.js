@@ -24,6 +24,7 @@
     stroke = "#bbb", // stroke for internal circles
     strokeWidth, // stroke width for internal circles
     strokeOpacity, // stroke opacity for internal circles
+    colorScale = d3.interpolateGreys, // color scheme, if any
   } = {}) {
   
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -52,6 +53,9 @@
         .size([width - marginLeft - marginRight, height - marginTop - marginBottom])
         .padding(padding)
       (root);
+
+    const color = d3.scaleSequential([0, 8], colorScale);
+
   
     const svg = d3.create("svg")
         .attr("viewBox", [-marginLeft, -marginTop, width, height])
@@ -70,7 +74,7 @@
         .attr("transform", d => `translate(${d.x},${d.y})`);
   
     node.append("circle")
-        .attr("fill", d => d.children ? "#fff" : fill)
+        .attr("fill", d => color(d.height))
         .attr("fill-opacity", d => d.children ? null : fillOpacity)
         .attr("stroke", d => d.children ? stroke : null)
         .attr("stroke-width", d => d.children ? strokeWidth : null)
@@ -100,6 +104,28 @@
           .attr("y", (d, i, D) => `${(i - D.length / 2) + 0.85}em`)
           .attr("fill-opacity", (d, i, D) => i === D.length - 1 ? 0.7 : null)
           .text(d => d);
+
+          const groupLabel = svg.append("g")
+          .attr("pointer-events", "none")
+          .attr("text-anchor", "middle")
+          .selectAll("text")
+          .data(root.descendants())
+          .join("text")
+          .attr("font-size","12px")
+                  .text(d => {
+                    return (d.height >0)  ? d.data.name : ''});
+      
+        
+        groupLabel
+          .attr("transform", d => `translate(${(d.x)}, ${(d.y - (d.r))})`)
+          .attr("dy", "-0.25em")
+          .attr("class", "repo-name")
+          // .attr("fill", "#fff")
+          .clone(true)
+                  .lower()
+                  .attr("aria-hidden", "true")
+                  .attr("fill", "black")
+                  .attr("font-size","12px")
     }
   
     return svg.node();
