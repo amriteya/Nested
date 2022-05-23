@@ -59,12 +59,12 @@ recommendation.createRecommendation = function()
           relativePath: "treeimg/",
           score:0.4
         },
-        Dendro: {
-          fileName: "dendro.png",
-          label: "Dendrogram",
-          relativePath: "treeimg/",
-          score:0.4
-        }
+        // Dendro: {
+        //   fileName: "dendro.png",
+        //   label: "Dendrogram",
+        //   relativePath: "treeimg/",
+        //   score:0.4
+        // }
     }
     let tempRec2 = {
       nodelink: {
@@ -109,12 +109,12 @@ recommendation.createRecommendation = function()
         relativePath: "treeimg/",
         score:0.4
       },
-      Dendro: {
-        fileName: "dendro.png",
-        label: "Dendrogram",
-        relativePath: "treeimg/",
-        score:0.4
-      }
+      // Dendro: {
+      //   fileName: "dendro.png",
+      //   label: "Dendrogram",
+      //   relativePath: "treeimg/",
+      //   score:0.4
+      // }
   }
     let isNodeValTaskSelected = window.GLOBALDATA.tasks.selectedTasks.indexOf("quantitative_value") !== -1 ? true:false;
     let isNodeAttribute = window.GLOBALDATA.data.nodeSizeMappingAttribute !== 'Degree' ? true:false;

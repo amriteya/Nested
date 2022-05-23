@@ -101,11 +101,11 @@ var GLOBALDATA = {
         label: "Sunburst Chart",
         relativePath: "treeimg/",
       },
-      Dendro: {
-        fileName: "dendro.png",
-        label: "Dendrogram",
-        relativePath: "treeimg/",
-      },
+      // Dendro: {
+      //   fileName: "dendro.png",
+      //   label: "Dendrogram",
+      //   relativePath: "treeimg/",
+      // },
     },
     task: {
       categorical_value: {

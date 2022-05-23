@@ -20,6 +20,7 @@
       .paddingInner(1)
       .round(true)(root);
 
+
     const format = d3.format(",d");
     const color = d3.scaleSequential([0, 8], colorScale);
 
