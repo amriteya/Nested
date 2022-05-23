@@ -191,7 +191,7 @@
             .join(".")}`, // hover text
         width: 850,
         value: defaultAttr ? null : (d) => d[attr],
-        highlightAncestors: isHighLightAncestor,
+        // highlightAncestors: isHighLightAncestor,
       });
     }
     if (recommendation === "icicle") {

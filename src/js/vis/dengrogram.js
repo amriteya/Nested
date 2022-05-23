@@ -33,7 +33,7 @@
         haloWidth = 3, // padding around the labels
         color = null, // color scheme, if any
         value,// 
-        highlightAncestors = false, //Test if a node has ancestors
+        highlightAncestors = true, //Test if a node has ancestors
       } = {}
     ) {
       // If id and parentId options are specified, or the path option, use d3.stratify

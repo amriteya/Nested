@@ -57,7 +57,7 @@ indentedList.createIndentedList = function (data,{
     node.append("title")
         .text(d => d.ancestors().reverse().map(d => d.data.name).join("/"));
   
-        // let columns = [
+    //     let columns = [
     //     {
     //       label: "Count", 
     //       value: d => d.children ? 0 : 1, 

@@ -131,7 +131,4 @@ recommendation.createRecommendation = function()
     let recommendationFinal = new Recommendation(visOrder,[],[])
     renderingControl.visUpdate(recommendationFinal);
 }
-
-
-
 }())
