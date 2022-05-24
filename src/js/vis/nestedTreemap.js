@@ -7,9 +7,11 @@
       height = 400, // outer height, in pixels
       value, // given a node d, returns a quantitative value (for area encoding; null for count)
       colorScale = d3.interpolateGreys, // color scheme, if any
+      children,
+      highlightAncestors = true,
     } = {}
   ) {
-    let root = d3.hierarchy(data);
+    let root = d3.hierarchy(data, children).eachBefore((d, i) => (d.index = i++));
     value == null ? root.count() : root.sum((d) => Math.max(0, value(d)));
 
     const hierarchy = d3
@@ -45,7 +47,30 @@
       .selectAll("g")
       .data((d) => d[1])
       .join("g")
-      .attr("transform", (d) => `translate(${d.x0},${d.y0})`);
+      .attr("transform", (d) => `translate(${d.x0},${d.y0})`)
+      .attr("class","node")
+      .attr("id", (d) => `node_${d.index}_${d.depth}`)
+      .on("mouseover", (e, d) => {
+        //nestedTreemap.highlightNode(`node_${d.index}_${d.depth}`, "select");
+        if (highlightAncestors) {
+          let ancestors = d.ancestors();
+          nestedTreemap.highlightAncestors(
+            `node_${d.index}_${d.depth}`,
+            ancestors,
+            "select"
+          );
+        }
+      })
+      .on("mouseout", function (e, d) {
+        //nestedTreemap.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
+        if (highlightAncestors) {
+          nestedTreemap.highlightAncestors(
+            `node_${d.index}_${d.depth}`,
+            [],
+            "deselect"
+          );
+        }
+      });;
 
     node.append("title").text(
       (d) =>
@@ -107,5 +132,39 @@
       );
 
     return svg.node();
+  };
+
+  nestedTreemap.highlightNode = function(id, event)
+  {
+    if (event === "select") {
+      d3.selectAll(".node").style("opacity", "0.2");
+      d3.selectAll(".link").style("opacity", "0.2");
+      d3.selectAll("#" + id).style("opacity", "1");
+      // var top = $("#" + id).position().top - 400;
+      // console.log(top);
+      // $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
+    } else {
+      d3.selectAll(".node").style("opacity", "1");
+      d3.selectAll(".link").style("opacity", "1");
+    }
+  }
+  nestedTreemap.highlightAncestors = function (id, ancestors, event) {
+    if (event === "select") {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "0.05");
+      // d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
+
+      d3.select("#" + id)
+        .transition()
+        .duration("100")
+        .style("opacity", "1");
+      ancestors.forEach((val) => {
+        d3.select(`#node_${val.index}_${val.depth}`)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      });
+    } else {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+    }
   };
 })();
