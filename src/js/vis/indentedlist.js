@@ -14,6 +14,7 @@ indentedList.createIndentedList = function (data,{
     fill = "none", // fill for nodes
     fillOpacity, // fill opacity for nodes
     stroke = "#555", // stroke for links
+    highlightAncestors = true
 }){
     
     root = d3.hierarchy(data).eachBefore((d,i) => d.index = i++);
@@ -32,6 +33,10 @@ indentedList.createIndentedList = function (data,{
       .selectAll("path")
       .data(root.links())
       .join("path")
+      .attr("class","link")
+      .attr("id", (d) => {
+            return `node_${d.source.index}-node_${d.target.index}`;
+        })
         .attr("d", d => `
           M${d.source.depth * nodeSize},${d.source.index * nodeSize}
           V${d.target.index * nodeSize}
@@ -47,12 +52,37 @@ indentedList.createIndentedList = function (data,{
     node.append("circle")
         .attr("cx", d => d.depth * nodeSize)
         .attr("r", 2.5)
-        .attr("fill", d => d.children ? null : "#999");
+        .attr("fill", d => d.children ? null : "#999")
+        .attr("id", (d) => "node_" + d.index)
+        .attr("class", "node");
   
     node.append("text")
         .attr("dy", "0.32em")
         .attr("x", d => d.depth * nodeSize + 6)
-        .text(d => d.data.name);
+        .attr("id", (d) => "node_" + d.index)
+        .attr("class", "node")
+        .text(d => d.data.name)
+        .on("mouseover", (e, d) => {
+            //indentedList.highlightNode("node_"+d.index, "select");
+            if (highlightAncestors) {
+              let ancestors = d.ancestors();
+              indentedList.highlightAncestors(
+                "node_" + d.index,
+                ancestors,
+                "select"
+              );
+            }
+          })
+          .on("mouseout", function (e, d) {
+            //indentedList.highlightNode("node_"+d.index, "deselect");
+            if (highlightAncestors) {
+                indentedList.highlightAncestors(
+                "node_" + d.index,
+                [],
+                "deselect"
+              );
+            }
+          });
   
     node.append("title")
         .text(d => d.ancestors().reverse().map(d => d.data.name).join("/"));
@@ -85,5 +115,48 @@ indentedList.createIndentedList = function (data,{
   
     return svg.node();
 }
+
+indentedList.highlightNode = function(id, event)
+{
+  if (event === "select") {
+    d3.selectAll(".node").style("opacity", "0.2");
+    d3.selectAll(".link").style("opacity", "0.2");
+    d3.selectAll("#" + id).style("opacity", "1");
+    // var top = $("#" + id).position().top - 400;
+    // console.log(top);
+    // $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
+  } else {
+    d3.selectAll(".node").style("opacity", "1");
+    d3.selectAll(".link").style("opacity", "1");
+  }
+}
+
+indentedList.highlightAncestors = function (id, ancestors, event) {
+    if (event === "select") {
+      d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
+      d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
+      d3.select("#" + id)
+        .transition()
+        .duration("100")
+        .style("opacity", "1");
+      ancestors.forEach((val) => {
+        d3.selectAll("#node_" + val.index)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      });
+      for (var i = 0; i < ancestors.length - 1; i++) {
+        d3.selectAll(
+          `#node_${ancestors[i + 1].index}-node_${ancestors[i].index}`
+        )
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      }
+    } else {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+      d3.selectAll(".link").transition().duration("50").style("opacity", "1");
+    }
+  };
 
 }());
