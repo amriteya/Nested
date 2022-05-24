@@ -70,7 +70,7 @@
             "deselect"
           );
         }
-      });;
+      });
 
     node.append("title").text(
       (d) =>

@@ -25,6 +25,7 @@
     strokeWidth, // stroke width for internal circles
     strokeOpacity, // stroke opacity for internal circles
     colorScale = d3.interpolateGreys, // color scheme, if any
+    highlightAncestors = true,
   } = {}) {
   
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -33,7 +34,7 @@
     // format), and use d3.hierarchy.
     const root = path != null ? d3.stratify().path(path)(data)
         : id != null || parentId != null ? d3.stratify().id(id).parentId(parentId)(data)
-        : d3.hierarchy(data, children);
+        : d3.hierarchy(data, children).eachBefore((d, i) => (d.index = i++));;
   
     // Compute the values of internal nodes by aggregating from the leaves.
     value == null ? root.count() : root.sum(d => Math.max(0, value(d)));
@@ -71,7 +72,30 @@
       .join("a")
         .attr("xlink:href", link == null ? null : (d, i) => link(d.data, d))
         .attr("target", link == null ? null : linkTarget)
-        .attr("transform", d => `translate(${d.x},${d.y})`);
+        .attr("transform", d => `translate(${d.x},${d.y})`)
+        .attr("class","node")
+        .attr("id", (d) => `node_${d.index}_${d.depth}`)
+        .on("mouseover", (e, d) => {
+          //nestedTreemap.highlightNode(`node_${d.index}_${d.depth}`, "select");
+          if (highlightAncestors) {
+            let ancestors = d.ancestors();
+            nestedBubble.highlightAncestors(
+              `node_${d.index}_${d.depth}`,
+              ancestors,
+              "select"
+            );
+          }
+        })
+        .on("mouseout", function (e, d) {
+          //nestedTreemap.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
+          if (highlightAncestors) {
+            nestedBubble.highlightAncestors(
+              `node_${d.index}_${d.depth}`,
+              [],
+              "deselect"
+            );
+          }
+        });
   
     node.append("circle")
         .attr("fill", d => color(d.height))
@@ -112,6 +136,7 @@
           .data(root.descendants())
           .join("text")
           .attr("font-size","12px")
+          .attr("id", (d) => `node_${d.index}_${d.depth}`)
                   .text(d => {
                     return (d.height >0)  ? d.data.name : ''});
       
@@ -127,7 +152,39 @@
                   .attr("fill", "black")
                   .attr("font-size","12px")
     }
-  
     return svg.node();
   }
+  nestedBubble.highlightNode = function(id, event)
+  {
+    if (event === "select") {
+      d3.selectAll(".node").style("opacity", "0.2");
+      d3.selectAll(".link").style("opacity", "0.2");
+      d3.selectAll("#" + id).style("opacity", "1");
+      // var top = $("#" + id).position().top - 400;
+      // console.log(top);
+      // $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
+    } else {
+      d3.selectAll(".node").style("opacity", "1");
+      d3.selectAll(".link").style("opacity", "1");
+    }
+  }
+  nestedBubble.highlightAncestors = function (id, ancestors, event) {
+    if (event === "select") {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "0.1");
+      // d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
+
+      d3.select("#" + id)
+        .transition()
+        .duration("100")
+        .style("opacity", "1");
+      ancestors.forEach((val) => {
+        d3.select(`#node_${val.index}_${val.depth}`)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      });
+    } else {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+    }
+  };
 })();
