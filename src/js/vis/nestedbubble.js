@@ -76,7 +76,7 @@
         .attr("class","node")
         .attr("id", (d) => `node_${d.index}_${d.depth}`)
         .on("mouseover", (e, d) => {
-          //nestedTreemap.highlightNode(`node_${d.index}_${d.depth}`, "select");
+          //nestedBubble.highlightNode(`node_${d.index}_${d.depth}`, "select");
           if (highlightAncestors) {
             let ancestors = d.ancestors();
             nestedBubble.highlightAncestors(
@@ -87,7 +87,7 @@
           }
         })
         .on("mouseout", function (e, d) {
-          //nestedTreemap.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
+          //nestedBubble.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
           if (highlightAncestors) {
             nestedBubble.highlightAncestors(
               `node_${d.index}_${d.depth}`,
@@ -98,9 +98,11 @@
         });
   
     node.append("circle")
-        .attr("fill", d => color(d.height))
+        //.attr("fill", d => color(d.height))
+        .attr("fill", "white")
         .attr("fill-opacity", d => d.children ? null : fillOpacity)
-        .attr("stroke", d => d.children ? stroke : null)
+        // .attr("stroke", d => d.children ? stroke : null)
+        .attr("stroke", d => stroke)
         .attr("stroke-width", d => d.children ? strokeWidth : null)
         .attr("stroke-opacity", d => d.children ? strokeOpacity : null)
         .attr("r", d => d.r);
@@ -136,16 +138,15 @@
           .data(root.descendants())
           .join("text")
           .attr("font-size","12px")
+          .attr("class","node")
           .attr("id", (d) => `node_${d.index}_${d.depth}`)
-                  .text(d => {
+          .text(d => {
                     return (d.height >0)  ? d.data.name : ''});
       
         
         groupLabel
           .attr("transform", d => `translate(${(d.x)}, ${(d.y - (d.r))})`)
           .attr("dy", "-0.25em")
-          .attr("class", "repo-name")
-          // .attr("fill", "#fff")
           .clone(true)
                   .lower()
                   .attr("aria-hidden", "true")
@@ -173,12 +174,12 @@
       d3.selectAll(".node").transition().duration("50").style("opacity", "0.1");
       // d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
 
-      d3.select("#" + id)
+      d3.selectAll("#" + id)
         .transition()
         .duration("100")
         .style("opacity", "1");
       ancestors.forEach((val) => {
-        d3.select(`#node_${val.index}_${val.depth}`)
+        d3.selectAll(`#node_${val.index}_${val.depth}`)
           .transition()
           .duration("100")
           .style("opacity", "1");
