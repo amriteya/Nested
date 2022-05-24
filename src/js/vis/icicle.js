@@ -31,6 +31,7 @@
       color = d3.interpolateRainbow, // color scheme, if any
       fill = "#ccc", // fill for node rects (if no color encoding)
       fillOpacity = 0.6, // fill opacity for node rects
+      highlightAncestors = true,
     } = {}
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -42,7 +43,7 @@
         ? d3.stratify().path(path)(data)
         : id != null || parentId != null
         ? d3.stratify().id(id).parentId(parentId)(data)
-        : d3.hierarchy(data, children);
+        : d3.hierarchy(data, children).eachBefore((d, i) => (d.index = i++));
 
     // Compute the values of internal nodes by aggregating from the leaves.
     value == null ? root.count() : root.sum((d) => Math.max(0, value(d)));
@@ -87,10 +88,31 @@
       .data(root.descendants())
       .join("a")
       .attr("class","node")
-      .attr("id", (d) => d.data.name)
+      .attr("id", (d) => `node_${d.index}_${d.depth}`)
       .attr("xlink:href", link == null ? null : (d) => link(d.data, d))
       .attr("target", link == null ? null : linkTarget)
-      .attr("transform", (d) => `translate(${d.y0},${d.x0})`);
+      .attr("transform", (d) => `translate(${d.y0},${d.x0})`)
+      .on("mouseover", (e, d) => {
+        icicle.highlightNode(`node_${d.index}_${d.depth}`, "select");
+        // if (highlightAncestors) {
+        //   let ancestors = d.ancestors();
+        //   dendrogram.highlightAncestors(
+        //     "node_" + d.index,
+        //     ancestors,
+        //     "select"
+        //   );
+        // }
+      })
+      .on("mouseout", function (e, d) {
+        icicle.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
+        // if (highlightAncestors) {
+        //   dendrogram.highlightAncestors(
+        //     "node_" + d.index,
+        //     [],
+        //     "deselect"
+        //   );
+        // }
+      });
 
     cell
       .append("rect")
@@ -122,4 +144,19 @@
 
     return svg.node();
   };
+
+  icicle.highlightNode = function(id, event)
+  {
+    if (event === "select") {
+      d3.selectAll(".node").style("opacity", "0.2");
+      d3.selectAll(".link").style("opacity", "0.2");
+      d3.selectAll("#" + id).style("opacity", "1");
+      // var top = $("#" + id).position().top - 400;
+      // console.log(top);
+      // $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
+    } else {
+      d3.selectAll(".node").style("opacity", "1");
+      d3.selectAll(".link").style("opacity", "1");
+    }
+  }
 })();
