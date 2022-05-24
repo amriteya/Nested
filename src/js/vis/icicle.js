@@ -93,25 +93,25 @@
       .attr("target", link == null ? null : linkTarget)
       .attr("transform", (d) => `translate(${d.y0},${d.x0})`)
       .on("mouseover", (e, d) => {
-        icicle.highlightNode(`node_${d.index}_${d.depth}`, "select");
-        // if (highlightAncestors) {
-        //   let ancestors = d.ancestors();
-        //   dendrogram.highlightAncestors(
-        //     "node_" + d.index,
-        //     ancestors,
-        //     "select"
-        //   );
-        // }
+        //icicle.highlightNode(`node_${d.index}_${d.depth}`, "select");
+        if (highlightAncestors) {
+          let ancestors = d.ancestors();
+          icicle.highlightAncestors(
+            `node_${d.index}_${d.depth}`,
+            ancestors,
+            "select"
+          );
+        }
       })
       .on("mouseout", function (e, d) {
-        icicle.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
-        // if (highlightAncestors) {
-        //   dendrogram.highlightAncestors(
-        //     "node_" + d.index,
-        //     [],
-        //     "deselect"
-        //   );
-        // }
+        //icicle.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
+        if (highlightAncestors) {
+          icicle.highlightAncestors(
+            `node_${d.index}_${d.depth}`,
+            [],
+            "deselect"
+          );
+        }
       });
 
     cell
@@ -159,4 +159,23 @@
       d3.selectAll(".link").style("opacity", "1");
     }
   }
+  icicle.highlightAncestors = function (id, ancestors, event) {
+    if (event === "select") {
+      d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
+      d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
+
+      d3.select("#" + id)
+        .transition()
+        .duration("100")
+        .style("opacity", "1");
+      ancestors.forEach((val) => {
+        d3.select(`#node_${val.index}_${val.depth}`)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      });
+    } else {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+    }
+  };
 })();
