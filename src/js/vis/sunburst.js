@@ -29,6 +29,7 @@
       color = d3.interpolateRainbow, // color scheme, if any
       fill = "#ccc", // fill for arcs (if no color encoding)
       fillOpacity = 0.6, // fill opacity for arcs
+      highlightAncestors = true,
     } = {}
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -40,7 +41,7 @@
         ? d3.stratify().path(path)(data)
         : id != null || parentId != null
         ? d3.stratify().id(id).parentId(parentId)(data)
-        : d3.hierarchy(data, children);
+        : d3.hierarchy(data, children).eachBefore((d, i) => (d.index = i++));
 
     // Compute the values of internal nodes by aggregating from the leaves.
     value == null ? root.count() : root.sum((d) => Math.max(0, value(d)));
@@ -89,7 +90,30 @@
       .data(root.descendants())
       .join("a")
       .attr("xlink:href", link == null ? null : (d) => link(d.data, d))
-      .attr("target", link == null ? null : linkTarget);
+      .attr("target", link == null ? null : linkTarget)
+      .attr("class","node")
+      .attr("id", (d) => `node_${d.index}_${d.depth}`)
+      .on("mouseover", (e, d) => {
+        sunburst.highlightNode(`node_${d.index}_${d.depth}`, "select");
+        // if (highlightAncestors) {
+        //   let ancestors = d.ancestors();
+        //   sunburst.highlightAncestors(
+        //     `node_${d.index}_${d.depth}`,
+        //     ancestors,
+        //     "select"
+        //   );
+        // }
+      })
+      .on("mouseout", function (e, d) {
+        sunburst.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
+        // if (highlightAncestors) {
+        //   sunburst.highlightAncestors(
+        //     `node_${d.index}_${d.depth}`,
+        //     [],
+        //     "deselect"
+        //   );
+        // }
+      });
 
     cell
       .append("path")
@@ -129,4 +153,40 @@
 
     return svg.node();
   };
+
+  sunburst.highlightNode = function(id, event)
+  {
+    if (event === "select") {
+      d3.selectAll(".node").style("opacity", "0.2");
+      d3.selectAll(".link").style("opacity", "0.2");
+      d3.selectAll("#" + id).style("opacity", "1");
+      // var top = $("#" + id).position().top - 400;
+      // console.log(top);
+      // $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
+    } else {
+      d3.selectAll(".node").style("opacity", "1");
+      d3.selectAll(".link").style("opacity", "1");
+    }
+  }
+
+  sunburst.highlightAncestors = function (id, ancestors, event) {
+    if (event === "select") {
+      d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
+      d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
+
+      d3.select("#" + id)
+        .transition()
+        .duration("100")
+        .style("opacity", "1");
+      ancestors.forEach((val) => {
+        d3.select(`#node_${val.index}_${val.depth}`)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      });
+    } else {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+    }
+  };
 })();
+  
