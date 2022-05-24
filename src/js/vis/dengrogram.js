@@ -107,7 +107,7 @@
         .join("path")
         .attr("class", "link")
         .attr("id", (d) => {
-          return `id${d.source.depth}_${d.source.index}_${d.target.depth}_${d.target.index}`;
+          return `node_${d.source.index}-node_${d.target.index}`;
         })
         .attr(
           "d",
@@ -124,27 +124,31 @@
         .selectAll("a")
         .data(root.descendants())
         .join("a")
-        .attr("id", (d) => "id" + d.depth + "_" + d.index)
+        .attr("id", (d) => "node_" + d.index)
         .attr("class", "node")
         .attr("xlink:href", link == null ? null : (d) => link(d.data, d))
         .attr("target", link == null ? null : linkTarget)
         .attr("transform", (d) => `translate(${d.y},${d.x})`)
         .on("mouseover", (e, d) => {
+          //dendrogram.highlightNode("node_"+d.index, "select");
+
           if (highlightAncestors) {
             let ancestors = d.ancestors();
             dendrogram.highlightAncestors(
-              "id" + d.depth + "_" + d.index,
+              "node_" + d.index,
               ancestors,
-              "mouseover"
+              "select"
             );
           }
         })
         .on("mouseout", function (e, d) {
+          //dendrogram.highlightNode("node_"+d.index, "deselect");
+
           if (highlightAncestors) {
             dendrogram.highlightAncestors(
-              "id" + d.depth + "_" + d.index,
+              "node_" + d.index,
               [],
-              "mouseout"
+              "deselect"
             );
           }
         });
@@ -187,8 +191,23 @@
     }
   };
 
+  dendrogram.highlightNode = function(id, event)
+  {
+    if (event === "select") {
+      d3.selectAll(".node").style("opacity", "0.2");
+      d3.selectAll(".link").style("opacity", "0.2");
+      d3.selectAll("#" + id).style("opacity", "1");
+      // var top = $("#" + id).position().top - 400;
+      // console.log(top);
+      // $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
+    } else {
+      d3.selectAll(".node").style("opacity", "1");
+      d3.selectAll(".link").style("opacity", "1");
+    }
+  }
+
   dendrogram.highlightAncestors = function (id, ancestors, event) {
-    if (event === "mouseover") {
+    if (event === "select") {
       d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
       d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
 
@@ -197,16 +216,14 @@
         .duration("100")
         .style("opacity", "1");
       ancestors.forEach((val) => {
-        d3.select("#" + "id" + val.depth + "_" + val.index)
+        d3.select("#node_" + val.index)
           .transition()
           .duration("100")
           .style("opacity", "1");
       });
       for (var i = 0; i < ancestors.length - 1; i++) {
         d3.select(
-          `#id${ancestors[i + 1].depth}_${ancestors[i + 1].index}_${
-            ancestors[i].depth
-          }_${ancestors[i].index}`
+          `#node_${ancestors[i + 1].index}-node_${ancestors[i].index}`
         )
           .transition()
           .duration("100")
