@@ -34,7 +34,6 @@
 
   interaction.highlightDescendantsWithLinks = function (descendants, event) {
     if (event === "select") {
-      console.log(descendants);
       d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
       d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
 
