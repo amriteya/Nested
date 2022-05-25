@@ -65,12 +65,28 @@
   };
 
   //Siblings
-  interaction.highlightSiblings = function (siblings, event) {
+  interaction.highlightSiblingsWithLinks = function (siblings, event) {
     if (event === "select") {
       d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
       d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
       siblings.forEach((val) => {
         d3.selectAll("#node_" + val.index)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      });
+    } else {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+      d3.selectAll(".link").transition().duration("50").style("opacity", "1");
+    }
+  };
+  //Siblings 
+  interaction.highlightSiblingsWithNoLinks = function (siblings, event) {
+    if (event === "select") {
+      d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
+      d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
+      siblings.forEach((val) => {
+        d3.select(`#node_${val.index}_${val.depth}`)
           .transition()
           .duration("100")
           .style("opacity", "1");
