@@ -32,10 +32,9 @@
         halo = "#fff", // color of label halo
         haloWidth = 3, // padding around the labels
         color = null, // color scheme, if any
-        value,// 
+        value, //
         highlightAncestors = true, //Test if a node has ancestors
         highlightDescendants = true, //Test if a node has ancestors
-
       } = {}
     ) {
       // If id and parentId options are specified, or the path option, use d3.stratify
@@ -95,7 +94,6 @@
 
       const svgGroup = svg.append("g").attr("id", "svgVisGroup");
 
-
       svgGroup
         .append("g")
         .attr("fill", "none")
@@ -142,10 +140,9 @@
           //     "select"
           //   );
           // }
-          if(highlightDescendants)
-          {
+          if (highlightDescendants) {
             let descendants = d.descendants();
-            dendrogram.highlightDescendants(descendants,"select");
+            dendrogram.highlightDescendants(descendants, "select");
           }
         })
         .on("mouseout", function (e, d) {
@@ -159,10 +156,9 @@
           //   );
           // }
 
-          if(highlightDescendants)
-          {
+          if (highlightDescendants) {
             let descendants = d.descendants();
-            dendrogram.highlightDescendants(descendants,"deselect");
+            dendrogram.highlightDescendants(descendants, "deselect");
           }
         });
 
@@ -204,8 +200,7 @@
     }
   };
 
-  dendrogram.highlightNode = function(id, event)
-  {
+  dendrogram.highlightNode = function (id, event) {
     if (event === "select") {
       d3.selectAll(".node").style("opacity", "0.2");
       d3.selectAll(".link").style("opacity", "0.2");
@@ -217,7 +212,7 @@
       d3.selectAll(".node").style("opacity", "1");
       d3.selectAll(".link").style("opacity", "1");
     }
-  }
+  };
 
   dendrogram.highlightAncestors = function (id, ancestors, event) {
     if (event === "select") {
@@ -235,9 +230,7 @@
           .style("opacity", "1");
       });
       for (var i = 0; i < ancestors.length - 1; i++) {
-        d3.select(
-          `#node_${ancestors[i + 1].index}-node_${ancestors[i].index}`
-        )
+        d3.select(`#node_${ancestors[i + 1].index}-node_${ancestors[i].index}`)
           .transition()
           .duration("100")
           .style("opacity", "1");
@@ -263,12 +256,11 @@
           .duration("100")
           .style("opacity", "1");
       });
-      for (var i = 0; i < descendants.length - 1; i++){
-        for(var j = 1; j< descendants.length; j++)
-        {
+      for (var i = 0; i < descendants.length - 1; i++) {
+        for (var j = 1; j < descendants.length; j++) {
           d3.select(
             `#node_${descendants[i].index}-node_${descendants[j].index}`
-             )
+          )
             .transition()
             .duration("100")
             .style("opacity", "1");

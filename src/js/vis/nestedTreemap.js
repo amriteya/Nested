@@ -9,9 +9,12 @@
       colorScale = d3.interpolateGreys, // color scheme, if any
       children,
       highlightAncestors = true,
+      highlightDescendants = true, //Test if a node has ancestors
     } = {}
   ) {
-    let root = d3.hierarchy(data, children).eachBefore((d, i) => (d.index = i++));
+    let root = d3
+      .hierarchy(data, children)
+      .eachBefore((d, i) => (d.index = i++));
     value == null ? root.count() : root.sum((d) => Math.max(0, value(d)));
 
     const hierarchy = d3
@@ -21,7 +24,6 @@
       .paddingTop(19)
       .paddingInner(1)
       .round(true)(root);
-
 
     const format = d3.format(",d");
     const color = d3.scaleSequential([0, 8], colorScale);
@@ -48,27 +50,37 @@
       .data((d) => d[1])
       .join("g")
       .attr("transform", (d) => `translate(${d.x0},${d.y0})`)
-      .attr("class","node")
+      .attr("class", "node")
       .attr("id", (d) => `node_${d.index}_${d.depth}`)
       .on("mouseover", (e, d) => {
         //nestedTreemap.highlightNode(`node_${d.index}_${d.depth}`, "select");
-        if (highlightAncestors) {
-          let ancestors = d.ancestors();
-          nestedTreemap.highlightAncestors(
-            `node_${d.index}_${d.depth}`,
-            ancestors,
-            "select"
-          );
+        // if (highlightAncestors) {
+        //   let ancestors = d.ancestors();
+        //   nestedTreemap.highlightAncestors(
+        //     `node_${d.index}_${d.depth}`,
+        //     ancestors,
+        //     "select"
+        //   );
+        // }
+        //Highlight descendants
+        if (highlightDescendants) {
+          let descendants = d.descendants();
+          interaction.highlightDescendantsNoLink(descendants, "select");
         }
       })
       .on("mouseout", function (e, d) {
         //nestedTreemap.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
-        if (highlightAncestors) {
-          nestedTreemap.highlightAncestors(
-            `node_${d.index}_${d.depth}`,
-            [],
-            "deselect"
-          );
+        // if (highlightAncestors) {
+        //   nestedTreemap.highlightAncestors(
+        //     `node_${d.index}_${d.depth}`,
+        //     [],
+        //     "deselect"
+        //   );
+        // }
+
+        //UnHighlight Descendants
+        if (highlightDescendants) {
+          interaction.highlightDescendantsNoLink([], "deselect");
         }
       });
 
@@ -134,8 +146,7 @@
     return svg.node();
   };
 
-  nestedTreemap.highlightNode = function(id, event)
-  {
+  nestedTreemap.highlightNode = function (id, event) {
     if (event === "select") {
       d3.selectAll(".node").style("opacity", "0.2");
       d3.selectAll(".link").style("opacity", "0.2");
@@ -147,10 +158,13 @@
       d3.selectAll(".node").style("opacity", "1");
       d3.selectAll(".link").style("opacity", "1");
     }
-  }
+  };
   nestedTreemap.highlightAncestors = function (id, ancestors, event) {
     if (event === "select") {
-      d3.selectAll(".node").transition().duration("50").style("opacity", "0.05");
+      d3.selectAll(".node")
+        .transition()
+        .duration("50")
+        .style("opacity", "0.05");
       // d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
 
       d3.select("#" + id)

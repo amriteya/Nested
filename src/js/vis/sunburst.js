@@ -92,7 +92,7 @@
       .join("a")
       .attr("xlink:href", link == null ? null : (d) => link(d.data, d))
       .attr("target", link == null ? null : linkTarget)
-      .attr("class","node")
+      .attr("class", "node")
       .attr("id", (d) => `node_${d.index}_${d.depth}`)
       .on("mouseover", (e, d) => {
         //sunburst.highlightNode(`node_${d.index}_${d.depth}`, "select");
@@ -104,10 +104,9 @@
         //     "select"
         //   );
         // }
-        if(highlightDescendants)
-        {
+        if (highlightDescendants) {
           let descendants = d.descendants();
-          interaction.highlightDescendantsLayered(descendants,"select")
+          interaction.highlightDescendantsNoLink(descendants, "select");
         }
       })
       .on("mouseout", function (e, d) {
@@ -119,9 +118,8 @@
         //     "deselect"
         //   );
         // }
-        if(highlightDescendants)
-        {
-          interaction.highlightDescendantsLayered([],"deselect")
+        if (highlightDescendants) {
+          interaction.highlightDescendantsNoLink([], "deselect");
         }
       });
 
@@ -164,8 +162,7 @@
     return svg.node();
   };
 
-  sunburst.highlightNode = function(id, event)
-  {
+  sunburst.highlightNode = function (id, event) {
     if (event === "select") {
       d3.selectAll(".node").style("opacity", "0.2");
       d3.selectAll(".link").style("opacity", "0.2");
@@ -177,7 +174,7 @@
       d3.selectAll(".node").style("opacity", "1");
       d3.selectAll(".link").style("opacity", "1");
     }
-  }
+  };
 
   sunburst.highlightAncestors = function (id, ancestors, event) {
     if (event === "select") {
@@ -199,4 +196,3 @@
     }
   };
 })();
-  

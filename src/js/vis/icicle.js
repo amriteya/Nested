@@ -33,7 +33,6 @@
       fillOpacity = 0.6, // fill opacity for node rects
       highlightAncestors = true,
       highlightDescendants = true, //Test if a node has ancestors
-
     } = {}
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -89,7 +88,7 @@
       .selectAll("a")
       .data(root.descendants())
       .join("a")
-      .attr("class","node")
+      .attr("class", "node")
       .attr("id", (d) => `node_${d.index}_${d.depth}`)
       .attr("xlink:href", link == null ? null : (d) => link(d.data, d))
       .attr("target", link == null ? null : linkTarget)
@@ -105,12 +104,11 @@
         //     "select"
         //   );
         // }
-        
+
         //Highlight descendants
-        if(highlightDescendants)
-        {
+        if (highlightDescendants) {
           let descendants = d.descendants();
-          interaction.highlightDescendantsLayered(descendants,"select");
+          interaction.highlightDescendantsNoLink(descendants, "select");
         }
       })
       .on("mouseout", function (e, d) {
@@ -125,9 +123,8 @@
         // }
 
         //UnHighlight Descendants
-        if(highlightDescendants)
-        {
-          interaction.highlightDescendantsLayered([],"deselect");
+        if (highlightDescendants) {
+          interaction.highlightDescendantsNoLink([], "deselect");
         }
       });
 
@@ -162,8 +159,7 @@
     return svg.node();
   };
 
-  icicle.highlightNode = function(id, event)
-  {
+  icicle.highlightNode = function (id, event) {
     if (event === "select") {
       d3.selectAll(".node").style("opacity", "0.2");
       d3.selectAll(".link").style("opacity", "0.2");
@@ -175,7 +171,7 @@
       d3.selectAll(".node").style("opacity", "1");
       d3.selectAll(".link").style("opacity", "1");
     }
-  }
+  };
   icicle.highlightAncestors = function (id, ancestors, event) {
     if (event === "select") {
       d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
