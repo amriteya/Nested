@@ -14,7 +14,8 @@ indentedList.createIndentedList = function (data,{
     fill = "none", // fill for nodes
     fillOpacity, // fill opacity for nodes
     stroke = "#555", // stroke for links
-    highlightAncestors = true
+    highlightAncestors = true,
+    highlightDescendants = true, //Test if a node has ancestors
 }){
     
     root = d3.hierarchy(data).eachBefore((d,i) => d.index = i++);
@@ -64,24 +65,31 @@ indentedList.createIndentedList = function (data,{
         .text(d => d.data.name)
         .on("mouseover", (e, d) => {
             //indentedList.highlightNode("node_"+d.index, "select");
-            if (highlightAncestors) {
-              let ancestors = d.ancestors();
-              indentedList.highlightAncestors(
-                "node_" + d.index,
-                ancestors,
-                "select"
-              );
-            }
+            // if (highlightAncestors) {
+            //   let ancestors = d.ancestors();
+            //   indentedList.highlightAncestors(
+            //     "node_" + d.index,
+            //     ancestors,
+            //     "select"
+            //   );
+            // }
+            if (highlightDescendants) {
+                let descendants = d.descendants();
+                interaction.highlightDescendantsWithLinks(descendants, "select");
+              }
           })
           .on("mouseout", function (e, d) {
             //indentedList.highlightNode("node_"+d.index, "deselect");
-            if (highlightAncestors) {
-                indentedList.highlightAncestors(
-                "node_" + d.index,
-                [],
-                "deselect"
-              );
-            }
+            // if (highlightAncestors) {
+            //     indentedList.highlightAncestors(
+            //     "node_" + d.index,
+            //     [],
+            //     "deselect"
+            //   );
+            // }
+            if (highlightDescendants) {
+                interaction.highlightDescendantsWithLinks([], "deselect");
+              }
           });
   
     node.append("title")

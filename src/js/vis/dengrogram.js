@@ -142,7 +142,7 @@
           // }
           if (highlightDescendants) {
             let descendants = d.descendants();
-            dendrogram.highlightDescendants(descendants, "select");
+            interaction.highlightDescendantsWithLinks(descendants, "select");
           }
         })
         .on("mouseout", function (e, d) {
@@ -157,8 +157,7 @@
           // }
 
           if (highlightDescendants) {
-            let descendants = d.descendants();
-            dendrogram.highlightDescendants(descendants, "deselect");
+            interaction.highlightDescendantsWithLinks([], "deselect");
           }
         });
 

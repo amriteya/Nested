@@ -41,6 +41,7 @@
       halo = "#fff", // color of label halo
       haloWidth = 3, // padding around the labels
       highlightAncestors = true, //Test if a node has ancestors
+      highlightDescendants = true, //Test if a node has ancestors
     }
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -119,18 +120,25 @@
       .attr("id", (d) => "node_" + d.index)
       .attr("class", "node")
       .on("mouseover", (e, d) => {
-        radialNodeLink.highlightNode("node_"+d.index, "select");
+       // radialNodeLink.highlightNode("node_"+d.index, "select");
         // if (highlightAncestors) {
         //   let ancestors = d.ancestors();
         //   radialNodeLink.highlightAncestors("node_" + d.index, ancestors, "select");
         // }
+        if (highlightDescendants) {
+            let descendants = d.descendants();
+            interaction.highlightDescendantsWithLinks(descendants, "select");
+          }
       })
       .on("mouseout", function (e, d) {
-        radialNodeLink.highlightNode("node_"+d.index, "deselect");
+        //radialNodeLink.highlightNode("node_"+d.index, "deselect");
 
         // if (highlightAncestors) {
         //     radialNodeLink.highlightAncestors("node_" + d.index, [], "deselect");
         // }
+        if (highlightDescendants) {
+            interaction.highlightDescendantsWithLinks([], "deselect");
+          }
       });
 
     node
