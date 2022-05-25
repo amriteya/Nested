@@ -32,6 +32,8 @@
       fill = "#ccc", // fill for node rects (if no color encoding)
       fillOpacity = 0.6, // fill opacity for node rects
       highlightAncestors = true,
+      highlightDescendants = true, //Test if a node has ancestors
+
     } = {}
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -94,23 +96,39 @@
       .attr("transform", (d) => `translate(${d.y0},${d.x0})`)
       .on("mouseover", (e, d) => {
         //icicle.highlightNode(`node_${d.index}_${d.depth}`, "select");
-        if (highlightAncestors) {
-          let ancestors = d.ancestors();
-          icicle.highlightAncestors(
-            `node_${d.index}_${d.depth}`,
-            ancestors,
-            "select"
-          );
+        // Highlight Ancestors
+        // if (highlightAncestors) {
+        //   let ancestors = d.ancestors();
+        //   icicle.highlightAncestors(
+        //     `node_${d.index}_${d.depth}`,
+        //     ancestors,
+        //     "select"
+        //   );
+        // }
+        
+        //Highlight descendants
+        if(highlightDescendants)
+        {
+          let descendants = d.descendants();
+          icicle.highlightDescendants(descendants,"select");
         }
       })
       .on("mouseout", function (e, d) {
         //icicle.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
-        if (highlightAncestors) {
-          icicle.highlightAncestors(
-            `node_${d.index}_${d.depth}`,
-            [],
-            "deselect"
-          );
+        // UnHighlight Ancestors
+        // if (highlightAncestors) {
+        //   icicle.highlightAncestors(
+        //     `node_${d.index}_${d.depth}`,
+        //     [],
+        //     "deselect"
+        //   );
+        // }
+
+        //UnHighlight Descendants
+        if(highlightDescendants)
+        {
+          let descendants = d.descendants();
+          icicle.highlightDescendants(descendants,"deselect");
         }
       });
 
@@ -176,6 +194,38 @@
       });
     } else {
       d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+    }
+  };
+  icicle.highlightDescendants = function (descendants, event) {
+    if (event === "select") {
+      console.log(descendants);
+      d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
+      d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
+
+      // d3.select("#" + id)
+      //   .transition()
+      //   .duration("100")
+      //   .style("opacity", "1");
+      descendants.forEach((val) => {
+        d3.select(`#node_${val.index}_${val.depth}`)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      });
+      // for (var i = 0; i < descendants.length - 1; i++){
+      //   for(var j = 1; j< descendants.length; j++)
+      //   {
+      //     d3.select(
+      //       `#node_${descendants[i].index}-node_${descendants[j].index}`
+      //        )
+      //       .transition()
+      //       .duration("100")
+      //       .style("opacity", "1");
+      //   }
+      // }
+    } else {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+      d3.selectAll(".link").transition().duration("50").style("opacity", "1");
     }
   };
 })();
