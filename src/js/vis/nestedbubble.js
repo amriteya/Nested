@@ -118,8 +118,8 @@
         });
   
     node.append("circle")
-        //.attr("fill", d => color(d.height))
-        .attr("fill", "white")
+        .attr("fill", d => color(d.height))
+        //.attr("fill", "white")
         .attr("fill-opacity", d => d.children ? null : fillOpacity)
         // .attr("stroke", d => d.children ? stroke : null)
         .attr("stroke", d => stroke)
