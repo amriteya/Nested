@@ -1,6 +1,6 @@
 (function(){
     interaction = {};
-    interaction.highlightDescendants = function (descendants, event)
+    interaction.highlightDescendantsLayered = function (descendants, event)
     {
         if (event === "select") {
           console.log(descendants);

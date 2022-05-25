@@ -107,7 +107,7 @@
         if(highlightDescendants)
         {
           let descendants = d.descendants();
-          interaction.highlightDescendants(descendants,"select")
+          interaction.highlightDescendantsLayered(descendants,"select")
         }
       })
       .on("mouseout", function (e, d) {
@@ -121,7 +121,7 @@
         // }
         if(highlightDescendants)
         {
-          interaction.highlightDescendants([],"deselect")
+          interaction.highlightDescendantsLayered([],"deselect")
         }
       });
 
