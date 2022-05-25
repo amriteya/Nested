@@ -10,6 +10,7 @@
       children,
       highlightAncestors = true,
       highlightDescendants = true, //Test if a node has ancestors
+      highlightSiblings = true //Enable siblings interaction
     } = {}
   ) {
     let root = d3
@@ -63,9 +64,17 @@
         //   );
         // }
         //Highlight descendants
-        if (highlightDescendants) {
-          let descendants = d.descendants();
-          interaction.highlightDescendantsNoLink(descendants, "select");
+        // if (highlightDescendants) {
+        //   let descendants = d.descendants();
+        //   interaction.highlightDescendantsNoLink(descendants, "select");
+        // }
+        if(highlightSiblings)
+        {
+          let parent = d.parent;
+          let parentDescendants = d.parent.descendants();
+          let siblingNodes = parentDescendants.filter(d => d.parent === parent);
+          console.log(siblingNodes);
+          interaction.highlightSiblingsWithNoLinks(siblingNodes, "select");
         }
       })
       .on("mouseout", function (e, d) {
@@ -79,8 +88,12 @@
         // }
 
         //UnHighlight Descendants
-        if (highlightDescendants) {
-          interaction.highlightDescendantsNoLink([], "deselect");
+        // if (highlightDescendants) {
+        //   interaction.highlightDescendantsNoLink([], "deselect");
+        // }
+
+        if (highlightSiblings) {
+          interaction.highlightSiblingsWithNoLinks([], "deselect");
         }
       });
 
