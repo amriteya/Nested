@@ -16,6 +16,7 @@ indentedList.createIndentedList = function (data,{
     stroke = "#555", // stroke for links
     highlightAncestors = true,
     highlightDescendants = true, //Test if a node has ancestors
+    highlightSiblings = true //Enable siblings interaction
 }){
     
     root = d3.hierarchy(data).eachBefore((d,i) => d.index = i++);
@@ -73,10 +74,18 @@ indentedList.createIndentedList = function (data,{
             //     "select"
             //   );
             // }
-            if (highlightDescendants) {
-                let descendants = d.descendants();
-                interaction.highlightDescendantsWithLinks(descendants, "select");
-              }
+            // if (highlightDescendants) {
+            //     let descendants = d.descendants();
+            //     interaction.highlightDescendantsWithLinks(descendants, "select");
+            //   }
+            if(highlightSiblings)
+            {
+                let parent = d.parent;
+                let parentDescendants = d.parent.descendants();
+                let siblingNodes = parentDescendants.filter(d => d.parent === parent);
+                interaction.highlightSiblings(siblingNodes, "select");
+            }
+
           })
           .on("mouseout", function (e, d) {
             //indentedList.highlightNode("node_"+d.index, "deselect");
@@ -87,9 +96,13 @@ indentedList.createIndentedList = function (data,{
             //     "deselect"
             //   );
             // }
-            if (highlightDescendants) {
-                interaction.highlightDescendantsWithLinks([], "deselect");
-              }
+            // if (highlightDescendants) {
+            //     interaction.highlightDescendantsWithLinks([], "deselect");
+            //   }
+            if(highlightSiblings)
+            {
+              interaction.highlightSiblings([], "deselect");
+            }
           });
   
     node.append("title")
