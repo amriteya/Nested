@@ -152,25 +152,20 @@
             let siblingNodes = parentDescendants.filter(
               (d) => d.parent === parent
             );
-            console.log(siblingNodes);
             interaction.highlightSiblings(siblingNodes, "select");
           }
           if (highlightChildNodes) {
             let descendants = d.descendants();
             let nodeName = d.data.name;
-            // let listOfAllNodes = [d];
             let childNodes = descendants.filter((d) => {
-              if(d.parent!==null)
-              {
-                return d.parent.data.name === nodeName || d.data.name===nodeName;
-              }
-              else{
+              if (d.parent !== null) {
+                return (
+                  d.parent.data.name === nodeName || d.data.name === nodeName
+                );
+              } else {
                 return d;
               }
             });
-            // childNodes.forEach(val =>{
-            //   listOfAllNodes.push(val)
-            // });
             interaction.highlightDescendantsWithLinks(childNodes, "select");
           }
         })

@@ -31,7 +31,8 @@
       fillOpacity = 0.6, // fill opacity for arcs
       highlightAncestors = true,
       highlightDescendants = true,
-      highlightSiblings = true //Enable siblings interaction
+      highlightSiblings = true, //Enable siblings interaction
+      highlightChildNodes = true,
     } = {}
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -109,13 +110,28 @@
         //   let descendants = d.descendants();
         //   interaction.highlightDescendantsNoLink(descendants, "select");
         // }
-        if(highlightSiblings)
-        {
+        if (highlightSiblings) {
           let parent = d.parent;
           let parentDescendants = d.parent.descendants();
-          let siblingNodes = parentDescendants.filter(d => d.parent === parent);
+          let siblingNodes = parentDescendants.filter(
+            (d) => d.parent === parent
+          );
           console.log(siblingNodes);
           interaction.highlightSiblingsWithNoLinks(siblingNodes, "select");
+        }
+        if (highlightChildNodes) {
+          let descendants = d.descendants();
+          let nodeName = d.data.name;
+          let childNodes = descendants.filter((d) => {
+            if (d.parent !== null) {
+              return (
+                d.parent.data.name === nodeName || d.data.name === nodeName
+              );
+            } else {
+              return d;
+            }
+          });
+          interaction.highlightDescendantsNoLink(childNodes, "select");
         }
       })
       .on("mouseout", function (e, d) {
@@ -132,6 +148,9 @@
         // }
         if (highlightSiblings) {
           interaction.highlightSiblingsWithNoLinks([], "deselect");
+        }
+        if (highlightChildNodes) {
+          interaction.highlightDescendantsNoLink([], "deselect");
         }
       });
 

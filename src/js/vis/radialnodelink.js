@@ -42,7 +42,8 @@
       haloWidth = 3, // padding around the labels
       highlightAncestors = true, //Test if a node has ancestors
       highlightDescendants = true, //Test if a node has ancestors
-      highlightSiblings = true, //Enable siblings interaction
+      highlightSiblings = false, //Enable siblings interaction
+      highlightChildNodes = true, //Enable child node interaction
     }
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -140,6 +141,20 @@
           console.log(siblingNodes);
           interaction.highlightSiblings(siblingNodes, "select");
         }
+        if (highlightChildNodes) {
+          let descendants = d.descendants();
+          let nodeName = d.data.name;
+          let childNodes = descendants.filter((d) => {
+            if (d.parent !== null) {
+              return (
+                d.parent.data.name === nodeName || d.data.name === nodeName
+              );
+            } else {
+              return d;
+            }
+          });
+          interaction.highlightDescendantsWithLinks(childNodes, "select");
+        }
       })
       .on("mouseout", function (e, d) {
         //radialNodeLink.highlightNode("node_"+d.index, "deselect");
@@ -152,6 +167,9 @@
         //   }
         if (highlightSiblings) {
           interaction.highlightSiblings([], "deselect");
+        }
+        if (highlightChildNodes) {
+          interaction.highlightDescendantsWithLinks([], "deselect");
         }
       });
 
