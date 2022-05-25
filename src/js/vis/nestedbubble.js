@@ -26,6 +26,7 @@
     strokeOpacity, // stroke opacity for internal circles
     colorScale = d3.interpolateGreys, // color scheme, if any
     highlightAncestors = true,
+    highlightDescendants = true, //Test if a node has ancestors
   } = {}) {
   
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -77,23 +78,30 @@
         .attr("id", (d) => `node_${d.index}_${d.depth}`)
         .on("mouseover", (e, d) => {
           //nestedBubble.highlightNode(`node_${d.index}_${d.depth}`, "select");
-          if (highlightAncestors) {
-            let ancestors = d.ancestors();
-            nestedBubble.highlightAncestors(
-              `node_${d.index}_${d.depth}`,
-              ancestors,
-              "select"
-            );
+          // if (highlightAncestors) {
+          //   let ancestors = d.ancestors();
+          //   nestedBubble.highlightAncestors(
+          //     `node_${d.index}_${d.depth}`,
+          //     ancestors,
+          //     "select"
+          //   );
+          // }
+          if (highlightDescendants) {
+            let descendants = d.descendants();
+            interaction.highlightDescendantsNoLink(descendants, "select");
           }
         })
         .on("mouseout", function (e, d) {
           //nestedBubble.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
-          if (highlightAncestors) {
-            nestedBubble.highlightAncestors(
-              `node_${d.index}_${d.depth}`,
-              [],
-              "deselect"
-            );
+          // if (highlightAncestors) {
+          //   nestedBubble.highlightAncestors(
+          //     `node_${d.index}_${d.depth}`,
+          //     [],
+          //     "deselect"
+          //   );
+          // }
+          if (highlightDescendants) {
+            interaction.highlightDescendantsNoLink([], "deselect");
           }
         });
   
