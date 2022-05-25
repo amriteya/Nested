@@ -30,6 +30,7 @@
       fill = "#ccc", // fill for arcs (if no color encoding)
       fillOpacity = 0.6, // fill opacity for arcs
       highlightAncestors = true,
+      highlightDescendants = true,
     } = {}
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -94,7 +95,7 @@
       .attr("class","node")
       .attr("id", (d) => `node_${d.index}_${d.depth}`)
       .on("mouseover", (e, d) => {
-        sunburst.highlightNode(`node_${d.index}_${d.depth}`, "select");
+        //sunburst.highlightNode(`node_${d.index}_${d.depth}`, "select");
         // if (highlightAncestors) {
         //   let ancestors = d.ancestors();
         //   sunburst.highlightAncestors(
@@ -103,6 +104,11 @@
         //     "select"
         //   );
         // }
+        if(highlightDescendants)
+        {
+          let descendants = d.descendants();
+          interaction.highlightDescendants(descendants,"select")
+        }
       })
       .on("mouseout", function (e, d) {
         sunburst.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
@@ -113,6 +119,10 @@
         //     "deselect"
         //   );
         // }
+        if(highlightDescendants)
+        {
+          interaction.highlightDescendants([],"deselect")
+        }
       });
 
     cell
