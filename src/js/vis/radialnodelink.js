@@ -42,6 +42,7 @@
       haloWidth = 3, // padding around the labels
       highlightAncestors = true, //Test if a node has ancestors
       highlightDescendants = true, //Test if a node has ancestors
+      highlightSiblings = true, //Enable siblings interaction
     }
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -120,15 +121,25 @@
       .attr("id", (d) => "node_" + d.index)
       .attr("class", "node")
       .on("mouseover", (e, d) => {
-       // radialNodeLink.highlightNode("node_"+d.index, "select");
+        // radialNodeLink.highlightNode("node_"+d.index, "select");
         // if (highlightAncestors) {
         //   let ancestors = d.ancestors();
         //   radialNodeLink.highlightAncestors("node_" + d.index, ancestors, "select");
         // }
-        if (highlightDescendants) {
-            let descendants = d.descendants();
-            interaction.highlightDescendantsWithLinks(descendants, "select");
-          }
+        // if (highlightDescendants) {
+        //     let descendants = d.descendants();
+        //     interaction.highlightDescendantsWithLinks(descendants, "select");
+        //   }
+        if (highlightSiblings) {
+          let parent = d.parent;
+          console.log(parent);
+          let parentDescendants = d.parent.descendants();
+          let siblingNodes = parentDescendants.filter(
+            (d) => d.parent === parent
+          );
+          console.log(siblingNodes);
+          interaction.highlightSiblings(siblingNodes, "select");
+        }
       })
       .on("mouseout", function (e, d) {
         //radialNodeLink.highlightNode("node_"+d.index, "deselect");
@@ -136,9 +147,12 @@
         // if (highlightAncestors) {
         //     radialNodeLink.highlightAncestors("node_" + d.index, [], "deselect");
         // }
-        if (highlightDescendants) {
-            interaction.highlightDescendantsWithLinks([], "deselect");
-          }
+        // if (highlightDescendants) {
+        //     interaction.highlightDescendantsWithLinks([], "deselect");
+        //   }
+        if (highlightSiblings) {
+          interaction.highlightSiblings([], "deselect");
+        }
       });
 
     node
@@ -170,8 +184,7 @@
     return svg.node();
   };
 
-  radialNodeLink.highlightNode = function(id, event)
-  {
+  radialNodeLink.highlightNode = function (id, event) {
     if (event === "select") {
       d3.selectAll(".node").style("opacity", "0.2");
       d3.selectAll(".link").style("opacity", "0.2");
@@ -183,7 +196,7 @@
       d3.selectAll(".node").style("opacity", "1");
       d3.selectAll(".link").style("opacity", "1");
     }
-  }
+  };
 
   radialNodeLink.highlightAncestors = function (id, ancestors, event) {
     if (event === "select") {

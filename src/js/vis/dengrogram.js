@@ -35,6 +35,7 @@
         value, //
         highlightAncestors = true, //Test if a node has ancestors
         highlightDescendants = true, //Test if a node has ancestors
+        highlightSiblings = true //Enable siblings interaction
       } = {}
     ) {
       // If id and parentId options are specified, or the path option, use d3.stratify
@@ -140,10 +141,19 @@
           //     "select"
           //   );
           // }
-          if (highlightDescendants) {
-            let descendants = d.descendants();
-            interaction.highlightDescendantsWithLinks(descendants, "select");
+          // if (highlightDescendants) {
+          //   let descendants = d.descendants();
+          //   interaction.highlightDescendantsWithLinks(descendants, "select");
+          // }
+          if(highlightSiblings)
+          {
+            let parent = d.parent;
+            let parentDescendants = d.parent.descendants();
+            let siblingNodes = parentDescendants.filter(d => d.parent === parent);
+            console.log(siblingNodes);
+            interaction.highlightSiblings(siblingNodes, "select");
           }
+
         })
         .on("mouseout", function (e, d) {
           //dendrogram.highlightNode("node_"+d.index, "deselect");
@@ -156,8 +166,12 @@
           //   );
           // }
 
-          if (highlightDescendants) {
-            interaction.highlightDescendantsWithLinks([], "deselect");
+          // if (highlightDescendants) {
+          //   interaction.highlightDescendantsWithLinks([], "deselect");
+          // }
+          if(highlightSiblings)
+          {
+            interaction.highlightSiblings([], "deselect");
           }
         });
 

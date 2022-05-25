@@ -177,7 +177,7 @@
       d3.selectAll(".link").style("opacity", "1");
     }
   }
-  nestedBubble.highlightAncestors = function (id, ancestors, event) {
+  nestedBubble.highlightAncestors = function (id, ancestors, event){
     if (event === "select") {
       d3.selectAll(".node").transition().duration("50").style("opacity", "0.1");
       // d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
