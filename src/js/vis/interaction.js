@@ -93,7 +93,7 @@
       d3.selectAll(".link").transition().duration("50").style("opacity", "1");
     }
   };
-  //Siblings 
+  //Siblings
   interaction.highlightSiblingsWithNoLinks = function (siblings, event) {
     if (event === "select") {
       d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
@@ -110,25 +110,35 @@
     }
   };
 
-  interaction.appendTitle = function (d, options ) {
+  interaction.appendTitle = function (d, options) {
     let combinedString = [];
-    if(options.ancestors)
-    {
-      combinedString.push(`Hierarchy: ${d
-        .ancestors()
-        .reverse()
-        .map((d) => d.data.name)
-        .join(".")}`); // hover text
+    if (options.ancestors) {
+      combinedString.push(
+        `Hierarchy: ${d
+          .ancestors()
+          .reverse()
+          .map((d) => d.data.name)
+          .join(".")}`
+      ); // hover text
     }
-    if(options.nodeValue.status)
-    {
+    if (options.nodeValue.status) {
       combinedString.push(`Value: ${d.value}`); // hover text
     }
-    if(options.size){
-      combinedString.push(`Size: ${treeUtils.findSize(d)}`)
+    if (options.size) {
+      combinedString.push(`Size: ${d.descendants().length}`);
     }
-      //Combined Results
-      let finalResult = combinedString.join("\n");
-      return finalResult;
+    if (options.height) {
+      combinedString.push(`Height: ${d.height}`);
+    }
+    if (options.depth) {
+      combinedString.push(`Depth: ${d.depth}`);
+    }
+    if (options.degree) {
+      combinedString.push(`Degree: ${treeUtils.findSize(d)}`);
+    }
+
+    //Combined Results
+    let finalResult = combinedString.join("\n");
+    return finalResult;
   };
 })();
