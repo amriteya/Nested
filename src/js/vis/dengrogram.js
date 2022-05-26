@@ -39,7 +39,7 @@
         highlightSiblings = false, //Enable siblings interaction
         highlightChildNodes = false, //Enable siblings interaction
         elaborateNodeValue = true,
-        options = {ancestors:true, nodeValue:{status:true}}
+        options = {ancestors:true, nodeValue:{status:true},size:true}
       } = {}
     ) {
       // If id and parentId options are specified, or the path option, use d3.stratify

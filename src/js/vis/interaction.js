@@ -124,6 +124,9 @@
     {
       combinedString.push(`Value: ${d.value}`); // hover text
     }
+    if(options.size){
+      combinedString.push(`Size: ${treeUtils.findSize(d)}`)
+    }
       //Combined Results
       let finalResult = combinedString.join("\n");
       return finalResult;
