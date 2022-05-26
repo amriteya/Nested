@@ -15,7 +15,6 @@
         : (a, b) => (a.parent == b.parent ? 1 : 2),
       sort, // how to sort nodes prior to layout (e.g., (a, b) => d3.descending(a.height, b.height))
       label, // given a node d, returns the display name
-      title, // given a node d, returns its hover text
       link, // given a node d, its link (if any)
       linkTarget = "_blank", // the target attribute for links (if any)
       width = 640, // outer width, in pixels
@@ -44,6 +43,14 @@
       highlightDescendants = true, //Test if a node has ancestors
       highlightSiblings = false, //Enable siblings interaction
       highlightChildNodes = true, //Enable child node interaction
+      options = {
+        ancestors: true,
+        nodeValue: { status: true },
+        size: true,
+        height: true,
+        depth: true,
+        degree: true,
+      },
     }
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -63,6 +70,19 @@
     // Compute labels and titles.
     const descendants = root.descendants();
     const L = label == null ? null : descendants.map((d) => label(d.data, d));
+    const title = function (d, n) {
+      let combinedString = [];
+      combinedString.push(
+        `Hierarchy: ${n
+          .ancestors()
+          .reverse()
+          .map((d) => d.data.name)
+          .join(".")}`
+      ); // hover text
+      combinedString.push(`Value: ${n.value}`); // hover text
+      let finalResult = combinedString.join("\n");
+      return finalResult;
+    };
 
     // Compute the layout.
     tree()
@@ -178,7 +198,8 @@
       .attr("fill", (d) => (d.children ? stroke : fill))
       .attr("r", r);
 
-    if (title != null) node.append("title").text((d) => title(d.data, d));
+    if (title != null)
+      node.append("title").text((d) => interaction.appendTitle(d, options));
 
     if (L)
       node

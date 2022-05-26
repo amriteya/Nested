@@ -38,8 +38,14 @@
         highlightDescendants = false, //Test if a node has ancestors
         highlightSiblings = false, //Enable siblings interaction
         highlightChildNodes = false, //Enable siblings interaction
-        elaborateNodeValue = true,
-        options = {ancestors:true, nodeValue:{status:true},size:true, height:true, depth:true, degree:true}
+        options = {
+          ancestors: true,
+          nodeValue: { status: true },
+          size: true,
+          height: true,
+          depth: true,
+          degree: true,
+        },
       } = {}
     ) {
       // If id and parentId options are specified, or the path option, use d3.stratify
@@ -65,14 +71,16 @@
       const L = label == null ? null : descendants.map((d) => label(d.data, d));
       const title = function (d, n) {
         let combinedString = [];
-        combinedString.push(`Hierarchy: ${n
-          .ancestors()
-          .reverse()
-          .map((d) => d.data.name)
-          .join(".")}`); // hover text
-          combinedString.push(`Value: ${n.value}`); // hover text
-          let finalResult = combinedString.join("\n");
-          return finalResult;
+        combinedString.push(
+          `Hierarchy: ${n
+            .ancestors()
+            .reverse()
+            .map((d) => d.data.name)
+            .join(".")}`
+        ); // hover text
+        combinedString.push(`Value: ${n.value}`); // hover text
+        let finalResult = combinedString.join("\n");
+        return finalResult;
       };
 
       // Compute the layout.
@@ -211,10 +219,8 @@
         )
         .attr("r", r);
 
-      if (title != null) {
-        console.log("testing title code");
-        node.append("title").text((d) => interaction.appendTitle(d,options));
-      }
+      if (title != null)
+        node.append("title").text((d) => interaction.appendTitle(d, options));
 
       if (L)
         node
