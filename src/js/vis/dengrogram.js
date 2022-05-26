@@ -15,7 +15,7 @@
         tree = d3.tree, // layout algorithm (typically d3.tree or d3.cluster)
         sort = (a, b) => d3.descending(a.label, b.label), // how to sort nodes prior to layout (e.g., (a, b) => d3.descending(a.height, b.height))
         label, // given a node d, returns the display name
-        title, // given a node d, returns its hover text
+        // title, // given a node d, returns its hover text
         link, // given a node d, its link (if any)
         linkTarget = "_blank", // the target attribute for links (if any)
         width = 640, // outer width, in pixels
@@ -38,6 +38,8 @@
         highlightDescendants = false, //Test if a node has ancestors
         highlightSiblings = false, //Enable siblings interaction
         highlightChildNodes = false, //Enable siblings interaction
+        elaborateNodeValue = true,
+        options = {ancestors:true, nodeValue:{status:true}}
       } = {}
     ) {
       // If id and parentId options are specified, or the path option, use d3.stratify
@@ -61,6 +63,17 @@
       // Compute labels and titles.
       const descendants = root.descendants();
       const L = label == null ? null : descendants.map((d) => label(d.data, d));
+      const title = function (d, n) {
+        let combinedString = [];
+        combinedString.push(`Hierarchy: ${n
+          .ancestors()
+          .reverse()
+          .map((d) => d.data.name)
+          .join(".")}`); // hover text
+          combinedString.push(`Value: ${n.value}`); // hover text
+          let finalResult = combinedString.join("\n");
+          return finalResult;
+      };
 
       // Compute the layout.
       const dx = 10;
@@ -120,8 +133,6 @@
             .y((d) => d.x)
         );
 
-      console.log(root);
-
       const node = svgGroup
         .append("g")
         .selectAll("a")
@@ -138,18 +149,18 @@
           }
           //dendrogram.highlightNode("node_"+d.index, "select");
 
-          // if (highlightAncestors) {
-          //   let ancestors = d.ancestors();
-          //   dendrogram.highlightAncestors(
-          //     "node_" + d.index,
-          //     ancestors,
-          //     "select"
-          //   );
-          // }
-          // if (highlightDescendants) {
-          //   let descendants = d.descendants();
-          //   interaction.highlightDescendantsWithLinks(descendants, "select");
-          // }
+          if (highlightAncestors) {
+            let ancestors = d.ancestors();
+            dendrogram.highlightAncestors(
+              "node_" + d.index,
+              ancestors,
+              "select"
+            );
+          }
+          if (highlightDescendants) {
+            let descendants = d.descendants();
+            interaction.highlightDescendantsWithLinks(descendants, "select");
+          }
           if (highlightSiblings) {
             let parent = d.parent;
             let parentDescendants = d.parent.descendants();
@@ -177,17 +188,13 @@
           if (highlightNode) {
             interaction.highlightNodeWithLinks("node_" + d.index, "deselect");
           }
-          // if (highlightAncestors) {
-          //   dendrogram.highlightAncestors(
-          //     "node_" + d.index,
-          //     [],
-          //     "deselect"
-          //   );
-          // }
+          if (highlightAncestors) {
+            dendrogram.highlightAncestors("node_" + d.index, [], "deselect");
+          }
 
-          // if (highlightDescendants) {
-          //   interaction.highlightDescendantsWithLinks([], "deselect");
-          // }
+          if (highlightDescendants) {
+            interaction.highlightDescendantsWithLinks([], "deselect");
+          }
           if (highlightSiblings) {
             interaction.highlightSiblings([], "deselect");
           }
@@ -204,7 +211,10 @@
         )
         .attr("r", r);
 
-      if (title != null) node.append("title").text((d) => title(d.data, d));
+      if (title != null) {
+        console.log("testing title code");
+        node.append("title").text((d) => interaction.appendTitle(d,options));
+      }
 
       if (L)
         node
@@ -233,7 +243,6 @@
       $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
     }
   };
-
 
   dendrogram.highlightAncestors = function (id, ancestors, event) {
     if (event === "select") {

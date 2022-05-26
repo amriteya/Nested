@@ -109,4 +109,23 @@
       d3.selectAll(".link").transition().duration("50").style("opacity", "1");
     }
   };
+
+  interaction.appendTitle = function (d, options ) {
+    let combinedString = [];
+    if(options.ancestors)
+    {
+      combinedString.push(`Hierarchy: ${d
+        .ancestors()
+        .reverse()
+        .map((d) => d.data.name)
+        .join(".")}`); // hover text
+    }
+    if(options.nodeValue.status)
+    {
+      combinedString.push(`Value: ${d.value}`); // hover text
+    }
+      //Combined Results
+      let finalResult = combinedString.join("\n");
+      return finalResult;
+  };
 })();
