@@ -33,10 +33,11 @@
         haloWidth = 3, // padding around the labels
         color = null, // color scheme, if any
         value, //
-        highlightAncestors = true, //Test if a node has ancestors
-        highlightDescendants = true, //Test if a node has ancestors
+        highlightNode = true,
+        highlightAncestors = false, //Test if a node has ancestors
+        highlightDescendants = false, //Test if a node has ancestors
         highlightSiblings = false, //Enable siblings interaction
-        highlightChildNodes = true, //Enable siblings interaction
+        highlightChildNodes = false, //Enable siblings interaction
       } = {}
     ) {
       // If id and parentId options are specified, or the path option, use d3.stratify
@@ -132,6 +133,9 @@
         .attr("target", link == null ? null : linkTarget)
         .attr("transform", (d) => `translate(${d.y},${d.x})`)
         .on("mouseover", (e, d) => {
+          if (highlightNode) {
+            interaction.highlightNodeWithLinks("node_" + d.index, "select");
+          }
           //dendrogram.highlightNode("node_"+d.index, "select");
 
           // if (highlightAncestors) {
@@ -170,8 +174,9 @@
           }
         })
         .on("mouseout", function (e, d) {
-          //dendrogram.highlightNode("node_"+d.index, "deselect");
-
+          if (highlightNode) {
+            interaction.highlightNodeWithLinks("node_" + d.index, "deselect");
+          }
           // if (highlightAncestors) {
           //   dendrogram.highlightAncestors(
           //     "node_" + d.index,
@@ -229,19 +234,6 @@
     }
   };
 
-  dendrogram.highlightNode = function (id, event) {
-    if (event === "select") {
-      d3.selectAll(".node").style("opacity", "0.2");
-      d3.selectAll(".link").style("opacity", "0.2");
-      d3.selectAll("#" + id).style("opacity", "1");
-      // var top = $("#" + id).position().top - 400;
-      // console.log(top);
-      // $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
-    } else {
-      d3.selectAll(".node").style("opacity", "1");
-      d3.selectAll(".link").style("opacity", "1");
-    }
-  };
 
   dendrogram.highlightAncestors = function (id, ancestors, event) {
     if (event === "select") {

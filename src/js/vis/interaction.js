@@ -1,5 +1,19 @@
 (function () {
   interaction = {};
+  interaction.highlightNodeWithLinks = function (id, event) {
+    if (event === "select") {
+      d3.selectAll(".node").style("opacity", "0.2");
+      d3.selectAll(".link").style("opacity", "0.2");
+      d3.selectAll("#" + id).style("opacity", "1");
+      // var top = $("#" + id).position().top - 400;
+      // console.log(top);
+      // $("#visOutput").animate({ scrollTop: top + "px" }, 1000);
+    } else {
+      d3.selectAll(".node").style("opacity", "1");
+      d3.selectAll(".link").style("opacity", "1");
+    }
+  };
+
   interaction.highlightDescendantsNoLink = function (descendants, event) {
     if (event === "select") {
       d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
