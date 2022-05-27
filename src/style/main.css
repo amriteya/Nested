@@ -118,6 +118,9 @@ text-align: center!important;
     height:50px;
     display:flex;
 }
+.visOutputNavContainer{
+  border: 1px solid lightgrey!important;
+}
 .visNavBarItem
 {
     margin-left: 2%;
