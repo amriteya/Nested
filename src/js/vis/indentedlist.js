@@ -20,6 +20,14 @@
       highlightDescendants = true, //Test if a node has ancestors
       highlightSiblings = false, //Enable siblings interaction
       highlightChildNodes = true, //Enable child node interaction
+      options = {
+        ancestors: true,
+        nodeValue: { status: true },
+        size: true,
+        height: true,
+        depth: true,
+        degree: true,
+      },
     }
   ) {
     root = d3.hierarchy(data).eachBefore((d, i) => (d.index = i++));
@@ -136,13 +144,7 @@
         }
       });
 
-    node.append("title").text((d) =>
-      d
-        .ancestors()
-        .reverse()
-        .map((d) => d.data.name)
-        .join("/")
-    );
+    node.append("title").text((d) => interaction.appendTitle(d, options));
 
     //     let columns = [
     //     {

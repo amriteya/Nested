@@ -11,7 +11,7 @@
       value, // given a node d, returns a quantitative value (for area encoding; null for count)
       sort = (a, b) => d3.descending(a.value, b.value), // how to sort nodes prior to layout
       label, // given a leaf node d, returns the display name
-      title, // given a node d, returns its hover text
+      // title, // given a node d, returns its hover text
       link, // given a node d, its link (if any)
       linkTarget = "_blank", // the target attribute for links, if any
       width = 640, // outer width, in pixels
@@ -32,6 +32,14 @@
       highlightDescendants = true, //Test if a node has ancestors
       highlightSiblings = true, //Enable siblings interaction
       highlightChildNodes = true,
+      options = {
+        ancestors: true,
+        nodeValue: { status: true },
+        size: true,
+        height: true,
+        depth: true,
+        degree: true,
+      },
     } = {}
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -53,7 +61,6 @@
     const leaves = descendants.filter((d) => !d.children);
     leaves.forEach((d, i) => (d.index = i));
     const L = label == null ? null : leaves.map((d) => label(d.data, d));
-    const T = title == null ? null : descendants.map((d) => title(d.data, d));
 
     // Sort the leaves (typically by descending value for a pleasing layout).
     if (sort != null) root.sort(sort);
@@ -157,7 +164,7 @@
       .attr("stroke-opacity", (d) => (d.children ? strokeOpacity : null))
       .attr("r", (d) => d.r);
 
-    if (T) node.append("title").text((d, i) => T[i]);
+    node.append("title").text((d) => interaction.appendTitle(d, options));
 
     if (L) {
       // A unique identifier for clip paths (to avoid conflicts).

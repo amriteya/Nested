@@ -197,12 +197,12 @@
     if (recommendation === "icicle") {
       chart = icicle.createIcicle(data, {
         label: (d) => d.name,
-        title: (d, n) =>
-          `${n
-            .ancestors()
-            .reverse()
-            .map((d) => d.data.name)
-            .join(".")}`, // hover text
+        // title: (d, n) =>
+        //   `${n
+        //     .ancestors()
+        //     .reverse()
+        //     .map((d) => d.data.name)
+        //     .join(".")}`, // hover text
         value: defaultAttr ? null : (d) => d[attr],
         width: 1152,
         height: 1000,
@@ -241,12 +241,12 @@
     if (recommendation === "radialLD") {
       chart = sunburst.createChart(data,{
         label: (d) => d.name,
-        title: (d, n) =>
-          `${n
-            .ancestors()
-            .reverse()
-            .map((d) => d.data.name)
-            .join(".")}`, // hover text
+        // title: (d, n) =>
+        //   `${n
+        //     .ancestors()
+        //     .reverse()
+        //     .map((d) => d.data.name)
+        //     .join(".")}`, // hover text
         value: defaultAttr ? null : (d) => d[attr],
         width: 1152,
         height: 1152,
@@ -256,7 +256,7 @@
       chart = nestedBubble.createChart(data,{
         value: defaultAttr ? null : (d) => d[attr],
         label: (d, n) => d.name.split(/(?=[A-Z][a-z])/g),
-        title: (d, n) => `${n.ancestors().reverse().map(({data: d}) => d.name).join(".")}\n${n.value.toLocaleString("en")}`,
+        // title: (d, n) => `${n.ancestors().reverse().map(({data: d}) => d.name).join(".")}\n${n.value.toLocaleString("en")}`,
         width: 1152,
         height: 1152
       })

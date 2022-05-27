@@ -11,7 +11,6 @@
       value, // given a node d, returns a quantitative value (for area encoding; null for count)
       sort = (a, b) => d3.descending(a.value, b.value), // how to sort nodes prior to layout
       label, // given a node d, returns the name to display on the rectangle
-      title, // given a node d, returns its hover text
       link, // given a node d, its link (if any)
       linkTarget = "_blank", // the target attribute for links (if any)
       width = 640, // outer width, in pixels
@@ -33,6 +32,14 @@
       highlightDescendants = true,
       highlightSiblings = true, //Enable siblings interaction
       highlightChildNodes = true,
+      options = {
+        ancestors: true,
+        nodeValue: { status: true },
+        size: true,
+        height: true,
+        depth: true,
+        degree: true,
+      },
     } = {}
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -49,6 +56,20 @@
     // Compute the values of internal nodes by aggregating from the leaves.
     value == null ? root.count() : root.sum((d) => Math.max(0, value(d)));
 
+    //Compute Titles
+    const title = function (d, n) {
+      let combinedString = [];
+      combinedString.push(
+        `Hierarchy: ${n
+          .ancestors()
+          .reverse()
+          .map((d) => d.data.name)
+          .join(".")}`
+      ); // hover text
+      combinedString.push(`Value: ${n.value}`); // hover text
+      let finalResult = combinedString.join("\n");
+      return finalResult;
+    };
     // Sort the leaves (typically by descending value for a pleasing layout).
     if (sort != null) root.sort(sort);
 
@@ -188,7 +209,8 @@
         // })
         .text((d) => label(d.data, d));
 
-    if (title != null) cell.append("title").text((d) => title(d.data, d));
+    if (title != null) cell.append("title").text((d) => interaction.appendTitle(d, options));
+
 
     return svg.node();
   };

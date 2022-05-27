@@ -12,6 +12,14 @@
       highlightDescendants = true, //Test if a node has ancestors
       highlightSiblings = false, //Enable siblings interaction
       highlightChildNodes = true,
+      options = {
+        ancestors: true,
+        nodeValue: { status: true },
+        size: true,
+        height: true,
+        depth: true,
+        degree: true,
+      },
     } = {}
   ) {
     let root = d3
@@ -116,14 +124,7 @@
         }
       });
 
-    node.append("title").text(
-      (d) =>
-        `${d
-          .ancestors()
-          .reverse()
-          .map((d) => d.data.name)
-          .join("/")}\n${format(d.value)}`
-    );
+    node.append("title").text((d) => interaction.appendTitle(d, options));
 
     const did = `O-${Math.random().toString(16).slice(2)}`;
 

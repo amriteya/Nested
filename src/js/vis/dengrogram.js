@@ -69,19 +69,6 @@
       // Compute labels and titles.
       const descendants = root.descendants();
       const L = label == null ? null : descendants.map((d) => label(d.data, d));
-      const title = function (d, n) {
-        let combinedString = [];
-        combinedString.push(
-          `Hierarchy: ${n
-            .ancestors()
-            .reverse()
-            .map((d) => d.data.name)
-            .join(".")}`
-        ); // hover text
-        combinedString.push(`Value: ${n.value}`); // hover text
-        let finalResult = combinedString.join("\n");
-        return finalResult;
-      };
 
       // Compute the layout.
       const dx = 10;
@@ -219,7 +206,6 @@
         )
         .attr("r", r);
 
-      if (title != null)
         node.append("title").text((d) => interaction.appendTitle(d, options));
 
       if (L)
