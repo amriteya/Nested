@@ -235,6 +235,7 @@
       chart = radialNodeLink.createChart(data, {
         label: d => d.name,
         // title: (d, n) => `${n.ancestors().reverse().map(d => d.data.name).join(".")}`, // hover text
+        value: defaultAttr ? null : (d) => d[attr],
         width: 1000,
         height: 1152      });
     }

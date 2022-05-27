@@ -51,6 +51,7 @@
         depth: true,
         degree: true,
       },
+      value
     }
   ) {
     // If id and parentId options are specified, or the path option, use d3.stratify
@@ -64,13 +65,16 @@
         ? d3.stratify().id(id).parentId(parentId)(data)
         : d3.hierarchy(data, children).eachBefore((d, i) => (d.index = i++));
 
+    //data
+    value == null ? root.count() : root.sum((d) => Math.max(0, value(d)));
+    console.log(root);
+
     // Sort the nodes.
     if (sort != null) root.sort(sort);
 
     // Compute labels and titles.
     const descendants = root.descendants();
     const L = label == null ? null : descendants.map((d) => label(d.data, d));
-
 
     // Compute the layout.
     tree()
