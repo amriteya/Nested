@@ -125,10 +125,13 @@ text-align: center!important;
 {
     margin-left: 2%;
 }
+.visSettingsPanel{
+  height: 200px;
+  display: none;
+}
 #fileName{
     margin-top: auto;
     margin-bottom: auto;
-
 }
 #searchInput{
 }
@@ -136,8 +139,17 @@ text-align: center!important;
     margin-top: auto;
     margin-bottom: auto;
 }
+.settingsIcon:hover{
+  opacity: 0.5;
+}
+
 
 /* Visualization */
 .node{
     cursor: pointer;
+}
+
+/* Utility Css */
+.underline {
+  border-bottom: solid grey;
 }

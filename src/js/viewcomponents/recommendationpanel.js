@@ -59,6 +59,7 @@
       var elemId = $(this).attr("id");
       window.GLOBALDATA.currentVis = elemId;
       recPanelUI.visualizationNavBar();
+      recPanelUI.visualizationSettingsBar();
       recPanelUI.renderRecommendation();
       $(".recInformationItemContainer.selectedItem").toggleClass(
         "selectedItem"
@@ -73,7 +74,9 @@
     let tasks = window.GLOBALDATA.tasks.selectedTasks;
 
     $("#recPanelBody").append(
-      `<div class="visOutputNavContainer" id='visNavBar'> 
+      `
+      <div class="visOutputNavContainer">
+      <div  id='visNavBar'> 
         <div class="visNavBarItem" id="fileName">
         <span class="headerText"> ${
           window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["label"]
@@ -83,15 +86,37 @@
             ${recPanelUI.createWidgets(tasks)}
           </div>  
           <div class="visNavBarItem" id="visSetting">
-          <span class=""> <i class="btn fas fa-cog" title="Configure the visualization"></i> <i class="btn fas fa-file-export" title="Export the visualization"></i> </span>
+          <span class="settingsIcon"> <i class="btn fas fa-cog" title="Configure the visualization"></i> </span>
          </div>
+         <br/>
+      </div>
+      ${recPanelUI.visualizationSettingsBar()}
       </div>`
+      //<i class="btn fas fa-file-export" title="Export the visualization"></i> 
     );
 
     //Event
     $("#searchBox").on("change", function () {
       dendrogram.searchLabelInteraction($(this).val());
     });
+    $("#visSetting").on("click",function(){
+      $( this ).toggleClass( "underline" );
+      $(".visSettingsPanel").toggle("slow");
+    })
+  };
+
+  //Settings Panel
+  recPanelUI.visualizationSettingsBar = function () {
+    return `<div class="visSettingsPanel">
+          <select id="example-getting-started" multiple="multiple">
+            <option value="cheese">Cheese</option>
+            <option value="tomatoes">Tomatoes</option>
+            <option value="mozarella">Mozzarella</option>
+            <option value="mushrooms">Mushrooms</option>
+            <option value="pepperoni">Pepperoni</option>
+            <option value="onions">Onions</option>
+          </select>
+      </div>`
   };
 
   recPanelUI.createWidgets = function (tasks) {
@@ -233,14 +258,15 @@
     }
     if (recommendation === "radialNL") {
       chart = radialNodeLink.createChart(data, {
-        label: d => d.name,
+        label: (d) => d.name,
         // title: (d, n) => `${n.ancestors().reverse().map(d => d.data.name).join(".")}`, // hover text
         value: defaultAttr ? null : (d) => d[attr],
         width: 1000,
-        height: 1152      });
+        height: 1152,
+      });
     }
     if (recommendation === "radialLD") {
-      chart = sunburst.createChart(data,{
+      chart = sunburst.createChart(data, {
         label: (d) => d.name,
         // title: (d, n) =>
         //   `${n
@@ -254,13 +280,13 @@
       });
     }
     if (recommendation === "radialED") {
-      chart = nestedBubble.createChart(data,{
+      chart = nestedBubble.createChart(data, {
         value: defaultAttr ? null : (d) => d[attr],
         label: (d, n) => d.name.split(/(?=[A-Z][a-z])/g),
         // title: (d, n) => `${n.ancestors().reverse().map(({data: d}) => d.name).join(".")}\n${n.value.toLocaleString("en")}`,
         width: 1152,
-        height: 1152
-      })
+        height: 1152,
+      });
     }
     $("#visOutput").append(chart);
   };

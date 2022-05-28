@@ -122,7 +122,6 @@
       ); // hover text
     }
     if (options.nodeValue.status) {
-      console.log(d);
       combinedString.push(`Value: ${d.value}`); // hover text
     }
     if (options.size) {
