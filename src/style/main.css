@@ -129,6 +129,9 @@ text-align: center!important;
   height: 200px;
   display: none;
 }
+.visSettingElement{
+  margin-top: 2%;
+}
 #fileName{
     margin-top: auto;
     margin-bottom: auto;

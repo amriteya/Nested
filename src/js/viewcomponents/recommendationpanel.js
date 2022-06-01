@@ -92,49 +92,68 @@
       </div>
       ${recPanelUI.visualizationSettingsBar(recommendation)}
       </div>`
-      //<i class="btn fas fa-file-export" title="Export the visualization"></i> 
+      //<i class="btn fas fa-file-export" title="Export the visualization"></i>
     );
 
     //Event
     $("#searchBox").on("change", function () {
       dendrogram.searchLabelInteraction($(this).val());
     });
-    $("#visSetting").on("click",function(){
-      $( this ).toggleClass( "underline" );
+    $("#visSetting").on("click", function () {
+      $(this).toggleClass("underline");
       $(".visSettingsPanel").toggle("slow");
-    })
-   
+    });
+
     //Event handler for checkbox
-    $(".interactionCheckbox").on("change", function(){
-   
-        values = [];
-        $("#interactionOption input[type='checkbox']:checked").each((_, {value}) => {
+    $(".interactionCheckbox").on("change", function () {
+      values = [];
+      $("#interactionOption input[type='checkbox']:checked").each(
+        (_, { value }) => {
           values.push(value);
-        });
-        console.log(values);
-    })
- 
+        }
+      );
+      console.log(values);
+    });
   };
 
   //Settings Panel
   recPanelUI.visualizationSettingsBar = function (recommendation) {
-    console.log(recommendation);
-    let checkBoxOptions = recommendation.interaction.map(val=>{
-      
+      let interactionCheckBoxOptions = recommendation.interaction.map((val) => {
       return `<div class="form-check-inline">
               <label class="form-check-label">
-                <input type="checkbox" class="form-check-input interactionCheckbox" value=${val.label} ${val.active ? "checked":""}> ${val.label}
+                <input type="checkbox" class="form-check-input interactionCheckbox" value=${
+                  val.label
+                } ${val.active ? "checked" : ""}> ${val.label}
               </label>
-              </div>`
-    })
-    let checkBoxHTML = checkBoxOptions.join("");
+              </div>`;
+    });
+    let checkBoxHTML = interactionCheckBoxOptions.join("");
+
+    let tooltipCheckBoxOptions = recommendation.tooltip.map((val) => {
+      return `<div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input interactionCheckbox" value=${
+                  val.label
+                } ${val.active ? "checked" : ""}> ${val.label}
+              </label>
+              </div>`;
+    });
+    let tooltipcheckBoxHTML = tooltipCheckBoxOptions.join("");
+    
+    
+    
+    
     return `
     <div class="visSettingsPanel visNavBarItem">
-          <div id="interactionOption" class="form-group">
+          <div id="interactionOption" class="visSettingElement form-group">
             <label class="bold">Highlight: </label>
              ${checkBoxHTML}
           </div>
-      </div>`
+          <div id="tooltipOption" class="visSettingElement form-group">
+          <label class="bold">Tooltip: </label>
+           ${tooltipcheckBoxHTML}
+        </div>
+      </div>`;
   };
 
   recPanelUI.createWidgets = function (tasks) {

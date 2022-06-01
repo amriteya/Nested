@@ -215,9 +215,9 @@ var GLOBALDATA = {
       summary: { widgets: [], interaction: [] },
     },
     quantitative_value: {
-        identify: { widgets: [], interaction: []},
-        summary: { widgets: [], interaction: []},
-      },
+      identify: { widgets: [], interaction: [] },
+      summary: { widgets: [], interaction: [] },
+    },
     ancestors: {
       identify: { widgets: [], interaction: ["highlight ancestors"] },
       summary: { widgets: [], interaction: ["highlight ancestors"] },
@@ -228,12 +228,19 @@ var GLOBALDATA = {
     },
   },
 
-  highlightSelectInteraction:[
-    {label:"Node",active:true, color:"n/a"},
-    {label:"Ancestors",active:false, color:"n/a"},
-    {label:"Descendants",active:false, color:"n/a"},
-    {label:"Direct Children",active:false, color:"n/a"},
-    {label:"Siblings",active:false, color:"n/a"},
-    {label:"Path",active:false, color:"n/a"}
-  ]
+  highlightSelectInteraction: [
+    { label: "Node", id: "node", active: true, color: "n/a" },
+    { label: "Ancestors", id: "ancestors", active: false, color: "n/a" },
+    { label: "Descendants", id: "descendants", active: false, color: "n/a" },
+    { label: "Direct Children", id: "degree", active: false, color: "n/a" },
+    { label: "Siblings", id: "siblings", active: false, color: "n/a" },
+    { label: "Path", id: "path", active: false, color: "n/a" },
+  ],
+  tooltipFields: [
+    { label: "Node Value", id: "value", active: false },
+    { label: "Node Height", id: "height", active: false },
+    { label: "Node Depth", id: "value", active: false },
+    { label: "Node Degree", id: "value", active: false },
+    { label: "SubTree Size", id: "size", active: false },
+  ],
 };
