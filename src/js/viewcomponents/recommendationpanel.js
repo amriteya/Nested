@@ -46,7 +46,8 @@
             <p class="recTreeImgLabel"> Score:${
               treeImageMap[imgKey]["score"]
             } </p>
-        </div>`
+        </div>
+        `
       );
       $("#recInformationPanel").append(imgContainer);
     }
@@ -91,7 +92,10 @@
          <br/>
       </div>
       ${recPanelUI.visualizationSettingsBar(recommendation)}
-      </div>`
+      </div>
+      <div id="vis" style="height:450px"></div>
+      <div id="slider-range"></div>
+      `
       //<i class="btn fas fa-file-export" title="Export the visualization"></i>
     );
 
@@ -114,6 +118,78 @@
       );
       console.log(values);
     });
+
+
+    var yourVlSpec = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "data": {"url": "https://raw.githubusercontent.com/vega/vega/main/docs/data/cars.json"},
+      "layer": [
+        {
+          "params": [
+            {"name": "brush", "select": {"type": "interval", "encodings": ["x"]},    
+             "value": {"x": [0, 26]}
+            }
+          ],
+          "mark": "bar",
+          "encoding": {
+            "x": {"field": "Acceleration", "bin": true},
+            "y": {"aggregate": "count"}
+          }
+        },
+        {
+          "transform": [{"filter": {"param": "brush"}}],
+          "mark": "bar",
+          "encoding": {
+            "x": {"field": "Acceleration", "bin": true},
+            "y": {"aggregate": "count"},
+            "color": {"value": "goldenrod"}
+          }
+        }
+      ]
+    }
+    $("#slider-range").slider({
+      range: true,
+      min: 8,
+      max: 32,
+      values: [8, 26],
+      slide: function (event, ui) {
+       // $("#amount").val(ui.values[0] + " - " + ui.values[1]);
+       var yourVlSpec = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+        "data": {"url": "https://raw.githubusercontent.com/vega/vega/main/docs/data/cars.json"},
+        "layer": [
+          {
+            "params": [
+              {"name": "brush", "select": {"type": "interval", "encodings": ["x"]},    
+               "value": {"x": [ui.values[0], ui.values[1]]}
+              }
+            ],
+            "mark": "bar",
+            "encoding": {
+              "x": {"field": "Acceleration", "bin": true},
+              "y": {"aggregate": "count"}
+            }
+          },
+          {
+            "transform": [{"filter": {"param": "brush"}}],
+            "mark": "bar",
+            "encoding": {
+              "x": {"field": "Acceleration", "bin": true},
+              "y": {"aggregate": "count"},
+              "color": {"value": "goldenrod"}
+            }
+          }
+        ]
+      }
+      vegaEmbed('#vis', yourVlSpec);
+      },
+    });
+    let v1= vegaEmbed('#vis', yourVlSpec).then(({spec, view}) => {
+      view.addSignalListener('brush', function (event, item) {
+          console.log(item)
+      })
+  });
+
   };
 
   //Settings Panel
