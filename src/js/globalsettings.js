@@ -227,4 +227,13 @@ var GLOBALDATA = {
       summary: { widgets: ["range"], interaction: [] },
     },
   },
+
+  highlightSelectInteraction:[
+    {label:"Node",active:true, color:"n/a"},
+    {label:"Ancestors",active:false, color:"n/a"},
+    {label:"Descendants",active:false, color:"n/a"},
+    {label:"Direct Children",active:false, color:"n/a"},
+    {label:"Siblings",active:false, color:"n/a"},
+    {label:"Path",active:false, color:"n/a"}
+  ]
 };

@@ -128,7 +128,7 @@ recommendation.createRecommendation = function()
     else{
         window.GLOBALDATA.currentVis = "nodelink";
     }
-    let recommendationFinal = new Recommendation(visOrder,[],[])
+    let recommendationFinal = new Recommendation(visOrder,[],window.GLOBALDATA.highlightSelectInteraction)
     renderingControl.visUpdate(recommendationFinal);
 }
 }())

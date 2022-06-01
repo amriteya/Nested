@@ -16,8 +16,7 @@
     renderingControl.visUpdate = function (recommendation)
     {
         recPanelUI.recommendationInformation(recommendation);
-        recPanelUI.visualizationNavBar();
-        recPanelUI.visualizationSettingsBar();
+        recPanelUI.visualizationNavBar(recommendation);
         recPanelUI.renderRecommendation();
         dataPanelUI.attrSelectionBtn();
         dataPanelUI.treeSummaryPanel();

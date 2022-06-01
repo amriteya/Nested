@@ -153,3 +153,7 @@ text-align: center!important;
 .underline {
   border-bottom: solid grey;
 }
+
+.bold{
+  font-weight: bold;
+}
