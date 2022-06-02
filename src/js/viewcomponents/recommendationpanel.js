@@ -83,9 +83,6 @@
           window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["label"]
         } </span>
         </div>
-          <div class="visNavBarItem" id="searchInput">
-            ${recPanelUI.createWidgets(tasks)}
-          </div>  
           <div class="visNavBarItem" id="visSetting">
           <span class="settingsIcon"> <i class="btn fas fa-cog" title="Configure the visualization"></i> </span>
          </div>
@@ -93,8 +90,6 @@
       </div>
       ${recPanelUI.visualizationSettingsBar(recommendation)}
       </div>
-      <div id="vis" style="height:450px"></div>
-      <div id="slider-range"></div>
       `
       //<i class="btn fas fa-file-export" title="Export the visualization"></i>
     );
@@ -120,81 +115,11 @@
     });
 
 
-    var yourVlSpec = {
-      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "data": {"url": "https://raw.githubusercontent.com/vega/vega/main/docs/data/cars.json"},
-      "layer": [
-        {
-          "params": [
-            {"name": "brush", "select": {"type": "interval", "encodings": ["x"]},    
-             "value": {"x": [0, 26]}
-            }
-          ],
-          "mark": "bar",
-          "encoding": {
-            "x": {"field": "Acceleration", "bin": true},
-            "y": {"aggregate": "count"}
-          }
-        },
-        {
-          "transform": [{"filter": {"param": "brush"}}],
-          "mark": "bar",
-          "encoding": {
-            "x": {"field": "Acceleration", "bin": true},
-            "y": {"aggregate": "count"},
-            "color": {"value": "goldenrod"}
-          }
-        }
-      ]
-    }
-    $("#slider-range").slider({
-      range: true,
-      min: 8,
-      max: 32,
-      values: [8, 26],
-      slide: function (event, ui) {
-       // $("#amount").val(ui.values[0] + " - " + ui.values[1]);
-       var yourVlSpec = {
-        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-        "data": {"url": "https://raw.githubusercontent.com/vega/vega/main/docs/data/cars.json"},
-        "layer": [
-          {
-            "params": [
-              {"name": "brush", "select": {"type": "interval", "encodings": ["x"]},    
-               "value": {"x": [ui.values[0], ui.values[1]]}
-              }
-            ],
-            "mark": "bar",
-            "encoding": {
-              "x": {"field": "Acceleration", "bin": true},
-              "y": {"aggregate": "count"}
-            }
-          },
-          {
-            "transform": [{"filter": {"param": "brush"}}],
-            "mark": "bar",
-            "encoding": {
-              "x": {"field": "Acceleration", "bin": true},
-              "y": {"aggregate": "count"},
-              "color": {"value": "goldenrod"}
-            }
-          }
-        ]
-      }
-      vegaEmbed('#vis', yourVlSpec);
-      },
-    });
-    let v1= vegaEmbed('#vis', yourVlSpec).then(({spec, view}) => {
-      view.addSignalListener('brush', function (event, item) {
-          console.log(item)
-      })
-  });
-
   };
 
   //Settings Panel
   recPanelUI.visualizationSettingsBar = function (recommendation) {
-      let interactionCheckBoxOptions = recommendation.interaction.map((val) => {
+    let interactionCheckBoxOptions = recommendation.interaction.map((val) => {
       return `<div class="form-check-inline">
               <label class="form-check-label">
                 <input type="checkbox" class="form-check-input interactionCheckbox" value=${
@@ -215,10 +140,7 @@
               </div>`;
     });
     let tooltipcheckBoxHTML = tooltipCheckBoxOptions.join("");
-    
-    
-    
-    
+
     return `
     <div class="visSettingsPanel visNavBarItem">
           <div id="interactionOption" class="visSettingElement form-group">
@@ -284,6 +206,15 @@
       return ``;
     }
   };
+
+  recPanelUI.renderWidgets = function(){
+    $("#recPanelBody").append(
+      ` <div class="col-4" id="widgetContainer">
+          ${widgetRangeFilter.createRangeFilter()}
+        </div>`  
+    );
+    widgetRangeFilter.setupRangeFilter();
+  }
 
   //Params: recommendation: Object that is returned by recommendation system.
   recPanelUI.renderRecommendation = function () {
