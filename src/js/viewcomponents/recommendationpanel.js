@@ -59,9 +59,12 @@
     $(".recInformationItemContainer").click(function () {
       var elemId = $(this).attr("id");
       window.GLOBALDATA.currentVis = elemId;
-      recPanelUI.visualizationNavBar();
-      recPanelUI.visualizationSettingsBar();
-      recPanelUI.renderRecommendation();
+      recPanelUI.visualizationNavBar(recommendation);
+      recPanelUI.visualizationSettingsBar(recommendation);
+      recPanelUI.renderWidgets(recommendation);
+      recPanelUI.renderRecommendation(recommendation);
+
+      //renderingControl.visUpdate(recommendation);
       $(".recInformationItemContainer.selectedItem").toggleClass(
         "selectedItem"
       );
@@ -71,13 +74,13 @@
 
   //Navigation bar for visualization
   recPanelUI.visualizationNavBar = function (recommendation) {
-    recPanelUI.clearVisOutput("visNavBar");
+    recPanelUI.clearVisOutput("navBarContainer");
     let tasks = window.GLOBALDATA.tasks.selectedTasks;
 
     $("#recPanelBody").append(
       `
-      <div class="visOutputNavContainer">
-      <div  id='visNavBar'> 
+      <div id="navBarContainer" class="visOutputNavContainer">
+      <div class="visNavBar"> 
         <div class="visNavBarItem" id="fileName">
         <span class="headerText"> ${
           window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["label"]
@@ -117,6 +120,7 @@
 
   //Settings Panel
   recPanelUI.visualizationSettingsBar = function (recommendation) {
+    // recPanelUI.clearVisOutput("visSettingDropdownPanel");
     let interactionCheckBoxOptions = recommendation.interaction.map((val) => {
       return `<div class="form-check-inline">
               <label class="form-check-label">
@@ -140,7 +144,7 @@
     let tooltipcheckBoxHTML = tooltipCheckBoxOptions.join("");
 
     return `
-    <div class="visSettingsPanel visNavBarItem">
+    <div id="visSettingDropdownPanel" class="visSettingsPanel visNavBarItem">
           <div id="interactionOption" class="visSettingElement form-group">
             <label class="bold">Highlight: </label>
              ${checkBoxHTML}
@@ -152,61 +156,9 @@
       </div>`;
   };
 
-  // recPanelUI.createWidgets = function (tasks) {
-  //   if (tasks.length !== 0) {
-  //     for (val of tasks) {
-  //       let widget;
-  //       let query = window.GLOBALDATA.tasks.selectedQuery;
-  //       if (window.GLOBALDATA.taskPropertyMap[val][query].widgets.length > 0) {
-  //         let widgets = window.GLOBALDATA.taskPropertyMap[val][query].widgets;
-  //         for (widget of widgets) {
-  //           if (widget === "search") {
-  //             return `
-  //                   <div class="input-group rounded">
-  //                   <input id="searchBox" type="search" class="form-control rounded" placeholder="Search Node" aria-label="Search" aria-describedby="search-addon" />
-  //                   <span class="input-group-text border-0" id="search-addon">
-  //                       <i class="fas fa-search"></i>
-  //                   </span>
-  //                   </div>`;
-  //           }
-  //           if (widget === "range") {
-  //             let div = `<div id="sliderContainer">
-  //                   <span>
-  //                   <label for="amount">Degree:</label>
-  //                   <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-  //                   </span>
-  //                   <div id="slider-range"></div>
-  //                   </div>`;
-  //             $(function () {
-  //               $("#slider-range").slider({
-  //                 range: true,
-  //                 min: 0,
-  //                 max: 32,
-  //                 values: [0, 32],
-  //                 slide: function (event, ui) {
-  //                   $("#amount").val(ui.values[0] + " - " + ui.values[1]);
-  //                 },
-  //               });
-  //               $("#amount").val(
-  //                 $("#slider-range").slider("values", 0) +
-  //                   " - " +
-  //                   $("#slider-range").slider("values", 1)
-  //               );
-  //             });
-  //             return div;
-  //           }
-  //         }
-  //       } else {
-  //         return ``;
-  //       }
-  //     }
-  //   } else {
-  //     return ``;
-  //   }
-  // };
-
   recPanelUI.renderWidgets = function (recommendation) {
-    console.log(recommendation);
+    recPanelUI.clearVisOutput("widgetContainer");
+
 
     $("#recPanelBody").append(
       ` <div class="widgetContainerBody" id="widgetContainer">

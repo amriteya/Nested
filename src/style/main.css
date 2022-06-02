@@ -109,7 +109,7 @@ text-align: center!important;
   text-align: center;
 }
 
-#visNavBar{
+.visNavBar{
     height:50px;
     display:flex;
 }
