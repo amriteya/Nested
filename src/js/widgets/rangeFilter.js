@@ -2,13 +2,14 @@
   widgetRangeFilter = {};
   widgetRangeFilter.createRangeFilter = function () {
     return `
-        <div id="rangeFilter">
+        <div class="col-4 widgetElement" id="rangeFilter">
+            <p class="bold"> Degree </p>
             <div id="vis"></div>
             <div id="slider-range"></div>
         <div>`;
   };
   widgetRangeFilter.setupRangeFilter = function () {
-    var yourVlSpec = createVegaSpec(100,100,[0,26]);
+    var yourVlSpec = createVegaSpec(50, 50, [0, 26]);
 
     $("#slider-range").slider({
       range: true,
@@ -17,8 +18,8 @@
       values: [8, 26],
       slide: function (event, ui) {
         // $("#amount").val(ui.values[0] + " - " + ui.values[1]);
-        var yourVlSpec = createVegaSpec(100,100,[ui.values[0],ui.values[1]]) 
-        vegaEmbed("#vis", yourVlSpec).then(({ spec, view }) => {
+        var yourVlSpec = createVegaSpec(50, 50, [ui.values[0], ui.values[1]]);
+        vegaEmbed("#vis", yourVlSpec, {"actions": false}).then(({ spec, view }) => {
           view.addSignalListener("brush", function (event, item) {
             $("#slider-range").slider("values", [
               Math.floor(item["Acceleration"][0]),
@@ -29,7 +30,7 @@
       },
     });
 
-    vegaEmbed("#vis", yourVlSpec).then(({ spec, view }) => {
+    vegaEmbed("#vis", yourVlSpec, {"actions": false}).then(({ spec, view }) => {
       view.addSignalListener("brush", function (event, item) {
         $("#slider-range").slider("values", [
           Math.floor(item["Acceleration"][0]),
@@ -45,6 +46,7 @@
       data: {
         url: "https://raw.githubusercontent.com/vega/vega/main/docs/data/cars.json",
       },
+      height: height,
       layer: [
         {
           params: [
@@ -57,7 +59,7 @@
           mark: "bar",
           encoding: {
             x: { field: "Acceleration", bin: true },
-            y: { aggregate: "count" },
+            y: { aggregate: "count", title:"count" },
           },
         },
         {
@@ -65,11 +67,12 @@
           mark: "bar",
           encoding: {
             x: { field: "Acceleration", bin: true },
-            y: { aggregate: "count" },
+            y: { aggregate: "count", title:"count" },
             color: { value: "goldenrod" },
           },
         },
       ],
+      actions:false
     };
     return vegaSpec;
   }

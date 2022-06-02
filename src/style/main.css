@@ -83,11 +83,6 @@ text-align: center!important;
     opacity: 1;
 }
 /* Recommendation and Visualization */
-#visOutput {
-  max-height: 1000px;
-  overflow: auto;
-  border: 1px solid lightgrey;
-}
 
 #recInformationPanel {
   display: flex;
@@ -136,7 +131,12 @@ text-align: center!important;
     margin-top: auto;
     margin-bottom: auto;
 }
-#searchInput{
+.widgetContainerBody{
+  display: flex;
+  margin:1%;
+}
+.widgetElement{
+  margin-left: 1%;
 }
 #visSetting{
     margin-top: auto;
@@ -144,6 +144,11 @@ text-align: center!important;
 }
 .settingsIcon:hover{
   opacity: 0.5;
+}
+
+#visOutput {
+  max-height: 1000px;
+  overflow: auto;
 }
 
 

@@ -129,7 +129,7 @@ recommendation.createRecommendation = function()
     else{
         window.GLOBALDATA.currentVis = "nodelink";
     }
-    let recommendationFinal = new Recommendation(visOrder,[],window.GLOBALDATA.highlightSelectInteraction, window.GLOBALDATA.tooltipFields)
+    let recommendationFinal = new Recommendation(visOrder,["search", "range"],window.GLOBALDATA.highlightSelectInteraction, window.GLOBALDATA.tooltipFields)
     renderingControl.visUpdate(recommendationFinal);
 }
 }())

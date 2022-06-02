@@ -113,8 +113,6 @@
       );
       console.log(values);
     });
-
-
   };
 
   //Settings Panel
@@ -154,67 +152,76 @@
       </div>`;
   };
 
-  recPanelUI.createWidgets = function (tasks) {
-    if (tasks.length !== 0) {
-      for (val of tasks) {
-        let widget;
-        let query = window.GLOBALDATA.tasks.selectedQuery;
-        if (window.GLOBALDATA.taskPropertyMap[val][query].widgets.length > 0) {
-          let widgets = window.GLOBALDATA.taskPropertyMap[val][query].widgets;
-          for (widget of widgets) {
-            if (widget === "search") {
-              return `
-                    <div class="input-group rounded">
-                    <input id="searchBox" type="search" class="form-control rounded" placeholder="Search Node" aria-label="Search" aria-describedby="search-addon" />
-                    <span class="input-group-text border-0" id="search-addon">
-                        <i class="fas fa-search"></i>
-                    </span>
-                    </div>`;
-            }
-            if (widget === "range") {
-              let div = `<div id="sliderContainer">
-                    <span>
-                    <label for="amount">Degree:</label>
-                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                    </span>
-                    <div id="slider-range"></div>
-                    </div>`;
-              $(function () {
-                $("#slider-range").slider({
-                  range: true,
-                  min: 0,
-                  max: 32,
-                  values: [0, 32],
-                  slide: function (event, ui) {
-                    $("#amount").val(ui.values[0] + " - " + ui.values[1]);
-                  },
-                });
-                $("#amount").val(
-                  $("#slider-range").slider("values", 0) +
-                    " - " +
-                    $("#slider-range").slider("values", 1)
-                );
-              });
-              return div;
-            }
-          }
-        } else {
-          return ``;
-        }
-      }
-    } else {
-      return ``;
-    }
-  };
+  // recPanelUI.createWidgets = function (tasks) {
+  //   if (tasks.length !== 0) {
+  //     for (val of tasks) {
+  //       let widget;
+  //       let query = window.GLOBALDATA.tasks.selectedQuery;
+  //       if (window.GLOBALDATA.taskPropertyMap[val][query].widgets.length > 0) {
+  //         let widgets = window.GLOBALDATA.taskPropertyMap[val][query].widgets;
+  //         for (widget of widgets) {
+  //           if (widget === "search") {
+  //             return `
+  //                   <div class="input-group rounded">
+  //                   <input id="searchBox" type="search" class="form-control rounded" placeholder="Search Node" aria-label="Search" aria-describedby="search-addon" />
+  //                   <span class="input-group-text border-0" id="search-addon">
+  //                       <i class="fas fa-search"></i>
+  //                   </span>
+  //                   </div>`;
+  //           }
+  //           if (widget === "range") {
+  //             let div = `<div id="sliderContainer">
+  //                   <span>
+  //                   <label for="amount">Degree:</label>
+  //                   <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+  //                   </span>
+  //                   <div id="slider-range"></div>
+  //                   </div>`;
+  //             $(function () {
+  //               $("#slider-range").slider({
+  //                 range: true,
+  //                 min: 0,
+  //                 max: 32,
+  //                 values: [0, 32],
+  //                 slide: function (event, ui) {
+  //                   $("#amount").val(ui.values[0] + " - " + ui.values[1]);
+  //                 },
+  //               });
+  //               $("#amount").val(
+  //                 $("#slider-range").slider("values", 0) +
+  //                   " - " +
+  //                   $("#slider-range").slider("values", 1)
+  //               );
+  //             });
+  //             return div;
+  //           }
+  //         }
+  //       } else {
+  //         return ``;
+  //       }
+  //     }
+  //   } else {
+  //     return ``;
+  //   }
+  // };
 
-  recPanelUI.renderWidgets = function(){
+  recPanelUI.renderWidgets = function (recommendation) {
+    console.log(recommendation);
+
     $("#recPanelBody").append(
-      ` <div class="col-4" id="widgetContainer">
-          ${widgetRangeFilter.createRangeFilter()}
-        </div>`  
+      ` <div class="widgetContainerBody" id="widgetContainer">
+        </div>`
     );
-    widgetRangeFilter.setupRangeFilter();
+    for (widget of recommendation.widgets) {
+    if (widget === "search") {
+      $("#widgetContainer").append(widgetSearchBox.createSearchBox());
+    }
+    if (widget === "range") {
+      $("#widgetContainer").append(widgetRangeFilter.createRangeFilter());
+      widgetRangeFilter.setupRangeFilter();
+    }
   }
+  };
 
   //Params: recommendation: Object that is returned by recommendation system.
   recPanelUI.renderRecommendation = function () {
