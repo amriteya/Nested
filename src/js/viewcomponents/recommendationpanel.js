@@ -7,7 +7,13 @@
       .width(window.GLOBALDATA.panelWidth.recommendationPanel + "%")
       .append(recPanel);
     $("#recPanelBody").append(
-      `<div class="panelHeader p-1 bg-light text-dark"> Recommendation </div>`
+
+      ` <div class="panelHeader p-1 bg-light text-dark">
+        <div class="headerText"> Recommendation </div>
+        <div class="recPanelHeaderIcons floatRight iconButton">
+          <span class="settingsIcon"> <i class="fas fa-minus"></i></span> 
+        </div>
+        </div>`
     );
   };
 
@@ -24,12 +30,12 @@
     //let treeImageMap = window.GLOBALDATA.imgMap.tree;
     let treeImageMap = recommendation.visOrder;
     let recommendationInformationPanel = $(
-      `<div id="recInformationPanel"> </div>`
+      `<div id="recInformationPanel">
+      <div class="recInformationTitleText"> <span class="headerText"> Encoding </span> </div>
+      <div id="recOptions" class="recOptionsClass"> </div>
+      </div>`
     );
     $("#recPanelBody").append(recommendationInformationPanel);
-    $("#recInformationPanel").append(
-      `<div class="recInformationTitleText"> <span class="headerText"> Encoding </span> </div>`
-    );
 
     for (imgKey in treeImageMap) {
       let fileLoc =
@@ -49,7 +55,7 @@
         </div>
         `
       );
-      $("#recInformationPanel").append(imgContainer);
+      $("#recOptions").append(imgContainer);
     }
 
     // //Adding a container for visualization
@@ -86,9 +92,9 @@
           window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["label"]
         } </span>
         </div>
-          <div class="visNavBarItem visNavIcons" id="visSetting">
-          <span class="settingsIcon"> <i class="btn fas fa-cog" title="Configure the visualization"></i> </span>
-          <span class="exportIcon"> <i class="btn fas fa-file-export" title="Export the visualization"></i> </span>
+          <div class="visNavBarItem floatRight" id="visSetting">
+          <span id="settingIcon"> <i class="btn fas fa-cog" title="Configure the visualization"></i> </span>
+          <span id="exportIcon"> <i class="btn fas fa-file-export" title="Export the visualization"></i> </span>
 
          </div>
          <br/>
@@ -103,7 +109,7 @@
     $("#searchBox").on("change", function () {
       dendrogram.searchLabelInteraction($(this).val());
     });
-    $("#visSetting").on("click", function () {
+    $("#settingIcon").on("click", function () {
       $(this).toggleClass("underline");
       $(".visSettingsPanel").toggle("slow");
     });

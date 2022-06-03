@@ -7,7 +7,10 @@
       .width(window.GLOBALDATA.panelWidth.dataPanel + "%")
       .append(datapanelBody);
     $("#dataPanelBody").append(
-      `<div class="panelHeader align-middle p-1 bg-light text-dark"> Input </div>`
+      `<div class="panelHeader align-middle p-1 bg-light text-dark"> 
+      <div class="headerText">Input
+      </div>
+      </div>`
     );
   };
 

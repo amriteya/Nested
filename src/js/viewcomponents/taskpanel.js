@@ -9,7 +9,11 @@
       .width(window.GLOBALDATA.panelWidth.taskPanel + "%")
       .append(taskpanelBody);
     $("#taskPanelBody").append(
-      `<div class="panelHeader p-1 bg-light text-dark"> Tasks</div>`
+      `<div class="panelHeader p-1 bg-light text-dark"> 
+      <div class="headerText">
+      Tasks
+      </div>
+      </div>`
     );
   };
 

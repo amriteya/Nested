@@ -1,14 +1,8 @@
 .appBody {
   display: flex;
 }
-
 .navbar {
   font-size: x-large;
-  font-weight: bold;
-}
-
-.headerText {
-  font-size: large;
   font-weight: bold;
 }
 .backgroundOp1 {
@@ -20,22 +14,22 @@
 .opacity {
   opacity: 0.5;
 }
-.additionalInformation{
-    color:gray;
-    text-align: left!important;
+.additionalInformation {
+  color: gray;
+  text-align: left !important;
 }
 
 .selectedItem {
-    border: 1px solid lightgrey!important;
-    opacity: 1!important;
-  }
+  border: 1px solid lightgrey !important;
+  opacity: 1 !important;
+}
 
 /* Panel style */
 .topLevelContainer {
   margin: 5px;
 }
 .panelHeader {
-  font-size: x-large;
+  display: flex;
 }
 
 /* Data Panel */
@@ -55,39 +49,42 @@
 
 /* Task Panel */
 .taskPanelContainer {
-  margin-top: 20px!important;
+  margin-top: 20px !important;
 }
 .taskIconElement {
-    margin-top: 5%!important;
-    opacity: 0.4;
-    cursor: pointer;
+  margin-top: 5% !important;
+  opacity: 0.4;
+  cursor: pointer;
 }
-.taskIconElement:hover{
-    opacity: 1;
+.taskIconElement:hover {
+  opacity: 1;
 }
 .taskImgView {
   height: 100px;
 }
-.taskImageContainer{
-text-align: center!important;
+.taskImageContainer {
+  text-align: center !important;
 }
-.taskPanelLabel{
-    text-align: justify;
+.taskPanelLabel {
+  text-align: justify;
 }
-.taskQueryIconElement{
-    margin-top: 5%!important;
-    opacity: 0.4;
-    cursor: pointer;
+.taskQueryIconElement {
+  margin-top: 5% !important;
+  opacity: 0.4;
+  cursor: pointer;
 }
-.taskQueryIconElement:hover{
-    opacity: 1;
+.taskQueryIconElement:hover {
+  opacity: 1;
 }
 /* Recommendation and Visualization */
 
 #recInformationPanel {
-  display: flex;
   max-height: 150px;
-  margin: 10px;
+  margin: 2%;
+  margin-bottom:4%;
+}
+.recOptionsClass{
+  display: flex;
 }
 .recInformationTitleText {
   margin: auto;
@@ -109,44 +106,43 @@ text-align: center!important;
   text-align: center;
 }
 
-.visNavBar{
-    height:50px;
-    display:flex;
+.visNavBar {
+  height: 50px;
+  display: flex;
 }
-.visOutputNavContainer{
-  border: 1px solid lightgrey!important;
+.visOutputNavContainer {
+  border: 1px solid lightgrey !important;
 }
-.visNavBarItem
-{
-    margin-left: 2%;
+.visNavBarItem {
+  margin-left: 2%;
 }
-.visSettingsPanel{
+.visSettingsPanel {
   height: 200px;
   display: none;
 }
-.visSettingElement{
+.visSettingElement {
   margin-top: 2%;
 }
-.visNavIcons{
-  margin-left: auto; 
+.floatRight {
+  margin-left: auto;
   margin-right: 0;
 }
-#fileName{
-    margin-top: auto;
-    margin-bottom: auto;
+#fileName {
+  margin-top: auto;
+  margin-bottom: auto;
 }
-.widgetContainerBody{
+.widgetContainerBody {
   display: flex;
-  margin:1%;
+  margin: 1%;
 }
-.widgetElement{
+.widgetElement {
   margin-left: 1%;
 }
-#visSetting{
-    margin-top: auto;
-    margin-bottom: auto;
+#visSetting {
+  margin-top: auto;
+  margin-bottom: auto;
 }
-.settingsIcon:hover{
+.settingsIcon:hover {
   opacity: 0.5;
 }
 
@@ -155,17 +151,22 @@ text-align: center!important;
   overflow: auto;
 }
 
-
 /* Visualization */
-.node{
-    cursor: pointer;
+.node {
+  cursor: pointer;
 }
 
 /* Utility Css */
 .underline {
   border-bottom: solid grey;
 }
-
-.bold{
+.bold {
   font-weight: bold;
+}
+.headerText {
+  font-size: large;
+  font-weight: bold;
+}
+.iconButton{
+  cursor: pointer;
 }
