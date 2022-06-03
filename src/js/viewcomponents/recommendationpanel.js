@@ -86,8 +86,10 @@
           window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["label"]
         } </span>
         </div>
-          <div class="visNavBarItem" id="visSetting">
+          <div class="visNavBarItem visNavIcons" id="visSetting">
           <span class="settingsIcon"> <i class="btn fas fa-cog" title="Configure the visualization"></i> </span>
+          <span class="exportIcon"> <i class="btn fas fa-file-export" title="Export the visualization"></i> </span>
+
          </div>
          <br/>
       </div>
