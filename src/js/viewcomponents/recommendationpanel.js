@@ -10,9 +10,6 @@
 
       ` <div class="panelHeader p-1 bg-light text-dark">
         <div class="headerText"> Recommendation </div>
-        <div class="recPanelHeaderIcons floatRight iconButton">
-          <span class="settingsIcon"> <i class="fas fa-minus"></i></span> 
-        </div>
         </div>`
     );
   };
@@ -31,7 +28,12 @@
     let treeImageMap = recommendation.visOrder;
     let recommendationInformationPanel = $(
       `<div class="panelbodyitem" id="recInformationPanel">
-      <div class="recInformationTitleText headerContainer"> <span class="headerText headerContainerItem"> Encoding </span> </div>
+        <div class="recInformationTitleText headerContainer"> 
+          <span class="headerText headerContainerItem"> Encoding </span> 
+          <div class="floatRight">
+          <span class="close iconButton"> <i class="btn fas fa-minus"></i></span> 
+          </div>
+        </div>
       <div id="recOptions" class="recOptionsClass"> </div>
       </div>`
     );
@@ -93,8 +95,8 @@
         } </span>
         </div>
           <div class="headerContainerItem floatRight" id="visSetting">
-          <span id="settingIcon"> <i class="btn fas fa-cog" title="Configure the visualization"></i> </span>
-          <span id="exportIcon"> <i class="btn fas fa-file-export" title="Export the visualization"></i> </span>
+          <span class="iconButton" id="settingIcon"> <i class="btn fas fa-cog" title="Configure the visualization"></i> </span>
+          <span class="iconButton" id="exportIcon"> <i class="btn fas fa-file-export" title="Export the visualization"></i> </span>
 
          </div>
          <br/>

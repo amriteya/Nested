@@ -166,6 +166,9 @@
 .iconButton{
   cursor: pointer;
 }
+.iconButton:hover{
+  opacity: 0.5;
+}
 .selectedItem {
   opacity: 1 !important;
 }
