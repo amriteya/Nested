@@ -25,10 +25,12 @@
     // Views
     //let treeImageMap = window.GLOBALDATA.imgMap.tree;
     let treeImageMap = recommendation.visOrder;
+    console.log(window.GLOBALDATA.currentVis);
     let recommendationInformationPanel = $(
       `<div class="panelbodyitem" id="recInformationPanel">
         <div class="recInformationTitleText headerContainer"> 
-          <span class="headerText headerContainerItem"> Encoding </span> 
+          <span class="headerText headerContainerItem"> Encoding </span>
+          <span id="recommendedEncodingLabel" class="headerContainerItem hide"> Selected Encoding: ${treeImageMap[window.GLOBALDATA.currentVis]["label"]}  </span>
           <div class="floatRight">
           <span id="closebtn" class="iconButton"> <i id="closeBtnIcon" class="btn fas fa-minus" title="open-close the encoding tab"></i></span> 
           </div>
@@ -81,6 +83,7 @@
     //Closing the recommendation panel
     $("#closebtn").on("click", function(){
       $("#recOptions").toggle("slow");
+      $("#recommendedEncodingLabel").toggleClass("hide");
       if($("#closeBtnIcon").attr("class") === "btn fas fa-minus")
       {
         $("#closeBtnIcon").removeClass("fa-minus").addClass("fa-plus");
