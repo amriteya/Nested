@@ -130,7 +130,7 @@
 
   //Settings Panel
   recPanelUI.visualizationSettingsBar = function (recommendation) {
-    // recPanelUI.clearVisOutput("visSettingDropdownPanel");
+    console.log(recommendation);
     let interactionCheckBoxOptions = recommendation.interaction.map((val) => {
       return `<div class="form-check-inline">
               <label class="form-check-label">

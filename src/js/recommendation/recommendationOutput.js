@@ -6,12 +6,13 @@ class Recommendation {
     widgets;
     interaction;
 
-    constructor(visOrder,widgets,interaction,tooltip)
+    constructor(visOrder,widgets,interaction,tooltip, visSetting)
     {
         this.visOrder = visOrder;
         this.widgets = widgets;
         this.interaction = interaction;
         this.tooltip = tooltip;
+        this.visSetting = visSetting;
     }
 }
 
@@ -129,7 +130,7 @@ recommendation.createRecommendation = function()
     else{
         window.GLOBALDATA.currentVis = "nodelink";
     }
-    let recommendationFinal = new Recommendation(visOrder,["search", "range"],window.GLOBALDATA.highlightSelectInteraction, window.GLOBALDATA.tooltipFields)
+    let recommendationFinal = new Recommendation(visOrder,["search", "range"],window.GLOBALDATA.highlightSelectInteraction, window.GLOBALDATA.tooltipFields, window.GLOBALDATA.visSettings)
     renderingControl.visUpdate(recommendationFinal);
 }
 }())

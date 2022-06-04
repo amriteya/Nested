@@ -243,4 +243,10 @@ var GLOBALDATA = {
     { label: "Node Degree", id: "value", active: false },
     { label: "SubTree Size", id: "size", active: false },
   ],
+  visSettings: [
+    {label:"Font Size", id:"fontsize", value:10},
+    {label:"Width", id:"width", value:1000},
+    {label:"Height", id:"height", value:1000},
+    {label:"Node Color", id:"nodecolor", value:"#999"}
+  ]
 };
