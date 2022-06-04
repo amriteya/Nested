@@ -110,6 +110,34 @@
     }
   };
 
+  interaction.highlightPath = function (nodes, event) {
+    if (event === "select") {
+      d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
+      d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
+      nodes.forEach((val) => {
+        d3.selectAll("#node_" + val.index)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      });
+
+      for (var i = 0; i < nodes.length; i++) {
+        for (var j = 0; j < nodes.length; j++) {
+          d3.selectAll(
+            `#node_${nodes[i].index}-node_${nodes[j].index}`
+          )
+            .transition()
+            .duration("100")
+            .style("opacity", "1");
+        }
+      }
+    } else {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+      d3.selectAll(".link").transition().duration("50").style("opacity", "1");
+    }
+
+  };
+
   interaction.appendTitle = function (d, options) {
     let combinedString = [];
     if (options.ancestors) {

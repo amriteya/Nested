@@ -35,7 +35,7 @@
         value, //
         highlightNode = false,
         highlightAncestors = false, //Test if a node has ancestors
-        highlightDescendants = true, //Test if a node has ancestors
+        highlightDescendants = false, //Test if a node has ancestors
         highlightSiblings = false, //Enable siblings interaction
         highlightChildNodes = false, //Enable child node interaction
         highlightPath = true, //Enable path selection between two nodes
@@ -182,7 +182,7 @@
           if(highlightPath)
           {
             console.log(d.path(root));
-            console.log(root);
+            interaction.highlightPath(d.path(root.find(node => node.data.name === "interpolate")),"select");
           }
         })
         .on("mouseout", function (e, d) {
@@ -200,6 +200,10 @@
           }
           if (highlightChildNodes) {
             interaction.highlightDescendantsWithLinks([], "deselect");
+          }
+          if(highlightPath)
+          {
+            interaction.highlightPath([],"deselect");
           }
         });
 
