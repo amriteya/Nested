@@ -155,14 +155,28 @@
 
     return `
     <div id="visSettingDropdownPanel" class="visSettingsPanel visNavBarItem">
-          <div id="interactionOption" class="visSettingElement form-group">
-            <label class="bold">Highlight: </label>
-             ${checkBoxHTML}
-          </div>
-          <div id="tooltipOption" class="visSettingElement form-group">
-          <label class="bold">Tooltip: </label>
-           ${tooltipcheckBoxHTML}
-        </div>
+          <table style="width:100%">
+            <tr>
+              <div id="interactionOption" class="visSettingElement form-group">
+                <td>
+                  <label class="bold">Highlight: </label>
+                </td>
+                <td style="width: 90%">
+                  ${checkBoxHTML}
+                </td>
+              </div>
+            </tr>
+            <tr>
+              <div id="tooltipOption" class="visSettingElement form-group">
+                <td>
+                  <label class="bold">Tooltip: </label>
+                </td>
+                <td>
+                  ${tooltipcheckBoxHTML}
+                </td>
+              </div>
+            </tr>
+        </table>
       </div>`;
   };
 
