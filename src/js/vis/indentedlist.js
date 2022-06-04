@@ -16,10 +16,11 @@
       fill = "none", // fill for nodes
       fillOpacity, // fill opacity for nodes
       stroke = "#555", // stroke for links
-      highlightAncestors = true,
-      highlightDescendants = true, //Test if a node has ancestors
+      highlightAncestors = false,
+      highlightDescendants = false, //Test if a node has ancestors
       highlightSiblings = false, //Enable siblings interaction
-      highlightChildNodes = true, //Enable child node interaction
+      highlightChildNodes = false, //Enable child node interaction
+      highlightPath = true, //Enable path selection between two nodes
       options = {
         ancestors: true,
         nodeValue: { status: true },
@@ -123,6 +124,12 @@
           });
           interaction.highlightDescendantsWithLinks(childNodes, "select");
         }
+        if (highlightPath) {
+          interaction.highlightPath(
+            d.path(root.find((node) => node.data.name === "interpolate")),
+            "select"
+          );
+        }
       })
       .on("mouseout", function (e, d) {
         //indentedList.highlightNode("node_"+d.index, "deselect");
@@ -141,6 +148,9 @@
         }
         if (highlightChildNodes) {
           interaction.highlightDescendantsWithLinks([], "deselect");
+        }
+        if (highlightPath) {
+          interaction.highlightPath([], "deselect");
         }
       });
 

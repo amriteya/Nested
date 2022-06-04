@@ -179,10 +179,11 @@
             });
             interaction.highlightDescendantsWithLinks(childNodes, "select");
           }
-          if(highlightPath)
-          {
-            console.log(d.path(root));
-            interaction.highlightPath(d.path(root.find(node => node.data.name === "interpolate")),"select");
+          if (highlightPath) {
+            interaction.highlightPath(
+              d.path(root.find((node) => node.data.name === "interpolate")),
+              "select"
+            );
           }
         })
         .on("mouseout", function (e, d) {
@@ -201,9 +202,8 @@
           if (highlightChildNodes) {
             interaction.highlightDescendantsWithLinks([], "deselect");
           }
-          if(highlightPath)
-          {
-            interaction.highlightPath([],"deselect");
+          if (highlightPath) {
+            interaction.highlightPath([], "deselect");
           }
         });
 
@@ -215,7 +215,7 @@
         )
         .attr("r", r);
 
-        node.append("title").text((d) => interaction.appendTitle(d, options));
+      node.append("title").text((d) => interaction.appendTitle(d, options));
 
       if (L)
         node
