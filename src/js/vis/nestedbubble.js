@@ -28,10 +28,11 @@
       strokeWidth, // stroke width for internal circles
       strokeOpacity, // stroke opacity for internal circles
       colorScale = d3.interpolateGreys, // color scheme, if any
-      highlightAncestors = true,
-      highlightDescendants = true, //Test if a node has ancestors
-      highlightSiblings = true, //Enable siblings interaction
-      highlightChildNodes = true,
+      highlightAncestors = false,
+      highlightDescendants = false, //Test if a node has ancestors
+      highlightSiblings = false, //Enable siblings interaction
+      highlightChildNodes = false,
+      highlightPath = true,
       options = {
         ancestors: true,
         nodeValue: { status: true },
@@ -132,6 +133,12 @@
           });
           interaction.highlightDescendantsNoLink(childNodes, "select");
         }
+        if (highlightPath) {
+          interaction.highlightPathWithNoLinks(
+            d.path(root.find((node) => node.data.name === "interpolate")),
+            "select"
+          );
+        }
       })
       .on("mouseout", function (e, d) {
         //nestedBubble.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
@@ -150,6 +157,9 @@
         }
         if (highlightChildNodes) {
           interaction.highlightDescendantsNoLink([], "deselect");
+        }
+        if (highlightPath) {
+          interaction.highlightPathWithNoLinks([], "deselect");
         }
       });
 

@@ -30,10 +30,11 @@
       color = d3.interpolateRainbow, // color scheme, if any
       fill = "#ccc", // fill for node rects (if no color encoding)
       fillOpacity = 0.6, // fill opacity for node rects
-      highlightAncestors = true,
-      highlightDescendants = true, //Test if a node has ancestors
+      highlightAncestors = false,
+      highlightDescendants = false, //Test if a node has ancestors
       highlightSiblings = false, //Enable siblings interaction
       highlightChildNodes = true,
+      highlightPath = true,
       options = {
         ancestors: true,
         nodeValue: { status: true },
@@ -153,6 +154,12 @@
           });
           interaction.highlightDescendantsNoLink(childNodes, "select");
         }
+        if (highlightPath) {
+          interaction.highlightPathWithNoLinks(
+            d.path(root.find((node) => node.data.name === "interpolate")),
+            "select"
+          );
+        }
       })
       .on("mouseout", function (e, d) {
         //icicle.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
@@ -171,6 +178,9 @@
         }
         if (highlightChildNodes) {
           interaction.highlightDescendantsNoLink([], "deselect");
+        }
+        if (highlightPath) {
+          interaction.highlightPathWithNoLinks([], "deselect");
         }
       });
 
