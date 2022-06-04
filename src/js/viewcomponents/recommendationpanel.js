@@ -30,8 +30,8 @@
     //let treeImageMap = window.GLOBALDATA.imgMap.tree;
     let treeImageMap = recommendation.visOrder;
     let recommendationInformationPanel = $(
-      `<div id="recInformationPanel">
-      <div class="recInformationTitleText"> <span class="headerText"> Encoding </span> </div>
+      `<div class="panelbodyitem" id="recInformationPanel">
+      <div class="recInformationTitleText headerContainer"> <span class="headerText headerContainerItem"> Encoding </span> </div>
       <div id="recOptions" class="recOptionsClass"> </div>
       </div>`
     );
@@ -85,14 +85,14 @@
 
     $("#recPanelBody").append(
       `
-      <div id="navBarContainer" class="visOutputNavContainer">
-      <div class="visNavBar"> 
-        <div class="visNavBarItem" id="fileName">
+      <div id="navBarContainer" class="panelbodyitem">
+      <div class="headerContainer"> 
+        <div class="headerContainerItem" id="fileName">
         <span class="headerText"> ${
           window.GLOBALDATA.files[window.GLOBALDATA.currentFile]["label"]
         } </span>
         </div>
-          <div class="visNavBarItem floatRight" id="visSetting">
+          <div class="headerContainerItem floatRight" id="visSetting">
           <span id="settingIcon"> <i class="btn fas fa-cog" title="Configure the visualization"></i> </span>
           <span id="exportIcon"> <i class="btn fas fa-file-export" title="Export the visualization"></i> </span>
 
@@ -169,7 +169,7 @@
 
 
     $("#recPanelBody").append(
-      ` <div class="widgetContainerBody" id="widgetContainer">
+      ` <div class="widgetContainerBody panelbodyitem" id="widgetContainer">
         </div>`
     );
     for (widget of recommendation.widgets) {
@@ -213,7 +213,7 @@
 
     //Adding a container for visualization
     $("#recPanelBody").append(
-      `<div class="visOutputElement" id='visOutput'> </div>`
+      `<div class="visOutputElement panelbodyitem" id='visOutput'> </div>`
     );
     let chart;
     if (recommendation === "nodelink") {

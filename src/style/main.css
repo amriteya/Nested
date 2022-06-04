@@ -19,11 +19,6 @@
   text-align: left !important;
 }
 
-.selectedItem {
-  border: 1px solid lightgrey !important;
-  opacity: 1 !important;
-}
-
 /* Panel style */
 .topLevelContainer {
   margin: 5px;
@@ -80,11 +75,10 @@
 
 #recInformationPanel {
   max-height: 150px;
-  margin: 2%;
-  margin-bottom:4%;
 }
 .recOptionsClass{
   display: flex;
+  margin: 1%;
 }
 .recInformationTitleText {
   margin: auto;
@@ -105,16 +99,9 @@
 .recTreeImgLabel {
   text-align: center;
 }
-
-.visNavBar {
-  height: 50px;
-  display: flex;
-}
-.visOutputNavContainer {
-  border: 1px solid lightgrey !important;
-}
-.visNavBarItem {
-  margin-left: 2%;
+#navBarContainer
+{
+  margin-top: 3%;
 }
 .visSettingsPanel {
   height: 200px;
@@ -122,10 +109,6 @@
 }
 .visSettingElement {
   margin-top: 2%;
-}
-.floatRight {
-  margin-left: auto;
-  margin-right: 0;
 }
 #fileName {
   margin-top: auto;
@@ -145,7 +128,6 @@
 .settingsIcon:hover {
   opacity: 0.5;
 }
-
 #visOutput {
   max-height: 1000px;
   overflow: auto;
@@ -157,6 +139,20 @@
 }
 
 /* Utility Css */
+.headerContainer {
+  border: 1px solid lightgrey !important;
+  display: flex;
+}
+.headerContainerItem {
+  margin-left: 2%;
+}
+.panelbodyitem{
+  margin:2%
+}
+.floatRight {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
 .underline {
   border-bottom: solid grey;
 }
@@ -169,4 +165,7 @@
 }
 .iconButton{
   cursor: pointer;
+}
+.selectedItem {
+  opacity: 1 !important;
 }
