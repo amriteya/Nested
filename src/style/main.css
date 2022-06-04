@@ -104,11 +104,33 @@
   margin-top: 3%;
 }
 .visSettingsPanel {
-  height: 200px;
+  height: 250px;
   display: none;
 }
 .visSettingElement {
   margin-top: 2%;
+}
+#visSettingPanelRow {
+  height: 40px;
+}
+#fontSize {
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  background-color: #edf2ff;
+  border: none;
+}
+#nodeColorPicker {
+  width: 100px;
+  height: 30px;
+}
+#heightInput {
+  width: 100px;
+  height: 30px;
+}
+#widthInput {
+  width: 100px;
+  height: 30px;
 }
 #fileName {
   margin-top: auto;

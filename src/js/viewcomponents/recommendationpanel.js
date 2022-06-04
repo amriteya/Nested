@@ -131,6 +131,11 @@
   //Settings Panel
   recPanelUI.visualizationSettingsBar = function (recommendation) {
     console.log(recommendation);
+    const recommendationOptions = {};
+
+    /* ==================================== */
+    /*               Highlight              */
+    /* ==================================== */
     let interactionCheckBoxOptions = recommendation.interaction.map((val) => {
       return `<div class="form-check-inline">
               <label class="form-check-label">
@@ -140,8 +145,12 @@
               </label>
               </div>`;
     });
-    let checkBoxHTML = interactionCheckBoxOptions.join("");
+    let highlightCheckBoxHTML = interactionCheckBoxOptions.join("");
+    recommendationOptions.interactionOption = {label: "Highlight", html: highlightCheckBoxHTML};
 
+    /* ==================================== */
+    /*                Tooltip               */
+    /* ==================================== */
     let tooltipCheckBoxOptions = recommendation.tooltip.map((val) => {
       return `<div class="form-check-inline">
               <label class="form-check-label">
@@ -152,32 +161,82 @@
               </div>`;
     });
     let tooltipcheckBoxHTML = tooltipCheckBoxOptions.join("");
+    recommendationOptions.tooltipOption = {label: "Tooltip", html: tooltipcheckBoxHTML};
+
+    /* ==================================== */
+    /*               Font Size              */
+    /* ==================================== */
+    const FONT_SIZE_CONSTRAINTS = {lower: 8, higher: 16, selected: 10};
+    let fontSizeSelectionsHTML = "";
+    for (let i = FONT_SIZE_CONSTRAINTS.lower; i <= FONT_SIZE_CONSTRAINTS.higher; i++) {
+      if (i == FONT_SIZE_CONSTRAINTS.selected) {
+        fontSizeSelectionsHTML += `<option value="${i}" selected>${i}</option>`;
+      } else {
+        fontSizeSelectionsHTML += `<option value="${i}">${i}</option>`;
+      }
+    }
+    let fontSizeOptionHTML = `
+      <div class="form-check-inline">
+        <select name="fontSize" id="fontSize" class="form-check-input" >
+          ${fontSizeSelectionsHTML}
+        </select>
+      </div>
+    `;
+    recommendationOptions.fontSizeOption = {label: "Font Size", html: fontSizeOptionHTML}
+
+    /* ==================================== */
+    /*              Node Color              */
+    /* ==================================== */
+    let nodeColorHTML = `
+      <div class="form-check-inline">
+        <input type="color" id="nodeColorPicker" value="#e66465" class="form-check-input">
+      </div>
+    `;
+    recommendationOptions.nodeColor = {label: "Node Color", html: nodeColorHTML};
+
+    /* ==================================== */
+    /*                 Height               */
+    /* ==================================== */
+    let heightHTML = `
+      <div class="form-check-inline">
+        <input type="text" id="heightInput" value="1000" class="form-check-input">
+      </div>
+    `;
+    recommendationOptions.height = {label: "Height", html: heightHTML};
+
+
+    /* ==================================== */
+    /*                 Width                */
+    /* ==================================== */
+    let widthHTML = `
+      <div class="form-check-inline">
+        <input type="text" id="widthInput" value="1000" class="form-check-input">
+      </div>
+    `;
+    recommendationOptions.width = {label: "Width", html: widthHTML};
+
+    let visSettingsPanel = "";
+    for (const id in recommendationOptions) {
+      visSettingsPanel += `
+      <tr id="visSettingPanelRow">
+        <div id="${id}" class="visSettingElement form-group">
+          <td>
+            <label class="bold">${recommendationOptions[id].label} </label>
+          </td>
+          <td style="width: 85%">
+            ${recommendationOptions[id].html}
+          </td>
+        </div>
+      </tr>
+      `
+    }
 
     return `
     <div id="visSettingDropdownPanel" class="visSettingsPanel visNavBarItem">
-          <table style="width:100%">
-            <tr>
-              <div id="interactionOption" class="visSettingElement form-group">
-                <td>
-                  <label class="bold">Highlight: </label>
-                </td>
-                <td style="width: 90%">
-                  ${checkBoxHTML}
-                </td>
-              </div>
-            </tr>
-            <tr>
-              <div id="tooltipOption" class="visSettingElement form-group">
-                <td>
-                  <label class="bold">Tooltip: </label>
-                </td>
-                <td>
-                  ${tooltipcheckBoxHTML}
-                </td>
-              </div>
-            </tr>
-        </table>
-      </div>`;
+      <table style="width:100%">
+        ${visSettingsPanel}
+     </table>
+    </div>`;
   };
 
   recPanelUI.renderWidgets = function (recommendation) {
