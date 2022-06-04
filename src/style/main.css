@@ -172,3 +172,6 @@
 .selectedItem {
   opacity: 1 !important;
 }
+.hide{
+  display: none;
+}

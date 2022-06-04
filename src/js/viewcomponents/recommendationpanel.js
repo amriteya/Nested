@@ -7,7 +7,6 @@
       .width(window.GLOBALDATA.panelWidth.recommendationPanel + "%")
       .append(recPanel);
     $("#recPanelBody").append(
-
       ` <div class="panelHeader p-1 bg-light text-dark">
         <div class="headerText"> Recommendation </div>
         </div>`
@@ -31,7 +30,7 @@
         <div class="recInformationTitleText headerContainer"> 
           <span class="headerText headerContainerItem"> Encoding </span> 
           <div class="floatRight">
-          <span class="close iconButton"> <i class="btn fas fa-minus"></i></span> 
+          <span id="closebtn" class="iconButton"> <i id="closeBtnIcon" class="btn fas fa-minus" title="open-close the encoding tab"></i></span> 
           </div>
         </div>
       <div id="recOptions" class="recOptionsClass"> </div>
@@ -78,6 +77,18 @@
       );
       $(this).toggleClass("selectedItem");
     });
+
+    //Closing the recommendation panel
+    $("#closebtn").on("click", function(){
+      $("#recOptions").toggle("slow");
+      if($("#closeBtnIcon").attr("class") === "btn fas fa-minus")
+      {
+        $("#closeBtnIcon").removeClass("fa-minus").addClass("fa-plus");
+      }
+      else{
+        $("#closeBtnIcon").removeClass("fa-plus").addClass("fa-minus");
+      }
+    })
   };
 
   //Navigation bar for visualization
