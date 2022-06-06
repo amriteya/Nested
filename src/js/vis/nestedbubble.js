@@ -28,11 +28,11 @@
       strokeWidth, // stroke width for internal circles
       strokeOpacity, // stroke opacity for internal circles
       colorScale = d3.interpolateGreys, // color scheme, if any
-      highlightAncestors = false,
+      highlightAncestors = true,
       highlightDescendants = false, //Test if a node has ancestors
       highlightSiblings = false, //Enable siblings interaction
       highlightChildNodes = false,
-      highlightPath = true,
+      highlightPath = false,
       options = {
         ancestors: true,
         nodeValue: { status: true },
@@ -98,14 +98,14 @@
       .attr("id", (d) => `node_${d.index}_${d.depth}`)
       .on("mouseover", (e, d) => {
         //nestedBubble.highlightNode(`node_${d.index}_${d.depth}`, "select");
-        // if (highlightAncestors) {
-        //   let ancestors = d.ancestors();
-        //   nestedBubble.highlightAncestors(
-        //     `node_${d.index}_${d.depth}`,
-        //     ancestors,
-        //     "select"
-        //   );
-        // }
+        if (highlightAncestors) {
+          let ancestors = d.ancestors();
+          interaction.highlightAncestorsWithNoLinks(
+            `node_${d.index}_${d.depth}`,
+            ancestors,
+            "select"
+          );
+        }
         // if (highlightDescendants) {
         //   let descendants = d.descendants();
         //   interaction.highlightDescendantsNoLink(descendants, "select");
@@ -142,13 +142,13 @@
       })
       .on("mouseout", function (e, d) {
         //nestedBubble.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
-        // if (highlightAncestors) {
-        //   nestedBubble.highlightAncestors(
-        //     `node_${d.index}_${d.depth}`,
-        //     [],
-        //     "deselect"
-        //   );
-        // }
+        if (highlightAncestors) {
+          interaction.highlightAncestorsWithNoLinks(
+            `node_${d.index}_${d.depth}`,
+            [],
+            "deselect"
+          );
+        }
         // if (highlightDescendants) {
         //   interaction.highlightDescendantsNoLink([], "deselect");
         // }

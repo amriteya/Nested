@@ -179,6 +179,27 @@
     }
   };
 
+  interaction.highlightAncestorsWithNoLinks = function (id, ancestors, event) {
+    console.log(ancestors);
+    if (event === "select") {
+      d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
+      d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
+
+      d3.select("#" + id)
+        .transition()
+        .duration("100")
+        .style("opacity", "1");
+      ancestors.forEach((val) => {
+        d3.select(`#node_${val.index}_${val.depth}`)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      });
+    } else {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+    }
+  };
+
   interaction.appendTitle = function (d, options) {
     let combinedString = [];
     if (options.ancestors) {

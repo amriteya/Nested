@@ -8,11 +8,11 @@
       value, // given a node d, returns a quantitative value (for area encoding; null for count)
       colorScale = d3.interpolateGreys, // color scheme, if any
       children,
-      highlightAncestors = false,
+      highlightAncestors = true,
       highlightDescendants = false, //Test if a node has ancestors
       highlightSiblings = false, //Enable siblings interaction
       highlightChildNodes = false,
-      highlightPath = true,
+      highlightPath = false,
       options = {
         ancestors: true,
         nodeValue: { status: true },
@@ -65,14 +65,14 @@
       .attr("id", (d) => `node_${d.index}_${d.depth}`)
       .on("mouseover", (e, d) => {
         //nestedTreemap.highlightNode(`node_${d.index}_${d.depth}`, "select");
-        // if (highlightAncestors) {
-        //   let ancestors = d.ancestors();
-        //   nestedTreemap.highlightAncestors(
-        //     `node_${d.index}_${d.depth}`,
-        //     ancestors,
-        //     "select"
-        //   );
-        // }
+        if (highlightAncestors) {
+          let ancestors = d.ancestors();
+          interaction.highlightAncestorsWithNoLinks(
+            `node_${d.index}_${d.depth}`,
+            ancestors,
+            "select"
+          );
+        }
         //Highlight descendants
         // if (highlightDescendants) {
         //   let descendants = d.descendants();
@@ -110,13 +110,13 @@
       })
       .on("mouseout", function (e, d) {
         //nestedTreemap.highlightNode(`node_${d.index}_${d.depth}`, "deselect");
-        // if (highlightAncestors) {
-        //   nestedTreemap.highlightAncestors(
-        //     `node_${d.index}_${d.depth}`,
-        //     [],
-        //     "deselect"
-        //   );
-        // }
+        if (highlightAncestors) {
+          interaction.highlightAncestorsWithNoLinks(
+            `node_${d.index}_${d.depth}`,
+            [],
+            "deselect"
+          );
+        }
 
         //UnHighlight Descendants
         // if (highlightDescendants) {
@@ -200,28 +200,6 @@
     } else {
       d3.selectAll(".node").style("opacity", "1");
       d3.selectAll(".link").style("opacity", "1");
-    }
-  };
-  nestedTreemap.highlightAncestors = function (id, ancestors, event) {
-    if (event === "select") {
-      d3.selectAll(".node")
-        .transition()
-        .duration("50")
-        .style("opacity", "0.05");
-      // d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
-
-      d3.select("#" + id)
-        .transition()
-        .duration("100")
-        .style("opacity", "1");
-      ancestors.forEach((val) => {
-        d3.select(`#node_${val.index}_${val.depth}`)
-          .transition()
-          .duration("100")
-          .style("opacity", "1");
-      });
-    } else {
-      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
     }
   };
 })();
