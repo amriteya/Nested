@@ -144,7 +144,6 @@
 
   //Settings Panel
   recPanelUI.visualizationSettingsBar = function (recommendation) {
-    console.log(recommendation);
     const recommendationOptions = {};
 
     /* ==================================== */
@@ -246,7 +245,7 @@
     }
 
     return `
-    <div id="visSettingDropdownPanel" class="visSettingsPanel visNavBarItem">
+    <div id="visSettingDropdownPanel" class="panelbodyitem visSettingsPanel">
       <table style="width:100%">
         ${visSettingsPanel}
      </table>
