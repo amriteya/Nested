@@ -16,11 +16,11 @@
       fill = "none", // fill for nodes
       fillOpacity, // fill opacity for nodes
       stroke = "#555", // stroke for links
-      highlightAncestors = false,
+      highlightAncestors = true,
       highlightDescendants = false, //Test if a node has ancestors
       highlightSiblings = false, //Enable siblings interaction
       highlightChildNodes = false, //Enable child node interaction
-      highlightPath = true, //Enable path selection between two nodes
+      highlightPath = false, //Enable path selection between two nodes
       options = {
         ancestors: true,
         nodeValue: { status: true },
@@ -90,14 +90,14 @@
       .text((d) => d.data.name)
       .on("mouseover", (e, d) => {
         //indentedList.highlightNode("node_"+d.index, "select");
-        // if (highlightAncestors) {
-        //   let ancestors = d.ancestors();
-        //   indentedList.highlightAncestors(
-        //     "node_" + d.index,
-        //     ancestors,
-        //     "select"
-        //   );
-        // }
+        if (highlightAncestors) {
+          let ancestors = d.ancestors();
+          interaction.highlightAncestors(
+            "node_" + d.index,
+            ancestors,
+            "select"
+          );
+        }
         // if (highlightDescendants) {
         //     let descendants = d.descendants();
         //     interaction.highlightDescendantsWithLinks(descendants, "select");
@@ -133,13 +133,9 @@
       })
       .on("mouseout", function (e, d) {
         //indentedList.highlightNode("node_"+d.index, "deselect");
-        // if (highlightAncestors) {
-        //     indentedList.highlightAncestors(
-        //     "node_" + d.index,
-        //     [],
-        //     "deselect"
-        //   );
-        // }
+        if (highlightAncestors) {
+          interaction.highlightAncestors("node_" + d.index, [], "deselect");
+        }
         // if (highlightDescendants) {
         //     interaction.highlightDescendantsWithLinks([], "deselect");
         //   }
@@ -199,31 +195,4 @@
     }
   };
 
-  indentedList.highlightAncestors = function (id, ancestors, event) {
-    if (event === "select") {
-      d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
-      d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
-      d3.select("#" + id)
-        .transition()
-        .duration("100")
-        .style("opacity", "1");
-      ancestors.forEach((val) => {
-        d3.selectAll("#node_" + val.index)
-          .transition()
-          .duration("100")
-          .style("opacity", "1");
-      });
-      for (var i = 0; i < ancestors.length - 1; i++) {
-        d3.selectAll(
-          `#node_${ancestors[i + 1].index}-node_${ancestors[i].index}`
-        )
-          .transition()
-          .duration("100")
-          .style("opacity", "1");
-      }
-    } else {
-      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
-      d3.selectAll(".link").transition().duration("50").style("opacity", "1");
-    }
-  };
 })();

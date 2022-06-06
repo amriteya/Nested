@@ -151,6 +151,34 @@
     }
   };
 
+  interaction.highlightAncestors = function (id, ancestors, event) {
+    if (event === "select") {
+      d3.selectAll(".node").transition().duration("50").style("opacity", ".3");
+      d3.selectAll(".link").transition().duration("50").style("opacity", ".1");
+      d3.select("#" + id)
+        .transition()
+        .duration("100")
+        .style("opacity", "1");
+      ancestors.forEach((val) => {
+        d3.selectAll("#node_" + val.index)
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      });
+      for (var i = 0; i < ancestors.length - 1; i++) {
+        d3.selectAll(
+          `#node_${ancestors[i + 1].index}-node_${ancestors[i].index}`
+        )
+          .transition()
+          .duration("100")
+          .style("opacity", "1");
+      }
+    } else {
+      d3.selectAll(".node").transition().duration("50").style("opacity", "1");
+      d3.selectAll(".link").transition().duration("50").style("opacity", "1");
+    }
+  };
+
   interaction.appendTitle = function (d, options) {
     let combinedString = [];
     if (options.ancestors) {
