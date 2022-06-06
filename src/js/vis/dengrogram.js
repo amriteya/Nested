@@ -228,6 +228,10 @@
           .attr("stroke-width", haloWidth)
           .text((d, i) => L[i]);
 
+      // //Test out the info table
+      // infoTable.createCompareTable();
+      // infoTable.populateCompareTable();
+
       return svg.node();
     };
 

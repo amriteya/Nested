@@ -154,6 +154,29 @@
   overflow: auto;
 }
 
+.visinfotable {
+  border-collapse: collapse;
+  width: 50%;
+  margin:auto;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.tableheader {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.tabledata
+{
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
 /* Visualization */
 .node {
   cursor: pointer;

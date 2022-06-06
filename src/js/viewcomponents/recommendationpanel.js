@@ -202,7 +202,7 @@
     /* ==================================== */
     let nodeColorHTML = `
       <div class="form-check-inline">
-        <input type="color" id="nodeColorPicker" value="#e66465" class="form-check-input">
+        <input type="color" id="nodeColorPicker" value="#dfdfdf" class="form-check-input">
       </div>
     `;
     recommendationOptions.nodeColor = {label: "Node Color", html: nodeColorHTML};
