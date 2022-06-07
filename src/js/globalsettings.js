@@ -229,12 +229,12 @@ var GLOBALDATA = {
   },
 
   highlightSelectInteraction: [
-    { label: "Node", id: "node", active: true, color: "n/a" },
-    { label: "Ancestors", id: "ancestors", active: false, color: "n/a" },
-    { label: "Descendants", id: "descendants", active: false, color: "n/a" },
-    { label: "Direct Children", id: "degree", active: false, color: "n/a" },
-    { label: "Siblings", id: "siblings", active: false, color: "n/a" },
-    { label: "Path", id: "path", active: false, color: "n/a" },
+    { label: "Node", interactionLabel:"Highlight Node", id: "node", active: true, color: "n/a" },
+    { label: "Ancestors", interactionLabel:"Show All Ancestors" ,id: "ancestors", active: false, color: "n/a" },
+    { label: "Descendants", interactionLabel:"Show All Descendants" ,id: "descendants", active: false, color: "n/a" },
+    { label: "Direct Children", interactionLabel:"Highlight Children", id: "degree", active: false, color: "n/a" },
+    { label: "Siblings", id: "siblings",interactionLabel:"Highlight Siblings" ,active: false, color: "n/a" },
+    { label: "Path", id: "path", interactionLabel:"Show Path Between Nodes",active: false, color: "n/a" },
   ],
   tooltipFields: [
     { label: "Node Value", id: "value", active: false },
