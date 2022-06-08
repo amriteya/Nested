@@ -111,7 +111,6 @@
           <div class="headerContainerItem floatRight" id="visSetting">
           <span class="iconButton" id="settingIcon"> <i class="btn fas fa-cog" title="Configure the visualization"></i> </span>
           <span class="iconButton" id="exportIcon"> <i class="btn fas fa-file-export" title="Export the visualization"></i> </span>
-
          </div>
          <br/>
       </div>

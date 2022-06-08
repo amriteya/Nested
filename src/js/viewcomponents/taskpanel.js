@@ -34,7 +34,7 @@
         taskImageMap[key]["relativePath"] +
         taskImageMap[key]["fileName"];
       let taskDiv = `<div id=${key} class="taskIconElement ${
-        key === "categorical_value" ? "selectedItem" : ""
+        key === "categorical_value" ? "selectedItemTask" : ""
       } col-4"> 
           <div class="taskImageContainer">
           <img  class="taskImgView" src=${fileLoc}>
@@ -54,7 +54,7 @@
     $(".taskIconElement").click(function () {
       var elemId = $(this).attr("id");
       //$(".taskIconElement.selectedItem").toggleClass("selectedItem");
-      $(this).toggleClass("selectedItem");
+      $(this).toggleClass("selectedItemTask");
       if (window.GLOBALDATA.tasks.selectedTasks.indexOf(elemId) === -1) {
         window.GLOBALDATA.tasks.selectedTasks.push(elemId);
       } else {

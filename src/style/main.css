@@ -160,7 +160,7 @@
   margin:auto;
 }
 
-tr:nth-child(even) {
+.tablerow:nth-child(even) {
   background-color: #dddddd;
 }
 
@@ -215,6 +215,10 @@ tr:nth-child(even) {
 }
 .selectedItem {
   opacity: 1 !important;
+}
+.selectedItemTask {
+  opacity: 1 !important;
+  border: 1px solid lightgrey !important;
 }
 .hide{
   display: none;
